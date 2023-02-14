@@ -1,0 +1,11 @@
+.namecards{
+    margin: 0;
+    margin-top: 3rem;
+    display: flex;
+    
+}
+.title-card{
+    margin-top: 8rem;
+    color: white;
+    text-align: center;
+}

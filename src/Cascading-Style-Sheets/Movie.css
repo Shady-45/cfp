@@ -1,0 +1,83 @@
+.section-movie {
+  color: var(--color-heading);
+}
+
+.heading-movie {
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: 35rem;
+  padding: 2px;
+  width: 20rem;
+  grid-template-rows: 10fr 2fr 1fr;
+  background-color: var(--color-background);
+  border-radius: 1.5rem;
+  transition: transform 0.3s;
+}
+
+.card-img,
+.text-details {
+  width: 85%;
+}
+
+.card-img {
+  height: 60%;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.text-details {
+  font-size: 0.9rem;
+}
+
+.firstrow {
+  margin-bottom: 5px;
+}
+
+.firstrow,
+.secondrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name,
+.price {
+  color: var(--color-heading);
+}
+
+.currency,
+.author {
+  color: var(--secondary);
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.author-img {
+  object-fit: cover;
+}
+
+.author-name {
+  font-size: 0.7rem;
+  margin-left: 10px;
+}
+
+.btn-movie {
+  width: 8rem;
+  height: 2.5rem;
+  border: none;
+}

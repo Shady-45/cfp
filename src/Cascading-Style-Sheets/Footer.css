@@ -1,0 +1,48 @@
+.section-footer {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 2rem;
+  font-size: 0.85rem;
+}
+
+.heading-primary {
+  color: var(--color-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  color: var(--secondary);
+  line-height: 1.5rem;
+}
+
+.footer-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-links:link,
+.footer-links:visited {
+  color: var(--secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links:hover,
+.footer-links:active {
+  color: var(--color-heading);
+}
+
+.footer-logos {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.logo {
+  background-color: var(--color-heading);
+  height: 2rem;
+  width: 2rem;
+}

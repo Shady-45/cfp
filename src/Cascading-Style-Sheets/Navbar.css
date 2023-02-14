@@ -1,0 +1,228 @@
+.nav {
+  position: fixed;
+  left: 9.5%;
+  top: 0;
+  z-index: 100;
+  padding-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  width: 82vw;
+  align-items: center;
+  /* margin: 1rem auto 0 auto; */
+  background-color: #000;
+}
+
+
+.nav input {
+  width: 31rem;
+  height: 3rem;
+  padding-left: 1.5rem;
+  background-color: #333333;
+  border: none;
+  color: var(--color-heading);
+}
+
+.search-img {
+  font-size: 1.8rem;
+  color: whitesmoke;
+  margin-left: -4rem;
+}
+
+.search-logo {
+  justify-self: center;
+  padding: 1rem;
+}
+
+.search-img:hover {
+  background-color: gray;
+  color: white;
+}
+
+.btn-nav {
+  padding: 0.6rem 2rem;
+  color: white;
+  background-color: #02050e;
+  border: 2px solid var(--buttons);
+  border-radius: 10px;
+  transition: border 0.3s;
+}
+
+.btn-nav:hover {
+  cursor: pointer;
+  border: 2px solid var(--buttons-active);
+}
+
+.nav input::placeholder {
+  color: white;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+}
+
+.avatar {
+  display: block;
+  height: 2.5rem;
+  position: fixed;
+  margin-left: 74rem;
+  width: 2.5rem;
+  background-image: url("../assets/avatar.webp");
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.avatar-container{
+  color: whitesmoke;
+  border: 2px solid #1a1aff;
+  width: 10%;
+  text-align: center;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  left: 90%;
+  top: 73px;
+}
+/* sign up functionality */
+.sign-in{
+  position: absolute;
+  top: 4.1rem;
+  left: 61.8%;
+  padding: 6px;
+  /* background-color: whitesmoke; */
+  border: 1px solid var(--buttons);
+  color: white;
+  
+  font-size: 12px;
+  height: 50px;
+  border-radius:10px;
+  width: 7rem;
+  text-align: center;
+}
+
+.sign-up{
+  position: absolute;
+  top: 4.1rem;
+  left: 72.8%;
+  /* background-color: whitesmoke; */
+  border: 1px solid var(--buttons);
+  color: white;
+  width: 7rem;
+  text-align: center;
+  font-size: 12px;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.sign-in-user{
+
+  cursor:pointer;
+}
+.sign-in-creators{
+  
+  cursor:pointer;
+}
+
+.sign-up-user{
+  margin-top: 5px;
+  margin-bottom: 2px;
+  cursor:pointer;
+}
+.sign-up-creator{
+  margin-top: 5px;
+  margin-bottom: 2px;
+  cursor:pointer;
+}
+.meta{
+  height: 30px;
+}
+.meta-text{
+  font-weight: 800;
+  font-size: 20px;
+}
+.meta-mask{
+  display: flex;
+
+  align-items: center;
+  margin-top: 2rem;
+  justify-content: space-around;
+  padding: 1rem;
+  
+}
+.wallet-container{
+
+  margin: auto;
+  position: absolute;
+  width: 45%;
+  top: 8%;
+  left: 30%;
+  background: rgba( 255, 255, 255, 0.5 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 6px );
+  -webkit-backdrop-filter: blur( 6px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.close-wallet{
+  display: flex;
+  width: 193%;
+  /* padding: 5px; */
+  color: black;
+  font-size: 15px;
+}
+/* sign up/in forms */
+.sign-in-form{
+  color: whitesmoke;
+ display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+
+  gap: 2rem;
+  background: rgba(255, 255, 255, 0.39);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.38);
+top: 5%;
+left: 39%;
+padding: 7rem;
+}
+.close{
+  position: absolute;
+  top: 2rem;
+    left: 21rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.btn{
+  border: 2px solid white;
+    padding: 2px 13px;
+    font-family: 'Poppins',sans-serif;
+    cursor: pointer;
+    
+}
+.buttonns{
+  display: flex;
+  gap: 2rem;
+}
+.point{
+  cursor: pointer;
+}
+
+.inpt{
+  width: 100%;
+  outline: none;
+  border: none;
+  border-top: none;
+  color:white;
+  background-color: #64666c;
+  border-bottom: 2px solid whitesmoke;
+}
+.inpt::placeholder{
+  color: whitesmoke;
+  font-family: 'Poppins',sans-serif;
+}

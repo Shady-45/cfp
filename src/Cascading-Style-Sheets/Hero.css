@@ -1,0 +1,52 @@
+.section-hero {
+  color: var(--color-heading);
+  display: flex;
+  margin-top: 4rem;
+  justify-content: space-between;
+}
+.audio{
+  background-color: black;
+}
+.left-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 66%;
+  margin: auto 0 auto 0;
+  padding-right: 9%;
+  padding-left: 3%;
+}
+
+.main-heading {
+  font-size: 3.2rem;
+  line-height: 1.2;
+}
+
+.sub-text {
+  font-size: 0.9rem;
+  color: var(--secondary);
+}
+
+.hero-btn {
+  display: inline-block;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 1rem;
+  color: var(--color-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--buttons);
+  transition: background-color 0.3s;
+}
+
+.hero-btn:hover {
+  cursor: pointer;
+  background-color: var(--buttons-active);
+}
+
+.right-img {
+  background-image: url(../assets/ethereum.gif);
+  background-size: cover;
+  width: 30rem;
+  height: 30rem;
+}

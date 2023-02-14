@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+html {
+  overflow-x: hidden;
+  position: relative;
+  font-size: 97%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #02050e;
+}
+
+:root {
+  --color-heading: #e6e6e6;
+  --secondary: #b3b3b3;
+  --color-background: #272d37;
+  --buttons: #4d4dff;
+  --buttons-active: #1a1aff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.section {
+  width: 80vw;
+  margin: 0 auto 0 auto;
+  margin-bottom: 7rem !important;
+}
+
+.section-heading {
+  color: var(--color-heading);
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+}
+
+.heading-script-music {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.heading-script-music h2 {
+  margin: 0;
+}
+
+.btn-script-music {
+  height: 3rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btn-script-music-buy {
+  border: none;
+  height: 2.5rem !important;
+  width: 7rem !important;
+  align-self: flex-end;
+  margin-right: 1.7rem;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+}
