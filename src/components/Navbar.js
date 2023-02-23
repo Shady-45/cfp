@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef } from "react";
 import "../Cascading-Style-Sheets/Navbar.css";
 import { BsSearch } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
 import wallet from "../assets/wallet.png";
 import metemask from "../assets/metamask.png";
@@ -10,18 +10,42 @@ import SignInCreator from "./pages/Sign-in-creator";
 import SignUpuser from "./pages/Sign-up-user";
 import SignUpCreator from "./pages/Sign-up-creator";
 import AuthContext from "../context/AuthProvider";
+import Movieform from "./pages/uploads/Movieform";
+import NftForm from "./pages/uploads/NftForm";
+import MusicForm from "./pages/uploads/MusicForm";
+import Web3 from "web3";
 
-const Navbar = () => {
+const Navbar = ({ count, setCount }) => {
+  const handleCount = () => {
+    setCount(count + 1);
+    console.log(count);
+  };
+  const handleClick = async (e) => {
+    if (window.ethereum) {
+      console.log("etherium is installed");
+    } else {
+      alert("install metamask extension!!");
+    }
+    window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+      // Return the address of the wallet
+      console.log(res);
+    });
+  };
   const closeref = useRef(null);
   const [openWallet, setOpenWWallet] = useState(false);
   const { auth } = useContext(AuthContext);
   const [click, setClick] = useState(false);
+  const [upload, setUpload] = useState(false);
   const [click2, setClick2] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [signInCreator, setSignInCreator] = useState(false);
   const [signUpCreator, setSignUpCreator] = useState(false);
   const [profile, setProfile] = useState(false);
+  const [movieForm, setMovieForm] = useState(false);
+  const [nftForm, setNftForm] = useState(false);
+  const [musicForm, setMusicForm] = useState(false);
+
   let user = localStorage.getItem("user-details");
   console.log(user);
   const navigate = useNavigate();
@@ -48,6 +72,20 @@ const Navbar = () => {
       {signInCreator ? <SignInCreator /> : null}
       {signUp ? <SignUpuser /> : null}
       {signUpCreator ? <SignUpCreator /> : null}
+      {movieForm ? <Movieform /> : null}
+      {nftForm ? <NftForm /> : null}
+      {musicForm ? <MusicForm /> : null}
+      {upload ? (
+        <div>
+          <ul className="upload-container">
+            <li onClick={() => setMusicForm(!musicForm)}>Music</li>
+            <hr />
+            <li onClick={() => setMovieForm(!movieForm)}>Script</li>
+            <hr />
+            <li onClick={() => setNftForm(!nftForm)}>NFTs</li>
+          </ul>
+        </div>
+      ) : null}
       {auth.role === "creator" ? (
         <div className="nav">
           <input type="search" name="" id="" placeholder="Search" />
@@ -106,13 +144,22 @@ const Navbar = () => {
             alt=""
           />
           <span onClick={() => setProfile(!profile)} className="avatar"></span>
-          {profile ? (
+          {localStorage.getItem("user-details") ? (
+            <button onClick={() => setUpload(!upload)} className="upload">
+              Upload
+            </button>
+          ) : null}
+
+          {profile && localStorage.getItem("user-details") ? (
             <ul className="avatar-container">
               <li className="point">Upload</li>
               <hr />
-              <li className="point">Favourites</li>
-              <hr />
-              <li className="point">Settings</li>
+              <Link to="/profile">
+                <li onClick={handleCount} className="point">
+                  Profile
+                </li>
+              </Link>
+
               <hr />
               <li className="point" onClick={logOut}>
                 Log Out
@@ -170,14 +217,15 @@ const Navbar = () => {
             </div>
           ) : null}
 
-          <img
+          {/*  <img
             src={wallet}
-            onClick={() => setOpenWWallet(!openWallet)}
+            onClick={(e) => handleClick(e)}
             height={45}
             width={45}
             alt=""
-          />
-          {profile ? (
+          /> */}
+          <button onClick={(e) => handleClick(e)}>Connect Web3</button>
+          {profile && localStorage.getItem("user-details") ? (
             <ul className="avatar-container">
               <hr />
               <li className="point">Favourites</li>

@@ -24,30 +24,32 @@ const SignInCreator = () => {
     try {
       const response = await axios.post(
         SIGNIN_URL,
-        JSON.stringify({
+        {
           name: creatorData.name,
           email: creatorData.email,
           password: creatorData.password,
           role: "creator",
-        }),
+        },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
       console.log(response.data);
-
+      const token_of = JSON.stringify(response?.data?.token);
       const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
 
       const token_response = jwt_decode(result_token);
-      localStorage.setItem("user-details", token_response.email);
+      /* localStorage.setItem("user-details", token_response.email); */
       /* const tokenC = jwt_decode(result.token); */
       const { role, email } = token_response;
       alert(`Welcome ${email.split("@")[0]}`);
 
-      setAuth({ role, email });
-      console.log(auth.role);
-      console.log(auth.email);
+      setAuth({ role, email, result_token: result_token, token_of: token_of });
+
+      localStorage.setItem("user-details", auth.result_token);
+      console.log(auth.result_token);
+      console.log(token_of);
     } catch (err) {
       console.log(err);
     }

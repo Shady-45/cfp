@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "../Cascading-Style-Sheets/Hero.css";
 import MusicNote from "../assets/music-icon.png";
-import script1 from "../assets/script1.jpg";
+import script1 from "../assets/script-base.jpg";
 import script2 from "../assets/script2.jpg";
 import script3 from "../assets/script3.jpg";
 import "../Cascading-Style-Sheets/Movie.css";
@@ -14,12 +14,14 @@ import movieAvatar3 from "../assets/movie3.jpg";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import Audio from "../assets/sample.mp3";
+import { BsHeartFill } from "react-icons/bs";
 import { FaPause, FaPlay } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import axios from "../api/axios";
 
 const Hero = () => {
+  const [like, setLike] = useState(false);
   const [getMusic, setgetMusic] = useState([]);
   const [getScript, setgetScript] = useState([]);
   const [getNft, setgetNft] = useState([]);
@@ -125,7 +127,14 @@ const Hero = () => {
                 <p className="price">40.89 eTH</p>
               </div>
             </div>
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            <div className="btns-script">
+              <BsHeartFill
+                className={`${like ? "heart-red" : "heart-white"}`}
+                onClick={() => setLike(!like)}
+              />
+
+              <button className="btn-script-music-buy  hero-btn">Buy</button>
+            </div>
           </div>
           <div className="card card-2">
             <img className="card-img" src={script2} alt="" />

@@ -7,6 +7,20 @@
 .audio{
   background-color: black;
 }
+.btns-script{
+  display: flex;
+  align-items: center;
+
+  flex-direction: column-reverse;
+  gap: 2rem;
+  justify-content: space-around;
+}
+.heart-white{
+  color: whitesmoke;
+}
+.heart-red{
+  color: red;
+}
 .left-text {
   display: flex;
   flex-direction: column;

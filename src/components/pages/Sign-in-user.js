@@ -52,9 +52,10 @@ const SignInuser = () => {
       const { role, email } = token_response;
       alert(`Welcome ${email.split("@")[0]}`);
 
-      setAuth({ role, email });
+      setAuth({ role, email, result_token });
       console.log(auth.role);
       console.log(auth.email);
+      console.log(result_token);
 
       /* console.log(response.accessToken); */
     } catch (err) {

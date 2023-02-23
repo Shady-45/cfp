@@ -83,6 +83,14 @@
   left: 90%;
   top: 73px;
 }
+.upload{
+  background: black;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 22px;
+  font-family: 'Poppins';
+  cursor: pointer;
+}
 /* sign up functionality */
 .sign-in{
   position: absolute;
@@ -99,7 +107,32 @@
   width: 7rem;
   text-align: center;
 }
+.test{
+  text-align: center;
+}
+.upload-container{
+  position: absolute;
+  z-index: 100;
+  width: 7%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  top: 70px;
+  left: 50%;
+  color: whitesmoke;
+  box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 1rem;
+  /* left: 50%; */
+  margin-left: 23rem;
 
+}
+.upload-container li{
+  text-align: center;
+  padding: 2px;
+  cursor: pointer;
+}
 .sign-up{
   position: absolute;
   top: 4.1rem;
@@ -198,6 +231,13 @@ padding: 7rem;
     font-size: 1.4rem;
     cursor: pointer;
 }
+.closeForm{
+  position: absolute;
+  top: 2rem;
+    left: 27rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
 .btn{
   border: 2px solid white;
     padding: 2px 13px;
@@ -211,6 +251,7 @@ padding: 7rem;
 }
 .point{
   cursor: pointer;
+  list-style: none;
 }
 
 .inpt{
