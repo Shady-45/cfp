@@ -252,7 +252,9 @@ padding: 7rem;
 .point{
   cursor: pointer;
   list-style: none;
+  color: white;
 }
+
 
 .inpt{
   width: 100%;

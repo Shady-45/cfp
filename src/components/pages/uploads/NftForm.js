@@ -4,12 +4,11 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
 
 const NftForm = () => {
-  const [nftData, setNftData] = useState({
-    nameOfNft: "",
-    image: "",
-    text: "",
-    price: "",
-  });
+  const [image, setImage] = useState("");
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const item = localStorage.getItem("user-details");
   const NFT_UPLOAD_URL = "nft/create";
   const clickRef = useRef(null);
   const toggle = () => {
@@ -17,50 +16,25 @@ const NftForm = () => {
   };
   const submitScriptform = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        NFT_UPLOAD_URL,
-        JSON.stringify({
-          nameOfNft: nftData.nameOfNft,
-          image: nftData.image,
-          text: nftData.text,
-          price: nftData.price,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-      alert(response.data);
-
-      /* const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
-  
-        const token_response = jwt_decode(result_token);
-        localStorage.setItem("user-details", token_response.email);
-        /* const tokenC = jwt_decode(result.token); */
-      /* const { role, email } = token_response; */
-      /*    alert(`Welcome ${email.split("@")[0]}`);
-  
-        setAuth({ role, email });
-        console.log(auth.role);
-        console.log(auth.email);  */
-    } catch (err) {
-      console.log(err);
-    }
-    setNftData({
-      nameOfNft: "",
-      image: "",
-      text: "",
-      price: "",
-    });
-  };
-
-  const submitForm = (e) => {
-    const postNftData = { ...nftData };
-    postNftData[e.target.name] = e.target.value;
-    setNftData(postNftData);
-    console.log(postNftData);
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("text", text);
+    formData.append("name", name);
+    formData.append("price", price);
+    axios
+      .post(NFT_UPLOAD_URL, formData, {
+        headers: {
+          Authorization: item,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    setText(" ");
+    setImage(" ");
+    setName("");
+    setPrice(" ");
   };
   return (
     <div>
@@ -71,11 +45,11 @@ const NftForm = () => {
       >
         <AiOutlineCloseCircle onClick={toggle} className="closeForm" />
         <input
-          value={nftData.nameOfNft}
-          onChange={(e) => submitForm(e)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="inpt"
           type="text"
-          name="nameOfMovie"
+          name="name"
           placeholder="name"
           id=""
         />
@@ -85,19 +59,18 @@ const NftForm = () => {
           type="file"
           placeholder="Script"
           name="image"
-          accept=".jpeg,.png"
-          value={nftData.image}
-          onChange={(e) => submitForm(e)}
+          accept=".jpeg,.jpg,.png"
+          onChange={(e) => setImage(e.target.files[0])}
           id=""
         />
 
         <input
           className="inpt"
           type="text"
-          placeholder="Password"
+          placeholder="Text"
           name="text"
-          value={nftData.text}
-          onChange={(e) => submitForm(e)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           id=""
         />
         <input
@@ -105,8 +78,8 @@ const NftForm = () => {
           type="text"
           placeholder="Price"
           name="price"
-          value={nftData.price}
-          onChange={(e) => submitForm(e)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           id=""
         />
         <button type="submit" className="btn">

@@ -1,62 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "../../api/axios";
 import movie1 from "../../assets/movie1.mp4";
-import movieAvatar1 from "../../assets/movie1.png";
+import movieAvatar1 from "../../assets/avatar.webp";
+
 const MoviePage = () => {
+  const nft_url = "nft/all";
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get(nft_url).then((res) => setData(res.data));
+  });
+
   return (
     <div>
       {" "}
       <h1 className="title-card">Hot nfts</h1>
       <div className="cards">
-        <div className="card card-1">
-          <video
-            className="card-img"
-            src={movie1}
-            autoplay="autoplay"
-            muted="muted"
-            loop="loop"
-            playsinline=""
-            type="video/mp4"
-          ></video>
-          <div className="text-details">
-            <div className="firstrow">
-              <p className="name">Dao Vinci</p>
-              <p className="currency">Current eth</p>
+        {data.map((item, index) => (
+          <div key={index} className="card card-1">
+            <img
+              className="card-img"
+              src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+            ></img>
+            <div className="text-details">
+              <div className="firstrow">
+                <p className="name">{item.name}</p>
+                <p className="currency">Current eth</p>
+              </div>
+              <div className="secondrow">
+                <p className="author">
+                  {/*  <img className="avatar author-img" src={movieAvatar1} /> */}
+                  <p className="author-name">{item.user.name}</p>
+                </p>
+                <p className="price">{item.price}</p>
+              </div>
             </div>
-            <div className="secondrow">
-              <p className="author">
-                <img className="avatar author-img" src={movieAvatar1} />
-                <p className="author-name">austin</p>
-              </p>
-              <p className="price">40.89 eTH</p>
-            </div>
+            <button className="btn-movie  hero-btn">Contribute</button>
           </div>
-          <button className="btn-movie  hero-btn">Contribute</button>
-        </div>{" "}
-        <div className="card card-1">
-          <video
-            className="card-img"
-            src={movie1}
-            autoplay="autoplay"
-            muted="muted"
-            loop="loop"
-            playsinline=""
-            type="video/mp4"
-          ></video>
-          <div className="text-details">
-            <div className="firstrow">
-              <p className="name">Dao Vinci</p>
-              <p className="currency">Current eth</p>
-            </div>
-            <div className="secondrow">
-              <p className="author">
-                <img className="avatar author-img" src={movieAvatar1} />
-                <p className="author-name">austin</p>
-              </p>
-              <p className="price">40.89 eTH</p>
-            </div>
-          </div>
-          <button className="btn-movie  hero-btn">Contribute</button>
-        </div>
+        ))}
       </div>
     </div>
   );

@@ -4,12 +4,10 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
 
 const MusicForm = () => {
-  const [musicData, setMusicData] = useState({
-    nameOfMusic: "",
-    image: "",
-    text: "",
-    price: "",
-  });
+  const [image, setImage] = useState("");
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const MUSIC_UPLOAD_URL = "music/create";
   const clickRef = useRef(null);
   const toggle = () => {
@@ -18,70 +16,27 @@ const MusicForm = () => {
   const item = localStorage.getItem("user-details");
   const submitMusicform = async (e) => {
     e.preventDefault();
-    try {
-      /*   axios
-        .post(
-          MOVIE_UPLOAD_URL,
-          {
-            name: movieData.name,
-            image: movieData.image,
-            text: movieData.text,
-            price: movieData.price,
-          },
-          {
-            headers: {
-              authorization: item,
-            },
-          }
-        )
-        .then((res) => console.log(res.data)); */
-      axios
-        .post(
-          MUSIC_UPLOAD_URL,
-          {
-            body: {
-              name: musicData.name,
-              image: musicData.image,
-              text: musicData.text,
-              price: musicData.price,
-            },
-          },
-          {
-            headers: {
-              authorization: item,
-            },
-          }
-        )
-        .then((res) => console.log(res));
-
-      /* const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
-  
-        const token_response = jwt_decode(result_token);
-        localStorage.setItem("user-details", token_response.email);
-        /* const tokenC = jwt_decode(result.token); */
-      /* const { role, email } = token_response; */
-      /*    alert(`Welcome ${email.split("@")[0]}`);
-  
-        setAuth({ role, email });
-        console.log(auth.role);
-        console.log(auth.email);  */
-    } catch (err) {
-      console.log(err);
-    }
-    setMusicData({
-      nameOfMusic: "",
-      image: "",
-      text: "",
-      price: "",
-    });
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("text", text);
+    formData.append("name", name);
+    formData.append("price", price);
+    axios
+      .post(MUSIC_UPLOAD_URL, formData, {
+        headers: {
+          Authorization: item,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    setText(" ");
+    setImage(" ");
+    setName(" ");
+    setPrice(" ");
   };
 
-  const submitForm = (e) => {
-    const postMusicData = { ...musicData };
-    postMusicData[e.target.name] = e.target.value;
-    setMusicData(postMusicData);
-    console.log(postMusicData);
-  };
   return (
     <div>
       <form
@@ -91,11 +46,10 @@ const MusicForm = () => {
       >
         <AiOutlineCloseCircle onClick={toggle} className="closeForm" />
         <input
-          value={musicData.nameOfMusic}
-          onChange={(e) => submitForm(e)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="inpt"
           type="text"
-          name="nameOfMusic"
           placeholder="name"
           id=""
         />
@@ -105,19 +59,18 @@ const MusicForm = () => {
           type="file"
           placeholder="Script"
           name="image"
-          accept=".mp3"
-          value={musicData.image}
-          onChange={(e) => submitForm(e)}
+          accept=".jpeg,.jpg,.png"
+          onChange={(e) => setImage(e.target.files[0])}
           id=""
         />
 
         <input
           className="inpt"
-          type="text"
-          placeholder="Password"
+          type="file"
+          placeholder="Artist"
           name="text"
-          value={musicData.text}
-          onChange={(e) => submitForm(e)}
+          accept=".mp3"
+          onChange={(e) => setText(e.target.files[0])}
           id=""
         />
         <input
@@ -125,8 +78,8 @@ const MusicForm = () => {
           type="text"
           placeholder="Price"
           name="price"
-          value={musicData.price}
-          onChange={(e) => submitForm(e)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           id=""
         />
         <button type="submit" className="btn">

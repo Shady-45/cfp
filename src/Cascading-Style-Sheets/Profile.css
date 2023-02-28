@@ -16,3 +16,7 @@
     margin-right: 75rem;
 
 }
+.btns-profile{
+    display: flex;
+    gap: 2rem;
+}

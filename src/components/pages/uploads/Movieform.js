@@ -5,100 +5,46 @@ import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
 
 const Movieform = () => {
-  const { auth } = useContext(AuthContext);
-  const [movieData, setMovieData] = useState({
-    name: "",
-    image: "",
-    text: "",
-    price: "",
-  });
+  const [image, setImage] = useState("");
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const MOVIE_UPLOAD_URL = "script/create";
   const clickRef = useRef(null);
   const toggle = () => {
     clickRef.current.style.display = "none";
   };
   const item = localStorage.getItem("user-details");
-  console.log(item);
-  const submitMovieForm = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      /*   axios
-        .post(
-          MOVIE_UPLOAD_URL,
-          {
-            name: movieData.name,
-            image: movieData.image,
-            text: movieData.text,
-            price: movieData.price,
-          },
-          {
-            headers: {
-              authorization: item,
-            },
-          }
-        )
-        .then((res) => console.log(res.data)); */
-      let formData = new FormData(); //formdata object
-
-      formData.append("name", movieData.name); //append the values with key, value pair
-      formData.append("image", movieData.image);
-      formData.append("text", movieData.text);
-      formData.append("price", movieData.price);
-
-      const config = {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("text", text);
+    formData.append("name", name);
+    formData.append("price", price);
+    axios
+      .post(MOVIE_UPLOAD_URL, formData, {
         headers: {
-          authorization: item,
+          Authorization: item,
         },
-      };
-      console.log(config);
-      axios
-        .post(MOVIE_UPLOAD_URL, formData, config)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      /* const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
-  
-        const token_response = jwt_decode(result_token);
-        localStorage.setItem("user-details", token_response.email);
-        /* const tokenC = jwt_decode(result.token); */
-      /* const { role, email } = token_response; */
-      /*    alert(`Welcome ${email.split("@")[0]}`);
-  
-        setAuth({ role, email });
-        console.log(auth.role);
-        console.log(auth.email);  */
-    } catch (err) {
-      console.log(err);
-    }
-    setMovieData({
-      name: "",
-      image: "",
-      text: "",
-      price: "",
-    });
-  };
-
-  const submitForm = (e) => {
-    const postMovieData = { ...movieData };
-    postMovieData[e.target.name] = e.target.value;
-    setMovieData(postMovieData);
-    console.log(postMovieData);
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    setText(" ");
+    setImage(" ");
+    setName("");
+    setPrice(" ");
   };
   return (
     <div>
-      <form
-        ref={clickRef}
-        onSubmit={(e) => submitMovieForm(e)}
-        className="sign-in-form"
-      >
+      <form ref={clickRef} onSubmit={handleSubmit} className="sign-in-form">
         <AiOutlineCloseCircle onClick={toggle} className="closeForm" />
         <input
-          value={movieData.name}
-          onChange={(e) => submitForm(e)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="inpt"
           type="text"
           name="name"
@@ -111,9 +57,8 @@ const Movieform = () => {
           type="file"
           placeholder="Script"
           name="image"
-          accept=".docx"
-          value={movieData.image}
-          onChange={(e) => submitForm(e)}
+          accept=".txt"
+          onChange={(e) => setText(e.target.files[0])}
           id=""
         />
 
@@ -121,10 +66,9 @@ const Movieform = () => {
           className="inpt"
           type="file"
           placeholder="Text"
-          accept=""
+          accept=".jpeg,.png,.jpg"
           name="text"
-          value={movieData.text}
-          onChange={(e) => submitForm(e)}
+          onChange={(e) => setImage(e.target.files[0])}
           id=""
         />
         <input
@@ -132,8 +76,8 @@ const Movieform = () => {
           type="text"
           placeholder="Price"
           name="price"
-          value={movieData.price}
-          onChange={(e) => submitForm(e)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           id=""
         />
         <button type="submit" className="btn">

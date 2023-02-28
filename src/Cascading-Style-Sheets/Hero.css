@@ -18,6 +18,11 @@
 .heart-white{
   color: whitesmoke;
 }
+.btnss{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
 .heart-red{
   color: red;
 }

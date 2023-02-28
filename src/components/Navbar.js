@@ -227,11 +227,15 @@ const Navbar = ({ count, setCount }) => {
           <button onClick={(e) => handleClick(e)}>Connect Web3</button>
           {profile && localStorage.getItem("user-details") ? (
             <ul className="avatar-container">
+              <Link to="/profile" className="class">
+                <li onClick={handleCount} className="point">
+                  Profile
+                </li>
+              </Link>
               <hr />
               <li className="point">Favourites</li>
               <hr />
-              <li className="point">Settings</li>
-              <hr />
+
               <li className="point" onClick={logOut}>
                 Log Out
               </li>

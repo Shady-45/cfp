@@ -36,6 +36,7 @@ const SignInCreator = () => {
         }
       );
       console.log(response.data);
+      localStorage.setItem("user-details", response.data.token);
       const token_of = JSON.stringify(response?.data?.token);
       const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
 
@@ -47,7 +48,6 @@ const SignInCreator = () => {
 
       setAuth({ role, email, result_token: result_token, token_of: token_of });
 
-      localStorage.setItem("user-details", auth.result_token);
       console.log(auth.result_token);
       console.log(token_of);
     } catch (err) {
