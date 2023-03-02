@@ -145,18 +145,25 @@ const Hero = () => {
                 <div className="secondrow">
                   <p className="author">
                     <img className="avatar author-img" src={script1} />
-                    <p className="author-name">Rahul</p>
+                    <p className="author-name">{item.user.name}</p>
                   </p>
                   <p className="price">{item.price}</p>
                 </div>
               </div>
               <div className="btns-script">
-                <BsHeartFill
+                {/*   <BsHeartFill
                   className={`${like ? "heart-red" : "heart-white"}`}
                   onClick={() => setLike(!like)}
                 />
 
+ */}
                 <button className="btn-script-music-buy  hero-btn">Buy</button>
+                <a href={`https://fundingportal.fly.dev/uploads/${item.text}`}>
+                  {" "}
+                  <button className="btn-script-music-buy  hero-btn">
+                    View
+                  </button>
+                </a>
               </div>
             </div>
           ))}

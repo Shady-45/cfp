@@ -1,85 +1,55 @@
-import React from "react";
-import music1 from "../../assets/music1.mp4";
-import musicAvatar1 from "../../assets/music1.png";
+import React, { useState, useEffect } from "react";
+
+import axios from "../../api/axios";
+
 import "../../Cascading-Style-Sheets/musicPage.css";
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 
 const MusicPage = () => {
+  const [musicData, setgetMusicData] = useState([]);
+  const GET_MUSIC_URL = "music/all";
+  useEffect(() => {
+    axios.get(GET_MUSIC_URL).then((res) => setgetMusicData(res.data));
+  }, []);
   return (
     <>
       <h1 className="title-card">Music</h1>
       <div className="cards namecards">
-        <div className="card card-1">
-          <video
-            className="card-img"
-            src={music1}
-            autoPlay="autoplay"
-            loop="loop"
-            muted="muted"
-            type="video/mp4"
-          ></video>
-          <div className="text-details">
-            <div className="firstrow">
-              <p className="name">Dao Vinci</p>
-              <p className="currency">Current eth</p>
+        {musicData.map((item, index) => (
+          <div key={index} className="card card-1">
+            <img
+              className="card-img"
+              src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+              alt=""
+            />
+
+            <AudioPlayer
+              className="audio"
+              src={`https://fundingportal.fly.dev/uploads/${item.audio}`}
+              volume={0.5}
+            />
+            <div className="text-details">
+              <div className="firstrow">
+                <p className="name">{item.name}</p>
+                <p className="currency">Current eth</p>
+              </div>
+              <div className="secondrow">
+                <p className="author">
+                  <img
+                    className="avatar author-img"
+                    src={item.image}
+                    alt={item.name}
+                  />
+                  <p className="author-name">{item.user.name}</p>
+                </p>
+                <p className="price">{item.price}</p>
+              </div>
             </div>
-            <div className="secondrow">
-              <p className="author">
-                <img className="avatar author-img" src={musicAvatar1} />
-                <p className="author-name">Johnson</p>
-              </p>
-              <p className="price">40.89 eTH</p>
-            </div>
+
+            <button className="btn-script-music-buy  hero-btn">Buy</button>
           </div>
-          <button className="btn-script-music-buy  hero-btn">Buy</button>
-        </div>{" "}
-        <div className="card card-1">
-          <video
-            className="card-img"
-            src={music1}
-            autoPlay="autoplay"
-            loop="loop"
-            muted="muted"
-            type="video/mp4"
-          ></video>
-          <div className="text-details">
-            <div className="firstrow">
-              <p className="name">Dao Vinci</p>
-              <p className="currency">Current eth</p>
-            </div>
-            <div className="secondrow">
-              <p className="author">
-                <img className="avatar author-img" src={musicAvatar1} />
-                <p className="author-name">Johnson</p>
-              </p>
-              <p className="price">40.89 eTH</p>
-            </div>
-          </div>
-          <button className="btn-script-music-buy  hero-btn">Buy</button>
-        </div>{" "}
-        <div className="card card-1">
-          <video
-            className="card-img"
-            src={music1}
-            autoPlay="autoplay"
-            loop="loop"
-            muted="muted"
-            type="video/mp4"
-          ></video>
-          <div className="text-details">
-            <div className="firstrow">
-              <p className="name">Dao Vinci</p>
-              <p className="currency">Current eth</p>
-            </div>
-            <div className="secondrow">
-              <p className="author">
-                <img className="avatar author-img" src={musicAvatar1} />
-                <p className="author-name">Johnson</p>
-              </p>
-              <p className="price">40.89 eTH</p>
-            </div>
-          </div>
-          <button className="btn-script-music-buy  hero-btn">Buy</button>
-        </div>
+        ))}
       </div>
     </>
   );

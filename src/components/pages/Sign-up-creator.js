@@ -33,7 +33,7 @@ const SignUpCreator = () => {
       console.log(err);
     }
     setCreatorData({
-      name: "",
+      name: " ",
       email: "",
       password: "",
     });
@@ -63,16 +63,16 @@ const SignUpCreator = () => {
         className="sign-in-form"
       >
         <AiOutlineCloseCircle onClick={toggle} className="close" />
+
         <input
-          value={creatorData.name}
-          onChange={(e) => submitForm(e)}
           className="inpt"
           type="text"
-          name="name"
           placeholder="Name"
+          name="name"
+          value={creatorData.name}
+          onChange={(e) => submitForm(e)}
           id=""
         />
-
         <input
           className="inpt"
           type="email"

@@ -67,15 +67,6 @@ const NftForm = () => {
         <input
           className="inpt"
           type="text"
-          placeholder="Text"
-          name="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          id=""
-        />
-        <input
-          className="inpt"
-          type="text"
           placeholder="Price"
           name="price"
           value={price}

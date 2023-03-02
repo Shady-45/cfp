@@ -95,7 +95,7 @@
 .sign-in{
   position: absolute;
   top: 4.1rem;
-  left: 61.8%;
+  left: 59.8%;
   padding: 6px;
   /* background-color: whitesmoke; */
   border: 1px solid var(--buttons);
@@ -136,7 +136,7 @@
 .sign-up{
   position: absolute;
   top: 4.1rem;
-  left: 72.8%;
+  left: 70.9%;
   /* background-color: whitesmoke; */
   border: 1px solid var(--buttons);
   color: white;
