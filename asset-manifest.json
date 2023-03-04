@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/cfp/static/css/main.7d2e92be.css",
-    "main.js": "/cfp/static/js/main.51cb2cf1.js",
-    "static/js/787.a8a1d5ea.chunk.js": "/cfp/static/js/787.a8a1d5ea.chunk.js",
-    "static/media/script-base.jpg": "/cfp/static/media/script-base.dad547d025348df07965.jpg",
-    "static/media/ethereum.gif": "/cfp/static/media/ethereum.0e1f25960f083067d100.gif",
-    "static/media/script1.jpg": "/cfp/static/media/script1.ee16dd11f7a4cf09dee5.jpg",
-    "static/media/movie1.png": "/cfp/static/media/movie1.f8d1990cddc07cabce80.png",
-    "static/media/movie1.mp4": "/cfp/static/media/movie1.d59828e670fc2da58d7c.mp4",
-    "static/media/metamask.png": "/cfp/static/media/metamask.d9c41a5680a1daaae624.png",
-    "static/media/wallet.png": "/cfp/static/media/wallet.f55e04792bd478252d73.png",
-    "static/media/avatar.webp": "/cfp/static/media/avatar.86ec65fe732d5c3065c6.webp",
-    "index.html": "/cfp/index.html",
-    "main.7d2e92be.css.map": "/cfp/static/css/main.7d2e92be.css.map",
-    "main.51cb2cf1.js.map": "/cfp/static/js/main.51cb2cf1.js.map",
-    "787.a8a1d5ea.chunk.js.map": "/cfp/static/js/787.a8a1d5ea.chunk.js.map"
+    "main.css": "/Shady-45.github.io/cfp/static/css/main.5c2d3085.css",
+    "main.js": "/Shady-45.github.io/cfp/static/js/main.7a794432.js",
+    "static/js/787.a8a1d5ea.chunk.js": "/Shady-45.github.io/cfp/static/js/787.a8a1d5ea.chunk.js",
+    "static/media/script-base.jpg": "/Shady-45.github.io/cfp/static/media/script-base.dad547d025348df07965.jpg",
+    "static/media/ethereum.gif": "/Shady-45.github.io/cfp/static/media/ethereum.0e1f25960f083067d100.gif",
+    "static/media/script1.jpg": "/Shady-45.github.io/cfp/static/media/script1.ee16dd11f7a4cf09dee5.jpg",
+    "static/media/movie1.png": "/Shady-45.github.io/cfp/static/media/movie1.f8d1990cddc07cabce80.png",
+    "static/media/movie1.mp4": "/Shady-45.github.io/cfp/static/media/movie1.d59828e670fc2da58d7c.mp4",
+    "static/media/metamask.png": "/Shady-45.github.io/cfp/static/media/metamask.d9c41a5680a1daaae624.png",
+    "static/media/wallet.png": "/Shady-45.github.io/cfp/static/media/wallet.f55e04792bd478252d73.png",
+    "static/media/avatar.webp": "/Shady-45.github.io/cfp/static/media/avatar.86ec65fe732d5c3065c6.webp",
+    "index.html": "/Shady-45.github.io/cfp/index.html",
+    "main.5c2d3085.css.map": "/Shady-45.github.io/cfp/static/css/main.5c2d3085.css.map",
+    "main.7a794432.js.map": "/Shady-45.github.io/cfp/static/js/main.7a794432.js.map",
+    "787.a8a1d5ea.chunk.js.map": "/Shady-45.github.io/cfp/static/js/787.a8a1d5ea.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d2e92be.css",
-    "static/js/main.51cb2cf1.js"
+    "static/css/main.5c2d3085.css",
+    "static/js/main.7a794432.js"
   ]
 }
