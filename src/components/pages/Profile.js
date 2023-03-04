@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "../../context/AuthProvider";
 
 import "../../Cascading-Style-Sheets/Profile.css";
 import axios from "../../api/axios";
-const id = 1;
+
 const Profile = ({
   count,
   getCreatorMusicData,
@@ -11,17 +11,44 @@ const Profile = ({
   getCreatorNftData,
 }) => {
   const { auth } = useContext(AuthContext);
+  const item = localStorage.getItem("user-details");
   const token = localStorage.getItem("user-details");
-
+  const [clickMusic, setClickMusic] = useState(false);
   const config = {
     headers: { Authorization: token },
   };
   const USER_UPLOAD_URL = "home/uploads/me";
-
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [audio, setAudio] = useState("");
+  const [price, setPrice] = useState("");
   const [userScriptData, setUserScriptData] = useState([]);
   const [userMusicData, setUserMusicData] = useState([]);
   const [userNftData, setUserNftData] = useState([]);
 
+  const clickRef = useRef(null);
+  const handleUpdateMusic = async (e, id) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("audio", audio);
+    formData.append("name", name);
+    formData.append("price", price);
+    axios
+      .put(`music/update/${id}`, formData, {
+        headers: {
+          Authorization: item,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+    setAudio(" ");
+    setImage(" ");
+    setName(" ");
+    setPrice(" ");
+  };
   const deleteScript = (id) => {
     axios
       .delete(`script/delete/${id}`, config)
@@ -34,6 +61,7 @@ const Profile = ({
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
+
   const deleteNft = (id) => {
     axios
       .delete(`nft/delete/${id}`, config)
@@ -55,6 +83,10 @@ const Profile = ({
   console.log(userData);
   const handleDeleteMusic = (id) => {
     deleteMusic(id);
+  };
+  const handleChange = () => {
+    handleUpdateMusic(item.id);
+    setClickMusic(!clickMusic);
   };
   const handleDeleteNft = (id) => {
     deleteNft(id);
@@ -131,13 +163,20 @@ const Profile = ({
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
-
-                  <button
-                    className="btn-script-music-buy  hero-btn"
-                    onClick={() => handleDeleteMusic(item.id)}
-                  >
-                    Delete
-                  </button>
+                  <div>
+                    <button
+                      className="btn-script-music-buy  hero-btn"
+                      onClick={handleChange}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn-script-music-buy  hero-btn"
+                      onClick={() => handleDeleteMusic(item.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
               {userNftData.map((item, index) => (
@@ -164,7 +203,13 @@ const Profile = ({
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
-
+                  <div></div>
+                  <button
+                    className="btn-script-music-buy  hero-btn"
+                    onClick={() => handleDeleteNft(item.id)}
+                  >
+                    Update
+                  </button>
                   <button
                     className="btn-script-music-buy  hero-btn"
                     onClick={() => handleDeleteNft(item.id)}
@@ -175,6 +220,31 @@ const Profile = ({
               ))}
             </div>
           </div>
+          {clickMusic ? (
+            <form>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="name"
+              />
+              <input
+                type="file"
+                placeholder="image"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+              <input
+                type="file"
+                placeholder="audio"
+                onChange={(e) => setAudio(e.target.files[0])}
+              />
+              <input
+                type="text"
+                value={(e) => setPrice(e.target.value)}
+                placeholder="price"
+              />
+            </form>
+          ) : null}
         </div>
       ) : (
         <div className="main-container">
