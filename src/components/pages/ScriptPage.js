@@ -20,7 +20,7 @@ const ScriptPage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
               alt={item.name}
             />
             <div className="text-details">
@@ -33,7 +33,7 @@ const ScriptPage = () => {
                   <img
                     className="avatar author-img"
                     alt={item.name}
-                    src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+                    src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
                   />
                   <p className="author-name">{item.name}</p>
                 </p>

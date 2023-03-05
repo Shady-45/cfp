@@ -20,13 +20,13 @@ const MusicPage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
               alt=""
             />
 
             <AudioPlayer
               className="audio"
-              src={`https://fundingportal.fly.dev/uploads/${item.audio}`}
+              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.audio}`}
               volume={0.5}
             />
             <div className="text-details">

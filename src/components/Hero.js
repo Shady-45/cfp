@@ -89,13 +89,13 @@ const Hero = () => {
             <div key={index} className="card card-1">
               <img
                 className="card-img"
-                src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+                src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
                 alt=""
               />
 
               <AudioPlayer
                 className="audio"
-                src={`https://fundingportal.fly.dev/uploads/${item.audio}`}
+                src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.audio}`}
                 volume={0.5}
               />
               <div className="text-details">
@@ -134,7 +134,7 @@ const Hero = () => {
             <div key={index} className="card card-1">
               <img
                 className="card-img"
-                src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+                src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
                 alt=""
               />
               <div className="text-details">
@@ -158,7 +158,9 @@ const Hero = () => {
 
  */}
                 <button className="btn-script-music-buy  hero-btn">Buy</button>
-                <a href={`https://fundingportal.fly.dev/uploads/${item.text}`}>
+                <a
+                  href={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.text}`}
+                >
                   {" "}
                   <button className="btn-script-music-buy  hero-btn">
                     View
@@ -183,7 +185,7 @@ const Hero = () => {
             <div key={index} className="card card-1">
               <img
                 className="card-img"
-                src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+                src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
               ></img>
               <img src="" alt="" />
               <div className="text-details">

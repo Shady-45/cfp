@@ -19,7 +19,7 @@ const MoviePage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`https://fundingportal.fly.dev/uploads/${item.image}`}
+              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
             ></img>
             <div className="text-details">
               <div className="firstrow">
