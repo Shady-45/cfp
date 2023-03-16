@@ -21,8 +21,9 @@ const MusicForm = () => {
     formData.append("text", text);
     formData.append("name", name);
     formData.append("price", price);
+    console.log(formData);
     axios
-      .post(MUSIC_UPLOAD_URL, formData, {
+      .post("http://144.126.252.25:8080/music/create", formData, {
         headers: {
           Authorization: item,
         },

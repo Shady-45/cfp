@@ -8,9 +8,11 @@ import "react-h5-audio-player/lib/styles.css";
 
 const MusicPage = () => {
   const [musicData, setgetMusicData] = useState([]);
-  const GET_MUSIC_URL = "music/all";
+
   useEffect(() => {
-    axios.get(GET_MUSIC_URL).then((res) => setgetMusicData(res.data));
+    axios
+      .get("http://144.126.252.25:8080/music/all")
+      .then((res) => setgetMusicData(res.data));
   }, []);
   return (
     <>
@@ -20,13 +22,13 @@ const MusicPage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
+              src={`http://144.126.252.25:8080/uploads/${item.image}`}
               alt=""
             />
 
             <AudioPlayer
               className="audio"
-              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.audio}`}
+              src={`http://144.126.252.25:8080/uploads/${item.audio}`}
               volume={0.5}
             />
             <div className="text-details">

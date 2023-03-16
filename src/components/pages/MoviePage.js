@@ -4,10 +4,11 @@ import movie1 from "../../assets/movie1.mp4";
 import movieAvatar1 from "../../assets/avatar.webp";
 
 const MoviePage = () => {
-  const nft_url = "nft/all";
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get(nft_url).then((res) => setData(res.data));
+    axios
+      .get("http://144.126.252.25:8080/nft/all")
+      .then((res) => setData(res.data));
   });
 
   return (
@@ -19,7 +20,7 @@ const MoviePage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`https://fundingportal-gs8ns.ondigitalocean.app/uploads/${item.image}`}
+              src={`http://144.126.252.25:8080/uploads/${item.image}`}
             ></img>
             <div className="text-details">
               <div className="firstrow">

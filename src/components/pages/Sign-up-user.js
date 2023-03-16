@@ -31,7 +31,7 @@ const SignUpuser = () => {
     }); */
     try {
       const response = await axios.post(
-        SIGNUP_URL,
+        "http://144.126.252.25:8080/auth/signUp",
         JSON.stringify({
           name: userData.name,
           email: userData.email,

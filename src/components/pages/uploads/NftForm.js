@@ -22,7 +22,7 @@ const NftForm = () => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post(NFT_UPLOAD_URL, formData, {
+      .post("http://144.126.252.25:8080/nft/create", formData, {
         headers: {
           Authorization: item,
         },

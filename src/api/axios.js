@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export default Axios.create({
-  baseURL: "https://fundingportal-gs8ns.ondigitalocean.app/",
+  baseURL: "http://144.126.252.25:8080/ ",
 });

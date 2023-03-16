@@ -31,7 +31,7 @@ const SignInuser = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        SIGNIN_URL,
+        "http://144.126.252.25:8080/auth/signIn",
         JSON.stringify({
           name: userData.name,
           email: userData.email,

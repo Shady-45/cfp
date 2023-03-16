@@ -24,7 +24,7 @@ const Movieform = () => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post(MOVIE_UPLOAD_URL, formData, {
+      .post("http://144.126.252.25:8080/script/create", formData, {
         headers: {
           Authorization: item,
         },

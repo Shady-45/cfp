@@ -1,0 +1,46 @@
+.form-update{
+    margin-top: 7em;
+    display: flex;
+    flex-direction: column;
+   
+    gap: 2em;
+    align-items: center;
+    justify-content: center;
+}
+/*  outline: 0;
+  border-width: 0 0 2px;
+  border-color: blue
+}
+input:focus {
+  border-color: green;
+  outline: 1px dotted #000 */
+.form-update > input{
+    width: 20%;
+    border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        
+    outline: none;
+    color: black;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    border-bottom: 2px solid whitesmoke;
+}
+.form-update >input:focus{
+    border-color: white;
+    outline: 1px dotted #000
+}
+.form-update >input::placeholder{
+    color: black;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+}
+.form-update >button{
+    background: black;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 22px;
+    font-family: 'Poppins';
+    cursor: pointer;
+
+}

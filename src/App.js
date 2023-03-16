@@ -9,6 +9,7 @@ import ScriptPage from "./components/pages/ScriptPage";
 import Profile from "./components/pages/Profile";
 import { useState, useEffect } from "react";
 import axios from "./api/axios";
+import UpdateMusic from "./components/pages/Updates/UpdateMusic";
 
 /* import Footer from "./components/Footer"; */
 
@@ -23,7 +24,9 @@ function App() {
   const GET_SCRIPT_URL = "script/all";
 
   /* const GET_NFT_URL = "nft/all"; */
-
+  const handleUpdateMusicData = (id) => {
+    console.log(id);
+  };
   useEffect(() => {
     axios.get(GET_MUSIC_URL).then((res) => setgetCreatorMusicData(res.data));
   }, []);
@@ -33,6 +36,7 @@ function App() {
   useEffect(() => {
     axios.get(GET_NFT_URL).then((res) => setgetCreatorNftData(res.data));
   }, []);
+
   return (
     <>
       <Navbar count={count} setCount={setCount} />
@@ -43,14 +47,13 @@ function App() {
         <Route path="/music" element={<MusicPage />} />
         <Route path="/script" element={<ScriptPage />} />
         <Route path="/nfts" element={<MoviePage />} />
+        <Route path="/update-music" element={<UpdateMusic />} />
         <Route
           path="/profile"
           element={
             <Profile
+              handleUpdateMusicData={(id) => handleUpdateMusicData(id)}
               count={count}
-              getCreatorMusicData={getCreatorMusicData}
-              getCreatorScriptData={getCreatorScriptData}
-              getCreatorNftData={getCreatorNftData}
             />
           }
         />
