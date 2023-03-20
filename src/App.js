@@ -9,7 +9,6 @@ import ScriptPage from "./components/pages/ScriptPage";
 import Profile from "./components/pages/Profile";
 import { useState, useEffect } from "react";
 import axios from "./api/axios";
-import UpdateMusic from "./components/pages/Updates/UpdateMusic";
 
 /* import Footer from "./components/Footer"; */
 
@@ -47,7 +46,7 @@ function App() {
         <Route path="/music" element={<MusicPage />} />
         <Route path="/script" element={<ScriptPage />} />
         <Route path="/nfts" element={<MoviePage />} />
-        <Route path="/update-music" element={<UpdateMusic />} />
+
         <Route
           path="/profile"
           element={

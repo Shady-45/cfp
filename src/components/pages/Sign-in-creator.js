@@ -8,6 +8,7 @@ import AuthContext from "../../context/AuthProvider";
 const SignInCreator = () => {
   const SIGNIN_URL = "auth/signIn";
   const { auth, setAuth } = useContext(AuthContext);
+  const [response, setResponse] = useState({});
 
   const [creatorData, setCreatorData] = useState({
     name: "",
@@ -21,38 +22,35 @@ const SignInCreator = () => {
   };
   const submitUserForm = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://144.126.252.25:8080/auth/signIn",
-        {
-          name: creatorData.name,
-          email: creatorData.email,
-          password: creatorData.password,
-          role: "creator",
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+    fetch("http://144.126.252.25:8080/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(creatorData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-      );
-      console.log(response.data);
-      localStorage.setItem("user-details", response.data.token);
-      const token_of = JSON.stringify(response?.data?.token);
-      const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
+        throw new Error("Invalid credentials");
+      })
+      .then((data) => {
+        // Save the token to local storage or session storage
+        localStorage.setItem("user-details", data.token);
+        console.log("Sign-in successful");
+      })
+      .catch((error) => {
+        console.error("Sign-in failed", error);
+      });
+    const result_token = localStorage.getItem("user-details");
 
-      const token_response = jwt_decode(result_token);
-      /* localStorage.setItem("user-details", token_response.email); */
-      /* const tokenC = jwt_decode(result.token); */
-      const { role, email } = token_response;
-      alert(`Welcome ${email.split("@")[0]}`);
+    const token_response = jwt_decode(result_token);
+    /* localStorage.setItem("user-details", token_response.email); */
+    /* const tokenC = jwt_decode(result.token); */
+    const { role, email } = token_response;
+    alert(`Welcome ${email.split("@")[0]}`);
 
-      setAuth({ role, email, result_token: result_token, token_of: token_of });
+    setAuth({ role, email, result_token: result_token });
 
-      console.log(auth.result_token);
-      console.log(token_of);
-    } catch (err) {
-      console.log(err);
-    }
     setCreatorData({
       name: "",
       email: "",

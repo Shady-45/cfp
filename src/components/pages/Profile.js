@@ -18,6 +18,9 @@ const Profile = ({ count }) => {
   const [userScriptData, setUserScriptData] = useState([]);
   const [userMusicData, setUserMusicData] = useState([]);
   const [userNftData, setUserNftData] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [favouritesScript, setFavouritesScript] = useState([]);
+  const [favouritesNft, setFavouritesNft] = useState([]);
 
   const toggle = () => {
     clickRef.current.style.display = "none";
@@ -40,7 +43,7 @@ const Profile = ({ count }) => {
     setUpdateS(!updateS);
   };
   const handleUpdateNft = (item) => {
-    setUpdateScriptId(item.id);
+    setUpdateNftId(item.id);
     setUpdateS(!updateS);
   };
   console.log(updateScriptId);
@@ -61,55 +64,35 @@ const Profile = ({ count }) => {
       .catch((err) => console.log(err.data));
   };
   console.log(updateMusicId);
+  const handleRemoveMusic = (id) => {
+    axios
+      .delete(`http://144.126.252.25:8080/favorites/${id}?type=music`, config)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
+  };
+  const handleRemoveScript = (id) => {
+    axios
+      .delete(`http://144.126.252.25:8080/favorites/${id}?type=script`, config)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
+  };
+  const handleRemoveNft = (id) => {
+    axios
+      .delete(`http://144.126.252.25:8080/favorites/${id}?type=nft`, config)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
+  };
   const UpdateMusic = (e) => {
     e.preventDefault();
     let MUSIC_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateMusicId}`;
     const UpdateFormData = new FormData();
-    UpdateFormData.append(image, "image");
-    UpdateFormData.append(audio, "audio");
-    UpdateFormData.append(name, "name");
-    UpdateFormData.append(price, "price");
-    console.log(UpdateFormData);
+    image && UpdateFormData.append("image", image);
+    audio && UpdateFormData.append("audio", audio);
+    name && UpdateFormData.append("name", name);
+    price && UpdateFormData.append("price", price);
 
-    /* axios
-      .put(
-        MUSIC_UPDATE_URL,
-        { body: UpdateFormData },
-
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      ) */
-
-    fetch(MUSIC_UPDATE_URL, {
-      method: "PUT",
-      headers: {
-        Authorization: token,
-      },
-      body: UpdateFormData,
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err, "🚨🚨"));
-    setAudio(" ");
-    setImage(" ");
-    setName(" ");
-    setPrice(" ");
-  };
-  const UpdateScript = (e) => {
-    e.preventDefault();
-    let SCRIPT_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateScriptId}`;
-    const UpdateFormData = new FormData();
-    UpdateFormData.append(image, "image");
-
-    UpdateFormData.append(name, "name");
-    UpdateFormData.append(price, "price");
     axios
-      .put(SCRIPT_UPDATE_URL, UpdateFormData, {
+      .put(MUSIC_UPDATE_URL, UpdateFormData, {
         headers: {
           Authorization: token,
         },
@@ -123,14 +106,37 @@ const Profile = ({ count }) => {
     setName(" ");
     setPrice(" ");
   };
+  const UpdateScript = (e) => {
+    e.preventDefault();
+    let SCRIPT_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateNftId}`;
+    const UpdateFormData = new FormData();
+    UpdateFormData.append("image", image);
+
+    UpdateFormData.append("name", name);
+    UpdateFormData.append("price", price);
+    axios
+      .put(SCRIPT_UPDATE_URL, UpdateFormData, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+
+    setImage(" ");
+    setName(" ");
+    setPrice(" ");
+  };
   const UpdateNft = (e) => {
     e.preventDefault();
     let SCRIPT_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateScriptId}`;
     const UpdateFormData = new FormData();
-    UpdateFormData.append(image, "image");
+    UpdateFormData.append("image", image);
 
-    UpdateFormData.append(name, "name");
-    UpdateFormData.append(price, "price");
+    UpdateFormData.append("name", name);
+    UpdateFormData.append("price", price);
     axios
       .put(SCRIPT_UPDATE_URL, UpdateFormData, {
         headers: {
@@ -164,6 +170,17 @@ const Profile = ({ count }) => {
       })
       .catch((err) => console.log(err));
   }, []);
+  useEffect(() => {
+    axios
+      .get("http://144.126.252.25:8080/favorites/me", config)
+      .then((res) => {
+        console.log(res.data);
+        setFavourites(res.data.music);
+        setFavouritesScript(res.data.script);
+        setFavouritesNft(res.data.nft);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const userData = [...userScriptData, ...userMusicData, ...userNftData];
   console.log(userData);
   const handleDeleteMusic = (id) => {
@@ -187,8 +204,15 @@ const Profile = ({ count }) => {
             <h2>{`Total Imperssions: ${count} Views`}</h2>
             <div className="works-container">
               <div className="works">
-                <h1 className="work">Your Works</h1>
+                {userMusicData.length === 0 &&
+                userScriptData.length === 0 &&
+                userNftData.length === 0 ? (
+                  <h1>You haven't Added any works yet..</h1>
+                ) : (
+                  <h1 className="work">Your Works</h1>
+                )}
               </div>
+
               <div className="cards namecards">
                 {userScriptData.map((item, index) => (
                   <div key={index} className="card card-1">
@@ -299,7 +323,7 @@ const Profile = ({ count }) => {
                     <button
                       className="btn-script-music-buy  hero-btn"
                       onClick={() =>
-                        handleDeleteNft(item.id) && setUpdateM(!updateM)
+                        handleDeleteNft(item.id) && setUpdateN(!updateN)
                       }
                     >
                       Update
@@ -431,7 +455,7 @@ const Profile = ({ count }) => {
                 <div>
                   <form
                     ref={clickRef}
-                    onSubmit={(e) => UpdateScript(e)}
+                    onSubmit={(e) => UpdateNft(e)}
                     className="sign-in-form"
                   >
                     <AiOutlineCloseCircle
@@ -477,9 +501,124 @@ const Profile = ({ count }) => {
         </div>
       ) : (
         <div className="main-container">
-          <h1>{`Welcome ${auth.email.split("@")[0].toUpperCase()}!`}</h1>
+          <h1 className="analytic">{`Welcome ${auth.email
+            .split("@")[0]
+            .toUpperCase()}!`}</h1>
           <div className="analytics">
-            <h1 className="analytics">Your Favourites!</h1>
+            {favourites.length === 0 &&
+            favouritesNft.length === 0 &&
+            favouritesScript.length === 0 ? (
+              <h1 className="analytic">
+                You Haven't Added any Favourites, Add to see Here
+              </h1>
+            ) : (
+              <h1 className="analytic">Your Favourites!</h1>
+            )}
+          </div>
+
+          <div className="cards namecards">
+            {favourites.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  alt={item.name}
+                />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
+                  </div>
+                  <div className="secondrow">
+                    <p className="author">
+                      <img
+                        className="avatar author-img"
+                        alt={item.name}
+                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      />
+                      <p className="author-name">{item.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn-script-music-buy  hero-btn"
+                    onClick={() => handleRemoveMusic(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            {favouritesScript.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  alt={item.name}
+                />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
+                  </div>
+                  <div className="secondrow">
+                    <p className="author">
+                      <img
+                        className="avatar author-img"
+                        alt={item.name}
+                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      />
+                      <p className="author-name">{item.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn-script-music-buy  hero-btn"
+                    onClick={() => handleRemoveScript(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            {favouritesNft.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  alt={item.name}
+                />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
+                  </div>
+                  <div className="secondrow">
+                    <p className="author">
+                      <img
+                        className="avatar author-img"
+                        alt={item.name}
+                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      />
+                      <p className="author-name">{item.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn-script-music-buy  hero-btn"
+                    onClick={() => handleRemoveNft(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

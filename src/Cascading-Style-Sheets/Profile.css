@@ -3,10 +3,13 @@
     padding: 10px;
     color: whitesmoke;
 }
-.analytics{
 
-}
 .analytics{
+    text-align: center;
+    color: whitesmoke;
+    margin-top: 5rem;
+}
+.analytic{
     text-align: center;
     color: whitesmoke;
     margin-top: 5rem;

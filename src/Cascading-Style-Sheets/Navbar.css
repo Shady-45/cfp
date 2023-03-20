@@ -1,19 +1,66 @@
+/* for navbar when there is no user signed in or logged in     display: flex;
+    align-items: center;      */
+.nav-main{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #000;
+  align-items: center;
+  height: 4rem;
+
+}
+.logo-main-new{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: whitesmoke;
+}
+.search-logo-main{
+  display: flex;
+  align-items: center;
+}
+.search-logo-main > input{
+  height: 1.5rem;
+  width: 100%;  
+}
+.search-inpt::placeholder{
+  font-family: "Poppins", sans-serif;
+  
+}
+.search-img-main{
+  color: black;
+  border: 2px solid;
+  background: white;
+  padding: 10px;
+  border-radius: 11px;
+}
+
 .nav {
-  position: fixed;
-  left: 9.5%;
-  top: 0;
+
+ position: fixed;
+
   z-index: 100;
   padding-top: 0.5rem;
   display: flex;
   justify-content: center;
   gap: 5rem;
-  width: 82vw;
+  width: 100%;
   align-items: center;
   /* margin: 1rem auto 0 auto; */
   background-color: #000;
 }
 
-
+.logo-main{
+  display: flex;
+  align-items: end;
+  gap: 9px;
+  position: absolute;
+  left: 2%;
+  top: -74%;
+}
+.logo-icon{
+  color: whitesmoke;
+  font-size: 30px;
+}
 .nav input {
   width: 31rem;
   height: 3rem;
@@ -40,7 +87,8 @@
 }
 
 .btn-nav {
-  padding: 0.6rem 2rem;
+  height: 42px;
+  width: 100px;
   color: white;
   background-color: #02050e;
   border: 2px solid var(--buttons);
@@ -63,7 +111,7 @@
   display: block;
   height: 2.5rem;
   position: fixed;
-  margin-left: 74rem;
+  margin-left: 89rem;
   width: 2.5rem;
   background-image: url("../assets/avatar.webp");
   background-size: cover;
@@ -94,18 +142,17 @@
 /* sign up functionality */
 .sign-in{
   position: absolute;
-  top: 4.1rem;
-  left: 59.8%;
-  padding: 6px;
-  /* background-color: whitesmoke; */
-  border: 1px solid var(--buttons);
-  color: white;
-  
-  font-size: 12px;
-  height: 50px;
-  border-radius:10px;
-  width: 7rem;
-  text-align: center;
+    top: 3.9rem;
+    left: 68.3%;
+    padding: 6px;
+    /* background-color: whitesmoke; */
+    border: 1px solid var(--buttons);
+    color: white;
+    font-size: 12px;
+    height: 50px;
+    border-radius: 10px;
+    width: 6.5rem;
+    text-align: center;
 }
 .test{
   text-align: center;
@@ -136,11 +183,11 @@
 .sign-up{
   position: absolute;
   top: 4.1rem;
-  left: 70.9%;
+  left: 76.7%;
   /* background-color: whitesmoke; */
   border: 1px solid var(--buttons);
   color: white;
-  width: 7rem;
+  width: 6.7rem;
   text-align: center;
   font-size: 12px;
   height: 50px;

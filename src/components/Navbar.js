@@ -12,9 +12,10 @@ import SignUpCreator from "./pages/Sign-up-creator";
 import AuthContext from "../context/AuthProvider";
 import Movieform from "./pages/uploads/Movieform";
 import NftForm from "./pages/uploads/NftForm";
+
 import MusicForm from "./pages/uploads/MusicForm";
 import Web3 from "web3";
-
+import { SiBlockchaindotcom } from "react-icons/si";
 const Navbar = ({ count, setCount }) => {
   const handleCount = () => {
     setCount(count + 1);
@@ -86,13 +87,28 @@ const Navbar = ({ count, setCount }) => {
           </ul>
         </div>
       ) : null}
-      {auth.role === "creator" ? (
-        <div className="nav">
-          <input type="search" name="" id="" placeholder="Search" />
-          <div className="search-logo">
-            <BsSearch className="search-img" />
+      {auth.role !== "creator" && auth.role !== "user" ? (
+        <div className="nav-main">
+          <Link to="/">
+            {" "}
+            <div className="logo-main-new">
+              <SiBlockchaindotcom />
+              <h3>IndieCrypt</h3>
+            </div>
+          </Link>
+
+          <div className="search-logo-main">
+            <input
+              type="search"
+              className="search-inpt"
+              name=""
+              id=""
+              placeholder="Search"
+            />
+            {/*  <BsSearch className="search-img-main" /> */}
           </div>
-          {!localStorage.getItem("user-details") ? (
+
+          <div>
             <div className="buttonns">
               <button className="btn-nav" onClick={() => setClick(!click)}>
                 Sign In
@@ -134,41 +150,75 @@ const Navbar = ({ count, setCount }) => {
                 </ul>
               ) : null}
             </div>
-          ) : null}
-
-          <img
-            src={wallet}
-            onClick={() => setOpenWWallet(!openWallet)}
-            height={45}
-            width={45}
-            alt=""
-          />
-          <span onClick={() => setProfile(!profile)} className="avatar"></span>
-          {localStorage.getItem("user-details") ? (
-            <button onClick={() => setUpload(!upload)} className="upload">
-              Upload
-            </button>
-          ) : null}
-
-          {profile && localStorage.getItem("user-details") ? (
-            <ul className="avatar-container">
-              <li className="point">Upload</li>
-              <hr />
-              <Link to="/profile">
-                <li onClick={handleCount} className="point">
-                  Profile
-                </li>
-              </Link>
-
-              <hr />
-              <li className="point" onClick={logOut}>
-                Log Out
-              </li>
-            </ul>
-          ) : null}
+          </div>
         </div>
-      ) : (
+      ) : null}
+      {auth.role === "creator" ? (
         <div className="nav">
+          <Link to="/">
+            {" "}
+            <div className="logo-main">
+              <SiBlockchaindotcom />
+              <h3>IndieCrypt</h3>
+            </div>
+          </Link>
+
+          <input type="search" name="" id="" placeholder="Search" />
+          <div className="search-logo">
+            <BsSearch className="search-img" />
+          </div>
+
+          <div>
+            <div className="buttonns">
+              <button className="btn-nav" onClick={() => setClick(!click)}>
+                Sign In
+              </button>
+              {click ? (
+                <ul className="sign-in">
+                  <li
+                    className="sign-in-user"
+                    onClick={() => setSignIn(!signIn)}
+                  >
+                    Users
+                  </li>
+                  <li
+                    className="sign-in-creators"
+                    onClick={() => setSignInCreator(!signInCreator)}
+                  >
+                    Creators
+                  </li>
+                </ul>
+              ) : null}
+              <button className="btn-nav" onClick={() => setClick2(!click2)}>
+                Sign Up
+              </button>
+              {click2 ? (
+                <ul className="sign-up">
+                  <li
+                    className="sign-up-user"
+                    onClick={() => setSignUp(!signUp)}
+                  >
+                    {" "}
+                    Users
+                  </li>
+                  <li
+                    className="sign-up-creators"
+                    onClick={() => setSignUpCreator(!signUpCreator)}
+                  >
+                    Creators
+                  </li>
+                </ul>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {auth.role === "user" ? (
+        <div className="nav">
+          <div className="logo-main">
+            <SiBlockchaindotcom className="logo-icon" />
+            <h3 className="analytic">IndieCrypt</h3>
+          </div>
           <input type="search" name="" id="" placeholder="Search" />
           <div className="search-logo">
             <BsSearch className="search-img" />
@@ -224,7 +274,9 @@ const Navbar = ({ count, setCount }) => {
             width={45}
             alt=""
           /> */}
-          <button onClick={(e) => handleClick(e)}>Connect Web3</button>
+          <button className="btn-nav" onClick={(e) => handleClick(e)}>
+            Connect Web3
+          </button>
           {profile && localStorage.getItem("user-details") ? (
             <ul className="avatar-container">
               <Link to="/profile" className="class">
@@ -243,7 +295,7 @@ const Navbar = ({ count, setCount }) => {
           ) : null}
           <span onClick={() => setProfile(!profile)} className="avatar"></span>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

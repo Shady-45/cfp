@@ -1,57 +1,123 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import "../Cascading-Style-Sheets/Hero.css";
-/* import MusicNote from "../assets/music-icon.png"; */
+
 import script1 from "../assets/script-base.jpg";
-/* import script2 from "../assets/script2.jpg";
-import script3 from "../assets/script3.jpg"; */
+
 import "../Cascading-Style-Sheets/Movie.css";
 import movie1 from "../assets/movie1.mp4";
 import movieAvatar1 from "../assets/movie1.png";
-/* import movie2 from "../assets/movie2.mp4";
-import movieAvatar2 from "../assets/movie2.jpg";
-import movie3 from "../assets/movie3.mp4";
-import movieAvatar3 from "../assets/movie3.jpg"; */
+
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import AuthContext from "../../src/context/AuthProvider";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
-import { FaPause, FaPlay } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import axios from "../api/axios";
+import axios from "axios";
 
 const Hero = () => {
   const { auth, setAuth } = useContext(AuthContext);
-  const [like, setLike] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(" ");
+  const [likes, setLikes] = useState([]);
   const [getMusic, setgetMusic] = useState([]);
   const [getScript, setgetScript] = useState([]);
   const [getNft, setgetNft] = useState([]);
-
+  const [isMusicLike, setIsMusicLike] = useState(0);
   const GET_MUSIC_URL = "music/all";
   const GET_NFT_URL = "nft/all";
   const GET_SCRIPT_URL = "script/all";
+  const [showMessage, setShowMessage] = useState(false);
 
   /* const GET_NFT_URL = "nft/all"; */
-
+  const token = localStorage.getItem("user-details");
+  const getObj = {};
+  if (token) {
+    getObj["headers"] = {
+      Authorization: token,
+    };
+  }
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/music/all")
-      .then((res) => setgetMusic(res.data));
+      .get("http://144.126.252.25:8080/music/all", getObj)
+      .then((res) => setgetMusic(res.data))
+      .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/script/all")
+      .get("http://144.126.252.25:8080/script/all", getObj)
       .then((res) => setgetScript(res.data));
   }, []);
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/nft/all")
+      .get("http://144.126.252.25:8080/nft/all", getObj)
       .then((res) => setgetNft(res.data));
   }, []);
   const musicData = getMusic.slice(0, 3);
+
   const scriptData = getScript.slice(0, 3);
   const nftData = getNft.slice(0, 3);
+
+  const handleLike = (id) => {
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=music`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/music/all", getObj)
+          .then((res) => setgetMusic(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+
+  const handleScriptLike = (id) => {
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=script`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/script/all", getObj)
+          .then((res) => setgetScript(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+
+  const handleNftLike = (id) => {
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=nft`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/nft/all", getObj)
+          .then((res) => setgetNft(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+
+  const handleMusicChange = () => {
+    /*      */
+  };
   /*   const selectAudio = (index) => {
     setAudioFileIndex(getMusic[index]);
   };
@@ -63,6 +129,15 @@ const Hero = () => {
       axios.post(DELETE_NFT);
     }); */
   };
+  /* likes and dislikes */
+  /* const handleLike = (id) => {
+    setLike(!like);
+    /* axios
+      .post(`http://144.126.252.25:8080/${id}?type=music`)
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log(error)); 
+    console.log(id);
+  }; */
 
   return (
     <>
@@ -78,6 +153,7 @@ const Hero = () => {
                 you can truly own. Digital items have existed for a long time,
                 but never like this. eg: movies,musics,scripts etc..
               </p>
+
               <a href="#music">
                 {" "}
                 <button className="hero-btn">Get Started</button>
@@ -115,25 +191,20 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img
-                          className="avatar author-img"
-                          src={item.image}
-                          alt={item.name}
-                        />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
-                  <div
-                    className="hearts-contain"
-                    onClick={() => setLike(!like)}
-                  >
-                    {like ? (
-                      <AiFillHeart className="heart-btns-red" />
-                    ) : (
-                      <AiOutlineHeart className="heart-btns" />
-                    )}
+
+                  <div className="hearts-contain">
+                    <button onClick={() => handleLike(item.id)}>
+                      {item.isLiked ? (
+                        <AiFillHeart className="heart-btns-red" />
+                      ) : (
+                        <AiOutlineHeart className="heart-btns" />
+                      )}
+                    </button>
                     <button className="btn-script-music-buy  hero-btn">
                       Buy
                     </button>
@@ -165,7 +236,6 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img className="avatar author-img" src={script1} />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
@@ -187,6 +257,15 @@ const Hero = () => {
                         View
                       </button>
                     </a>
+                  </div>
+                  <div className="hearts-contain">
+                    <button onClick={() => handleScriptLike(item.id)}>
+                      {item.isLiked ? (
+                        <AiFillHeart className="heart-btns-red" />
+                      ) : (
+                        <AiOutlineHeart className="heart-btns" />
+                      )}
+                    </button>
                   </div>
                 </div>
               ))}
@@ -216,14 +295,22 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img className="avatar author-img" src={movieAvatar1} />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
                   <div className="btnss">
-                    <button className="btn-movie  hero-btn">Contribute</button>
+                    <div className="hearts-contain">
+                      <button onClick={() => handleNftLike(item.id)}>
+                        {item.isLiked ? (
+                          <AiFillHeart className="heart-btns-red" />
+                        ) : (
+                          <AiOutlineHeart className="heart-btns" />
+                        )}
+                      </button>
+                    </div>
+                    <button className="btn-movie  hero-btn">Buy</button>
                   </div>
                 </div>
               ))}
@@ -280,11 +367,6 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img
-                          className="avatar author-img"
-                          src={item.image}
-                          alt={item.name}
-                        />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
@@ -321,7 +403,6 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img className="avatar author-img" src={script1} />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
@@ -344,6 +425,13 @@ const Hero = () => {
                       </button>
                     </a>
                   </div>
+                  <button onClick={() => handleLike(item.id)}>
+                    {item.isLiked ? (
+                      <AiFillHeart className="heart-btns-red" />
+                    ) : (
+                      <AiOutlineHeart className="heart-btns" />
+                    )}
+                  </button>
                 </div>
               ))}
             </div>
@@ -372,14 +460,22 @@ const Hero = () => {
                     </div>
                     <div className="secondrow">
                       <p className="author">
-                        <img className="avatar author-img" src={movieAvatar1} />
                         <p className="author-name">{item.user.name}</p>
                       </p>
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
                   <div className="btnss">
-                    <button className="btn-movie  hero-btn">Contribute</button>
+                    <div className="hearts-contain">
+                      <button onClick={() => handleLike(item.id)}>
+                        {item.isLiked ? (
+                          <AiFillHeart className="heart-btns-red" />
+                        ) : (
+                          <AiOutlineHeart className="heart-btns" />
+                        )}
+                      </button>
+                    </div>
+                    <button className="btn-movie  hero-btn">Buy</button>
                   </div>
                 </div>
               ))}

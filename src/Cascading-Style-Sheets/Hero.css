@@ -1,6 +1,7 @@
 .section-hero {
   color: var(--color-heading);
   display: flex;
+  
   margin-top: 4rem;
   justify-content: space-between;
 }
@@ -94,3 +95,9 @@
   width: 30rem;
   height: 30rem;
 }
+/* @media only screen and (min-width: 600px) {
+  section{
+    display: flex;
+   
+  }
+} */

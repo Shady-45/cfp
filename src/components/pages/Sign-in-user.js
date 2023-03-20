@@ -29,39 +29,37 @@ const SignInuser = () => {
   };
   const SubmitUserData = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://144.126.252.25:8080/auth/signIn",
-        JSON.stringify({
-          name: userData.name,
-          email: userData.email,
-          password: userData.password,
-          role: "user",
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+    fetch("http://144.126.252.25:8080/auth/signin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         }
-      );
+        throw new Error("Invalid credentials");
+      })
+      .then((data) => {
+        // Save the token to local storage or session storage
+        localStorage.setItem("user-details", data.token);
+        console.log("Sign-in successful");
+        console.log(data.token);
+      })
+      .catch((error) => {
+        console.error("Sign-in failed", error);
+      });
+    const result_token = localStorage.getItem("user-details");
 
-      const result_token = JSON.stringify(response?.data?.token?.split(" ")[1]);
+    const token_response = jwt_decode(result_token);
+    /* localStorage.setItem("user-details", token_response.email); */
+    /* const tokenC = jwt_decode(result.token); */
+    const { role, email } = token_response;
+    alert(`Welcome ${email.split("@")[0]}`);
 
-      const token_response = jwt_decode(result_token);
-      localStorage.setItem("user-details", token_response);
-      /* const tokenC = jwt_decode(result.token); */
-      const { role, email } = token_response;
-      alert(`Welcome ${email.split("@")[0]}`);
+    setAuth({ role, email, result_token: result_token });
 
-      setAuth({ role, email, result_token });
-      console.log(auth.role);
-      console.log(auth.email);
-      console.log(result_token);
-
-      /* console.log(response.accessToken); */
-    } catch (err) {
-      console.log(err);
-      alert(err);
-    }
+    console.log(auth.result_token);
     setUserData({
       name: "",
       email: "",
