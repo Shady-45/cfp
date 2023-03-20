@@ -154,7 +154,7 @@ const Navbar = ({ count, setCount }) => {
         </div>
       ) : null}
       {auth.role === "creator" ? (
-        <div className="nav">
+        <div className="nav-main">
           <Link to="/">
             {" "}
             <div className="logo-main">
@@ -163,12 +163,28 @@ const Navbar = ({ count, setCount }) => {
             </div>
           </Link>
 
-          <input type="search" name="" id="" placeholder="Search" />
-          <div className="search-logo">
+          <input type="search-main" name="" id="" placeholder="Search" />
+          <div className="search-logo-main">
             <BsSearch className="search-img" />
           </div>
+          {profile && localStorage.getItem("user-details") ? (
+            <ul className="avatar-container">
+              <Link to="/profile" className="class">
+                <li onClick={handleCount} className="point">
+                  Profile
+                </li>
+              </Link>
+              <hr />
+              <li className="point">Favourites</li>
+              <hr />
 
-          <div>
+              <li className="point" onClick={logOut}>
+                Log Out
+              </li>
+            </ul>
+          ) : null}
+          <span onClick={() => setProfile(!profile)} className="avatar"></span>
+          {/* <div>
             <div className="buttonns">
               <button className="btn-nav" onClick={() => setClick(!click)}>
                 Sign In
@@ -210,16 +226,16 @@ const Navbar = ({ count, setCount }) => {
                 </ul>
               ) : null}
             </div>
-          </div>
+          </div> */}
         </div>
       ) : null}
       {auth.role === "user" ? (
-        <div className="nav">
+        <div className="nav-main">
           <div className="logo-main">
             <SiBlockchaindotcom className="logo-icon" />
             <h3 className="analytic">IndieCrypt</h3>
           </div>
-          <input type="search" name="" id="" placeholder="Search" />
+          <input type="search-main" name="" id="" placeholder="Search" />
           <div className="search-logo">
             <BsSearch className="search-img" />
           </div>
