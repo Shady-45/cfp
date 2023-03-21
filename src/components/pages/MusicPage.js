@@ -5,14 +5,13 @@ import axios from "../../api/axios";
 import "../../Cascading-Style-Sheets/musicPage.css";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+import baseURL from "../../api/axios";
 
 const MusicPage = () => {
   const [musicData, setgetMusicData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://144.126.252.25:8080/music/all")
-      .then((res) => setgetMusicData(res.data));
+    axios.get(`${baseURL}/music/all`).then((res) => setgetMusicData(res.data));
   }, []);
   return (
     <>
@@ -22,13 +21,13 @@ const MusicPage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`http://144.126.252.25:8080/uploads/${item.image}`}
+              src={`${baseURL}/uploads/${item.image}`}
               alt=""
             />
 
             <AudioPlayer
               className="audio"
-              src={`http://144.126.252.25:8080/uploads/${item.audio}`}
+              src={`${baseURL}/uploads/${item.audio}`}
               volume={0.5}
             />
             <div className="text-details">

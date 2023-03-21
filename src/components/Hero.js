@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import "../Cascading-Style-Sheets/Hero.css";
 
 import script1 from "../assets/script-base.jpg";
+import baseURL from "../api/axios";
 
 import "../Cascading-Style-Sheets/Movie.css";
 import movie1 from "../assets/movie1.mp4";
@@ -39,19 +40,17 @@ const Hero = () => {
   }
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/music/all", getObj)
+      .get(`${baseURL}/music/all`, getObj)
       .then((res) => setgetMusic(res.data))
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/script/all", getObj)
+      .get(`${baseURL}/script/all`, getObj)
       .then((res) => setgetScript(res.data));
   }, []);
   useEffect(() => {
-    axios
-      .get("http://144.126.252.25:8080/nft/all", getObj)
-      .then((res) => setgetNft(res.data));
+    axios.get(`${baseURL}/nft/all`, getObj).then((res) => setgetNft(res.data));
   }, []);
   const musicData = getMusic.slice(0, 3);
 
@@ -59,7 +58,7 @@ const Hero = () => {
   const nftData = getNft.slice(0, 3);
 
   const handleLike = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=music`, {
+    fetch(`${baseURL}/favorites/${id}?type=music`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +68,7 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/music/all", getObj)
+          .get(`${baseURL}/music/all`, getObj)
           .then((res) => setgetMusic(res.data))
           .catch((err) => console.log(err));
       })
@@ -78,7 +77,7 @@ const Hero = () => {
   };
 
   const handleScriptLike = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=script`, {
+    fetch(`${baseURL}/favorites/${id}?type=script`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +87,7 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/script/all", getObj)
+          .get(`${baseURL}/script/all`, getObj)
           .then((res) => setgetScript(res.data))
           .catch((err) => console.log(err));
       })
@@ -97,7 +96,7 @@ const Hero = () => {
   };
 
   const handleNftLike = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=nft`, {
+    fetch(`${baseURL}/favorites/${id}?type=nft`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +106,7 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/nft/all", getObj)
+          .get(`${baseURL}/nft/all`, getObj)
           .then((res) => setgetNft(res.data))
           .catch((err) => console.log(err));
       })
@@ -133,7 +132,7 @@ const Hero = () => {
   /* const handleLike = (id) => {
     setLike(!like);
     /* axios
-      .post(`http://144.126.252.25:8080/${id}?type=music`)
+      .post(`${baseURL}/${id}?type=music`)
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error)); 
     console.log(id);
@@ -175,13 +174,13 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                     alt=""
                   />
 
                   <AudioPlayer
                     className="audio"
-                    src={`http://144.126.252.25:8080/uploads/${item.audio}`}
+                    src={`${baseURL}/uploads/${item.audio}`}
                     volume={0.5}
                   />
                   <div className="text-details">
@@ -226,7 +225,7 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                     alt=""
                   />
                   <div className="text-details">
@@ -251,7 +250,7 @@ const Hero = () => {
                     <button className="btn-script-music-buy  hero-btn">
                       Buy
                     </button>
-                    <a href={`http://144.126.252.25:8080/uploads/${item.text}`}>
+                    <a href={`${baseURL}/uploads/${item.text}`}>
                       {" "}
                       <button className="btn-script-music-buy  hero-btn">
                         View
@@ -285,7 +284,7 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                   ></img>
                   <img src="" alt="" />
                   <div className="text-details">
@@ -350,13 +349,13 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                     alt=""
                   />
 
                   <AudioPlayer
                     className="audio"
-                    src={`http://144.126.252.25:8080/uploads/${item.audio}`}
+                    src={`${baseURL}/uploads/${item.audio}`}
                     volume={0.5}
                   />
                   <div className="text-details">
@@ -393,7 +392,7 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                     alt=""
                   />
                   <div className="text-details">
@@ -418,7 +417,7 @@ const Hero = () => {
                     <button className="btn-script-music-buy  hero-btn">
                       Buy
                     </button>
-                    <a href={`http://144.126.252.25:8080/uploads/${item.text}`}>
+                    <a href={`${baseURL}/uploads/${item.text}`}>
                       {" "}
                       <button className="btn-script-music-buy  hero-btn">
                         View
@@ -450,7 +449,7 @@ const Hero = () => {
                 <div key={index} className="card card-1">
                   <img
                     className="card-img"
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                   ></img>
                   <img src="" alt="" />
                   <div className="text-details">

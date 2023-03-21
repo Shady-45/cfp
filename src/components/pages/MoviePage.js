@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import movie1 from "../../assets/movie1.mp4";
 import movieAvatar1 from "../../assets/avatar.webp";
+import baseURL from "../../api/axios";
 
 const MoviePage = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://144.126.252.25:8080/nft/all")
-      .then((res) => setData(res.data));
+    axios.get(`${baseURL}/nft/all`).then((res) => setData(res.data));
   });
 
   return (
@@ -20,7 +19,7 @@ const MoviePage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`http://144.126.252.25:8080/uploads/${item.image}`}
+              src={`${baseURL}/uploads/${item.image}`}
             ></img>
             <div className="text-details">
               <div className="firstrow">

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
+import baseURL from "../../../api/axios";
 
 const MusicForm = () => {
   const [image, setImage] = useState("");
@@ -23,7 +24,7 @@ const MusicForm = () => {
     formData.append("price", price);
     console.log(formData);
     axios
-      .post("http://144.126.252.25:8080/music/create", formData, {
+      .post(`${baseURL}/music/create`, formData, {
         headers: {
           Authorization: item,
         },

@@ -5,6 +5,7 @@ import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../api/axios";
 import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
+import baseURL from "../../api/axios";
 
 const SignInuser = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const SignInuser = () => {
   };
   const SubmitUserData = async (e) => {
     e.preventDefault();
-    fetch("http://144.126.252.25:8080/auth/signin", {
+    fetch(`${baseURL}/auth/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),

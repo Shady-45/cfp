@@ -4,6 +4,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Profile.css";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
+import baseURL from "../../api/axios";
 
 const Profile = ({ count }) => {
   const token = localStorage.getItem("user-details");
@@ -53,38 +54,38 @@ const Profile = ({ count }) => {
 
   const deleteScript = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/script/delete/${id}`, config)
+      .delete(`${baseURL}/script/delete/${id}`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   const deleteMusic = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/music/delete/${id}`, config)
+      .delete(`${baseURL}/music/delete/${id}`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   console.log(updateMusicId);
   const handleRemoveMusic = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=music`, config)
+      .delete(`${baseURL}/favorites/${id}?type=music`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   const handleRemoveScript = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=script`, config)
+      .delete(`${baseURL}/favorites/${id}?type=script`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   const handleRemoveNft = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=nft`, config)
+      .delete(`${baseURL}/favorites/${id}?type=nft`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   const UpdateMusic = (e) => {
     e.preventDefault();
-    let MUSIC_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateMusicId}`;
+    let MUSIC_UPDATE_URL = `${baseURL}/music/update/${updateMusicId}`;
     const UpdateFormData = new FormData();
     image && UpdateFormData.append("image", image);
     audio && UpdateFormData.append("audio", audio);
@@ -108,7 +109,7 @@ const Profile = ({ count }) => {
   };
   const UpdateScript = (e) => {
     e.preventDefault();
-    let SCRIPT_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateNftId}`;
+    let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateNftId}`;
     const UpdateFormData = new FormData();
     UpdateFormData.append("image", image);
 
@@ -131,7 +132,7 @@ const Profile = ({ count }) => {
   };
   const UpdateNft = (e) => {
     e.preventDefault();
-    let SCRIPT_UPDATE_URL = `http://144.126.252.25:8080/music/update/${updateScriptId}`;
+    let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateScriptId}`;
     const UpdateFormData = new FormData();
     UpdateFormData.append("image", image);
 
@@ -155,13 +156,13 @@ const Profile = ({ count }) => {
 
   const deleteNft = (id) => {
     axios
-      .delete(`http://144.126.252.25:8080/nft/delete/${id}`, config)
+      .delete(`${baseURL}/nft/delete/${id}`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/home/uploads/me", config)
+      .get("${baseURL}/home/uploads/me", config)
       .then((res) => {
         console.log(res.data);
         setUserScriptData(res.data.script);
@@ -172,7 +173,7 @@ const Profile = ({ count }) => {
   }, []);
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/favorites/me", config)
+      .get("${baseURL}/favorites/me", config)
       .then((res) => {
         console.log(res.data);
         setFavourites(res.data.music);
@@ -218,7 +219,7 @@ const Profile = ({ count }) => {
                   <div key={index} className="card card-1">
                     <img
                       className="card-img"
-                      src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      src={`${baseURL}/uploads/${item.image}`}
                       alt={item.name}
                     />
                     <div className="text-details">
@@ -231,7 +232,7 @@ const Profile = ({ count }) => {
                           <img
                             className="avatar author-img"
                             alt={item.name}
-                            src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                            src={`${baseURL}/uploads/${item.image}`}
                           />
                           <p className="author-name">{item.name}</p>
                         </p>
@@ -258,7 +259,7 @@ const Profile = ({ count }) => {
                   <div key={index} className="card card-1">
                     <img
                       className="card-img"
-                      src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      src={`${baseURL}/uploads/${item.image}`}
                       alt={item.name}
                     />
                     <div className="text-details">
@@ -271,7 +272,7 @@ const Profile = ({ count }) => {
                           {/*   <img
                             className="avatar author-img"
                             alt={item.name}
-                            src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                            src={`${baseURL}/uploads/${item.image}`}
                           /> */}
                           <p className="author-name">{item.name}</p>
                         </p>
@@ -299,7 +300,7 @@ const Profile = ({ count }) => {
                   <div key={index} className="card card-1">
                     <img
                       className="card-img"
-                      src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                      src={`${baseURL}/uploads/${item.image}`}
                       alt={item.name}
                     />
                     <div className="text-details">
@@ -312,7 +313,7 @@ const Profile = ({ count }) => {
                           {/*   <img
                             className="avatar author-img"
                             alt={item.name}
-                            src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                            src={`${baseURL}/uploads/${item.image}`}
                           /> */}
                           <p className="author-name">{item.name}</p>
                         </p>
@@ -521,7 +522,7 @@ const Profile = ({ count }) => {
               <div key={index} className="card card-1">
                 <img
                   className="card-img"
-                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  src={`${baseURL}/uploads/${item.image}`}
                   alt={item.name}
                 />
                 <div className="text-details">
@@ -534,7 +535,7 @@ const Profile = ({ count }) => {
                       {/*  <img
                         className="avatar author-img"
                         alt={item.name}
-                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                        src={`${baseURL}/uploads/${item.image}`}
                       /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
@@ -555,7 +556,7 @@ const Profile = ({ count }) => {
               <div key={index} className="card card-1">
                 <img
                   className="card-img"
-                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  src={`${baseURL}/uploads/${item.image}`}
                   alt={item.name}
                 />
                 <div className="text-details">
@@ -568,7 +569,7 @@ const Profile = ({ count }) => {
                       {/*   <img
                         className="avatar author-img"
                         alt={item.name}
-                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                        src={`${baseURL}/uploads/${item.image}`}
                       /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
@@ -589,7 +590,7 @@ const Profile = ({ count }) => {
               <div key={index} className="card card-1">
                 <img
                   className="card-img"
-                  src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                  src={`${baseURL}/uploads/${item.image}`}
                   alt={item.name}
                 />
                 <div className="text-details">
@@ -602,7 +603,7 @@ const Profile = ({ count }) => {
                       {/*  <img
                         className="avatar author-img"
                         alt={item.name}
-                        src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                        src={`${baseURL}/uploads/${item.image}`}
                       /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
