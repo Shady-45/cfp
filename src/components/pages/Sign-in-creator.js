@@ -4,6 +4,7 @@ import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../api/axios";
 import jwt_decode from "jwt-decode";
 import AuthContext from "../../context/AuthProvider";
+import baseURL from "../../api/axios";
 
 const SignInCreator = () => {
   const SIGNIN_URL = "auth/signIn";
@@ -22,7 +23,7 @@ const SignInCreator = () => {
   };
   const submitUserForm = async (e) => {
     e.preventDefault();
-    fetch("http://144.126.252.25:8080/auth/signin", {
+    fetch(`${baseURL}/auth/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(creatorData),

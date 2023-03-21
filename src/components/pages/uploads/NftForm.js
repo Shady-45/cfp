@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
+import baseURL from "../../../api/axios";
 
 const NftForm = () => {
   const [image, setImage] = useState("");
@@ -22,7 +23,7 @@ const NftForm = () => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post("http://144.126.252.25:8080/nft/create", formData, {
+      .post(`${baseURL}/nft/create`, formData, {
         headers: {
           Authorization: item,
         },
