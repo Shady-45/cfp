@@ -268,11 +268,11 @@ const Profile = ({ count }) => {
                       </div>
                       <div className="secondrow">
                         <p className="author">
-                          <img
+                          {/*   <img
                             className="avatar author-img"
                             alt={item.name}
                             src={`http://144.126.252.25:8080/uploads/${item.image}`}
-                          />
+                          /> */}
                           <p className="author-name">{item.name}</p>
                         </p>
                         <p className="price">{item.price}</p>
@@ -309,11 +309,11 @@ const Profile = ({ count }) => {
                       </div>
                       <div className="secondrow">
                         <p className="author">
-                          <img
+                          {/*   <img
                             className="avatar author-img"
                             alt={item.name}
                             src={`http://144.126.252.25:8080/uploads/${item.image}`}
-                          />
+                          /> */}
                           <p className="author-name">{item.name}</p>
                         </p>
                         <p className="price">{item.price}</p>
@@ -531,11 +531,11 @@ const Profile = ({ count }) => {
                   </div>
                   <div className="secondrow">
                     <p className="author">
-                      <img
+                      {/*  <img
                         className="avatar author-img"
                         alt={item.name}
                         src={`http://144.126.252.25:8080/uploads/${item.image}`}
-                      />
+                      /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
                     <p className="price">{item.price}</p>
@@ -565,11 +565,11 @@ const Profile = ({ count }) => {
                   </div>
                   <div className="secondrow">
                     <p className="author">
-                      <img
+                      {/*   <img
                         className="avatar author-img"
                         alt={item.name}
                         src={`http://144.126.252.25:8080/uploads/${item.image}`}
-                      />
+                      /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
                     <p className="price">{item.price}</p>
@@ -599,11 +599,11 @@ const Profile = ({ count }) => {
                   </div>
                   <div className="secondrow">
                     <p className="author">
-                      <img
+                      {/*  <img
                         className="avatar author-img"
                         alt={item.name}
                         src={`http://144.126.252.25:8080/uploads/${item.image}`}
-                      />
+                      /> */}
                       <p className="author-name">{item.name}</p>
                     </p>
                     <p className="price">{item.price}</p>

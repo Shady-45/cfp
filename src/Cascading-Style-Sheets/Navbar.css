@@ -17,21 +17,32 @@
 .search-logo-main{
   display: flex;
   align-items: center;
+  gap: 61px;
 }
 .search-logo-main > input{
-  height: 1.5rem;
-  width: 100%;  
+  height: 1.5rem; width: 100%; border: 2px solid white;
+  font-family: "Poppins", sans-serif;
+}
+.profile-icon{
+  color: whitesmoke;
+  font-size: 30px;
+  cursor: pointer;
 }
 .search-inpt::placeholder{
   font-family: "Poppins", sans-serif;
   
 }
 .search-img-main{
+  font-size: 20px;
   color: black;
-  border: 2px solid;
+  margin-left: -4rem;
   background: white;
-  padding: 10px;
-  border-radius: 11px;
+  border: 2px solid white;
+  border-radius: -2px;
+  border-radius: -32px;
+  height: 23px;
+  width: 47px;
+  border-radius: 2px solid;
 }
 
 .nav {
@@ -67,6 +78,7 @@
   padding-left: 1.5rem;
   background-color: #333333;
   border: none;
+  font-family: "Poppins", sans-serif;
   color: var(--color-heading);
 }
 
@@ -106,31 +118,31 @@
   font-weight: bold;
   font-family: "Poppins", sans-serif;
 }
-
-.avatar {
-  display: block;
-  height: 2.5rem;
-  position: fixed;
-  margin-left: 89rem;
-  width: 2.5rem;
-  background-image: url("../assets/avatar.webp");
-  background-size: cover;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.avatar-container{
-  color: whitesmoke;
-  border: 2px solid #1a1aff;
-  width: 10%;
-  text-align: center;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.avatar-container-new-user{
   position: absolute;
-  left: 90%;
-  top: 73px;
+  /* margin-left: 89rem; */
+  width: -0.5rem;
+  /* border-radius: 50%; */
+  cursor: pointer;
+  right: 19.8%;
+  top: 1.7%;
+  border: 2px solid white;
+  padding: 0.3% 0.7%;
+  border-radius: 12px;
 }
+.avatar-container-new {
+  position: absolute;
+  /* margin-left: 89rem; */
+  width: -0.5rem;
+  /* border-radius: 50%; */
+  cursor: pointer;
+  right: 16.5%;
+  top: 2%;
+  border: 2px solid white;
+  padding: 0.3% 0.7%;
+  border-radius: 12px;
+}
+
 .upload{
   background: black;
   border: 1px solid white;
