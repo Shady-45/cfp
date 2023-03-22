@@ -27,10 +27,12 @@ const SignInCreator = () => {
       const response = await axios.post(SIGNIN_URL, creatorData);
       console.log(response.data); // handle response data
       setCreatorToken(response.data.token);
+      console.log(creatorToken);
     } catch (error) {
       console.error(error);
     }
     localStorage.setItem("user-details", creatorToken);
+    console.log(creatorToken, "$$$$$");
     const token_response = jwt_decode(creatorToken);
     /* localStorage.setItem("user-details", token_response.email); */
     /* const tokenC = jwt_decode(result.token); */

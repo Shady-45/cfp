@@ -18,13 +18,7 @@ import Web3 from "web3";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
 
-const Navbar = ({ count, setCount, userToken, setUserToken }) => {
-  useEffect(() => {
-    let storedToken = localStorage.getItem("user-details");
-    if (storedToken) {
-      setUserToken(storedToken);
-    }
-  });
+const Navbar = ({ count, setCount }) => {
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -78,9 +72,7 @@ const Navbar = ({ count, setCount, userToken, setUserToken }) => {
         </div>
       ) : null} */}
 
-      {signIn ? (
-        <SignInuser userToken={userToken} setUserToken={setUserToken} />
-      ) : null}
+      {signIn ? <SignInuser /> : null}
       {signInCreator ? <SignInCreator /> : null}
       {signUp ? <SignUpuser /> : null}
       {signUpCreator ? <SignUpCreator /> : null}

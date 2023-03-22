@@ -7,16 +7,10 @@ import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
 import baseURL from "../../api/axios";
 
-const SignInuser = ({ userToken, setUserToken }) => {
-  useEffect(() => {
-    let storedToken = localStorage.getItem("user-details");
-    if (storedToken) {
-      setUserToken(storedToken);
-    }
-  });
+const SignInuser = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const SIGNIN_URL = "auth/signIn";
-
+  const [userToken, setUserToken] = useState(" ");
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -41,7 +35,7 @@ const SignInuser = ({ userToken, setUserToken }) => {
       console.log(response.data); // handle response data
       setUserToken(response.data.token);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     localStorage.setItem("user-details", userToken);
     const token_response = jwt_decode(userToken);

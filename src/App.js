@@ -14,7 +14,7 @@ import axios from "./api/axios";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [userToken, setUserToken] = useState(null);
+
   const [getCreatorMusicData, setgetCreatorMusicData] = useState([]);
   const [getCreatorScriptData, setgetCreatorScriptData] = useState([]);
   const [getCreatorNftData, setgetCreatorNftData] = useState([]);
@@ -39,19 +39,11 @@ function App() {
 
   return (
     <>
-      <Navbar
-        userToken={userToken}
-        setUserToken={setUserToken}
-        count={count}
-        setCount={setCount}
-      />
+      <Navbar count={count} setCount={setCount} />
       {/* 
       <Footer/> */}
       <Routes>
-        <Route
-          path="/"
-          element={<Hero userToken={userToken} setUserToken={setUserToken} />}
-        />
+        <Route path="/" element={<Hero />} />
         <Route path="/music" element={<MusicPage />} />
         <Route path="/script" element={<ScriptPage />} />
         <Route path="/nfts" element={<MoviePage />} />
