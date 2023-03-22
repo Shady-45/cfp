@@ -75,6 +75,44 @@ const Hero = () => {
 
       .catch((err) => console.log(err, "🔥🔥"));
   };
+  const handleLikeScript = (item) => {
+    fetch(`${baseURL}/favorites/${item.id}?type=script`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get(`${baseURL}/music/all`, getObj)
+          .then((res) => setgetScript(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+  const handleLikeNft = (item) => {
+    const liked = item.count + 1;
+    console.log(liked);
+    fetch(`${baseURL}/favorites/${item.id}?type=nft`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get(`${baseURL}/nft/all`, getObj)
+          .then((res) => setgetNft(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
   const handleDisLike = (item) => {
     fetch(`https://www.fundingportal.site/favorites/${item.id}?type=music`, {
       method: "DELETE",
@@ -88,6 +126,42 @@ const Hero = () => {
         axios
           .get(`${baseURL}/music/all`, getObj)
           .then((res) => setgetMusic(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+  const handleDisLikeScript = (item) => {
+    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=script`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get(`${baseURL}/script/all`, getObj)
+          .then((res) => setgetScript(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+  const handleDisLikeNft = (item) => {
+    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=nft`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get(`${baseURL}/nft/all`, getObj)
+          .then((res) => setgetNft(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -215,14 +289,17 @@ const Hero = () => {
                   </div>
 
                   <div className="hearts-contain">
-                    <button onClick={() => handleLike(item)}>
+                    <button>
                       {item.isLiked ? (
                         <AiFillHeart
                           onClick={() => handleDisLike(item)}
                           className="heart-btns-red"
                         />
                       ) : (
-                        <AiOutlineHeart className="heart-btns" />
+                        <AiOutlineHeart
+                          onClick={() => handleLike(item)}
+                          className="heart-btns"
+                        />
                       )}
                     </button>
                     <button className="btn-script-music-buy  hero-btn">
@@ -279,11 +356,17 @@ const Hero = () => {
                     </a>
                   </div>
                   <div className="hearts-contain">
-                    <button onClick={() => handleScriptLike(item.id)}>
+                    <button>
                       {item.isLiked ? (
-                        <AiFillHeart className="heart-btns-red" />
+                        <AiFillHeart
+                          onClick={() => handleDisLikeScript(item)}
+                          className="heart-btns-red"
+                        />
                       ) : (
-                        <AiOutlineHeart className="heart-btns" />
+                        <AiOutlineHeart
+                          onClick={() => handleLikeScript(item)}
+                          className="heart-btns"
+                        />
                       )}
                     </button>
                   </div>
@@ -322,11 +405,17 @@ const Hero = () => {
                   </div>
                   <div className="btnss">
                     <div className="hearts-contain">
-                      <button onClick={() => handleNftLike(item.id)}>
+                      <button>
                         {item.isLiked ? (
-                          <AiFillHeart className="heart-btns-red" />
+                          <AiFillHeart
+                            onClick={() => handleDisLikeNft(item)}
+                            className="heart-btns-red"
+                          />
                         ) : (
-                          <AiOutlineHeart className="heart-btns" />
+                          <AiOutlineHeart
+                            onClick={() => handleLikeNft(item)}
+                            className="heart-btns"
+                          />
                         )}
                       </button>
                     </div>
