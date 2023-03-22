@@ -120,7 +120,10 @@ const Navbar = ({ count, setCount }) => {
                 <ul className="sign-in">
                   <li
                     className="sign-in-user"
-                    onClick={() => setSignIn(!signIn)}
+                    onClick={() => {
+                      setSignIn(!signIn);
+                      setClick(!click);
+                    }}
                   >
                     Users
                   </li>

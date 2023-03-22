@@ -58,9 +58,29 @@ const Hero = () => {
   const scriptData = getScript.slice(0, 3);
   const nftData = getNft.slice(0, 3);
 
-  const handleLike = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=music`, {
+  const handleLike = (item) => {
+    const liked = item.count + 1;
+    console.log(liked);
+    fetch(`http://144.126.252.25:8080/favorites/${item.id}?type=music`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/music/all", getObj)
+          .then((res) => setgetMusic(res.data))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
+  };
+  const handleDisLike = (item) => {
+    fetch(`http://144.126.252.25:8080/favorites/${item.id}?type=music`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -198,9 +218,12 @@ const Hero = () => {
                   </div>
 
                   <div className="hearts-contain">
-                    <button onClick={() => handleLike(item.id)}>
+                    <button onClick={() => handleLike(item)}>
                       {item.isLiked ? (
-                        <AiFillHeart className="heart-btns-red" />
+                        <AiFillHeart
+                          onClick={() => handleDisLike(item)}
+                          className="heart-btns-red"
+                        />
                       ) : (
                         <AiOutlineHeart className="heart-btns" />
                       )}

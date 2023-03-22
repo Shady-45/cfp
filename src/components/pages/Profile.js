@@ -42,6 +42,12 @@ const Profile = ({ count }) => {
     setUpdateScriptId(item.id);
     setUpdateS(!updateS);
   };
+  const getObj = {};
+  if (token) {
+    getObj["headers"] = {
+      Authorization: token,
+    };
+  }
   const handleUpdateNft = (item) => {
     setUpdateNftId(item.id);
     setUpdateS(!updateS);
@@ -65,22 +71,59 @@ const Profile = ({ count }) => {
   };
   console.log(updateMusicId);
   const handleRemoveMusic = (id) => {
-    axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=music`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=music`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .then((res) => setFavourites(res.data.music))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
   };
+
   const handleRemoveScript = (id) => {
-    axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=script`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=script`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .then((res) => setFavouritesScript(res.data.script))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
   };
   const handleRemoveNft = (id) => {
-    axios
-      .delete(`http://144.126.252.25:8080/favorites/${id}?type=nft`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
+    fetch(`http://144.126.252.25:8080/favorites/${id}?type=nft`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .then((res) => setFavouritesNft(res.data.nft))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
   };
   const UpdateMusic = (e) => {
     e.preventDefault();
