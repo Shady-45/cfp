@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import script1 from "../../assets/script1.jpg";
 import axios from "../../api/axios";
 import "../../Cascading-Style-Sheets/Hero.css";
-import baseURL from "../../api/axios";
 
 const ScriptPage = () => {
   const SCRIPT_URL = "script/all";
+  const baseURL = "https://www.fundingportal.site";
   const [getScript, setGetScript] = useState([]);
   useEffect(() => {
-    axios
-      .get(`${baseURL}/script/all`)
-      .then((res) => setGetScript(res.data) && console.log(res.data));
+    axios.get(SCRIPT_URL).then((res) => setGetScript(res.data));
   }, []);
   return (
     <>

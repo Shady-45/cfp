@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
@@ -7,7 +7,13 @@ import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
 import baseURL from "../../api/axios";
 
-const SignInuser = () => {
+const SignInuser = ({ userToken, setUserToken }) => {
+  useEffect(() => {
+    let storedToken = localStorage.getItem("user-details");
+    if (storedToken) {
+      setUserToken(storedToken);
+    }
+  });
   const { auth, setAuth } = useContext(AuthContext);
   const SIGNIN_URL = "auth/signIn";
 
@@ -30,37 +36,22 @@ const SignInuser = () => {
   };
   const SubmitUserData = async (e) => {
     e.preventDefault();
-    fetch(`${baseURL}/auth/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Invalid credentials");
-      })
-      .then((data) => {
-        // Save the token to local storage or session storage
-        localStorage.setItem("user-details", data.token);
-        console.log("Sign-in successful");
-        console.log(data.token);
-      })
-      .catch((error) => {
-        console.error("Sign-in failed", error);
-      });
-    const result_token = localStorage.getItem("user-details");
-
-    const token_response = jwt_decode(result_token);
+    try {
+      const response = await axios.post(SIGNIN_URL, userData);
+      console.log(response.data); // handle response data
+      setUserToken(response.data.token);
+    } catch (error) {
+      console.error(error);
+    }
+    localStorage.setItem("user-details", userToken);
+    const token_response = jwt_decode(userToken);
     /* localStorage.setItem("user-details", token_response.email); */
     /* const tokenC = jwt_decode(result.token); */
     const { role, email } = token_response;
     alert(`Welcome ${email.split("@")[0]}`);
 
-    setAuth({ role, email, result_token: result_token });
+    setAuth({ role, email, userToken: userToken });
 
-    console.log(auth.result_token);
     setUserData({
       name: "",
       email: "",

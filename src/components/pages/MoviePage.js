@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import movie1 from "../../assets/movie1.mp4";
 import movieAvatar1 from "../../assets/avatar.webp";
-import baseURL from "../../api/axios";
 
 const MoviePage = () => {
+  const baseURL = "https://www.fundingportal.site";
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get(`${baseURL}/nft/all`).then((res) => setData(res.data));
+    axios.get(`nft/all`).then((res) => setData(res.data));
   });
 
   return (

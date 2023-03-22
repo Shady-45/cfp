@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import "../Cascading-Style-Sheets/Hero.css";
 
 import script1 from "../assets/script-base.jpg";
-import baseURL from "../api/axios";
 
 import "../Cascading-Style-Sheets/Movie.css";
 import movie1 from "../assets/movie1.mp4";
@@ -15,7 +14,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 
 const Hero = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -29,6 +28,7 @@ const Hero = () => {
   const GET_NFT_URL = "nft/all";
   const GET_SCRIPT_URL = "script/all";
   const [showMessage, setShowMessage] = useState(false);
+  const baseURL = "https://www.fundingportal.site";
 
   /* const GET_NFT_URL = "nft/all"; */
   const token = localStorage.getItem("user-details");
@@ -40,17 +40,15 @@ const Hero = () => {
   }
   useEffect(() => {
     axios
-      .get(`${baseURL}/music/all`, getObj)
+      .get(GET_MUSIC_URL, getObj)
       .then((res) => setgetMusic(res.data))
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
-    axios
-      .get(`${baseURL}/script/all`, getObj)
-      .then((res) => setgetScript(res.data));
+    axios.get(GET_SCRIPT_URL, getObj).then((res) => setgetScript(res.data));
   }, []);
   useEffect(() => {
-    axios.get(`${baseURL}/nft/all`, getObj).then((res) => setgetNft(res.data));
+    axios.get(GET_NFT_URL, getObj).then((res) => setgetNft(res.data));
   }, []);
   const musicData = getMusic.slice(0, 3);
 
@@ -78,7 +76,7 @@ const Hero = () => {
       .catch((err) => console.log(err, "🔥🔥"));
   };
   const handleDisLike = (item) => {
-    fetch(`http://144.126.252.25:8080/favorites/${item.id}?type=music`, {
+    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=music`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -95,27 +93,9 @@ const Hero = () => {
 
       .catch((err) => console.log(err, "🔥🔥"));
   };
-  const handleDisLike = (item) => {
-    fetch(`http://144.126.252.25:8080/favorites/${item.id}?type=music`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        axios
-          .get("http://144.126.252.25:8080/music/all", getObj)
-          .then((res) => setgetMusic(res.data))
-          .catch((err) => console.log(err));
-      })
-
-      .catch((err) => console.log(err, "🔥🔥"));
-  };
 
   const handleScriptLike = (id) => {
-    fetch(`${baseURL}/favorites/${id}?type=script`, {
+    fetch(`https://www.fundingportal.site/favorites/${id}?type=script`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,7 +114,7 @@ const Hero = () => {
   };
 
   const handleNftLike = (id) => {
-    fetch(`${baseURL}/favorites/${id}?type=nft`, {
+    fetch(`https://www.fundingportal.site/favorites/${id}?type=nft`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

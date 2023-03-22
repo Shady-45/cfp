@@ -9,9 +9,10 @@ import baseURL from "../../api/axios";
 
 const MusicPage = () => {
   const [musicData, setgetMusicData] = useState([]);
+  const baseURL = "https://www.fundingportal.site";
 
   useEffect(() => {
-    axios.get(`${baseURL}/music/all`).then((res) => setgetMusicData(res.data));
+    axios.get(`/music/all`).then((res) => setgetMusicData(res.data));
   }, []);
   return (
     <>

@@ -4,13 +4,13 @@ import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../api/axios";
 import jwt_decode from "jwt-decode";
 import AuthContext from "../../context/AuthProvider";
-import baseURL from "../../api/axios";
 
 const SignInCreator = () => {
   const SIGNIN_URL = "auth/signIn";
+
   const { auth, setAuth } = useContext(AuthContext);
   const [response, setResponse] = useState({});
-
+  const [creatorToken, setCreatorToken] = useState("");
   const [creatorData, setCreatorData] = useState({
     name: "",
     email: "",
@@ -23,34 +23,21 @@ const SignInCreator = () => {
   };
   const submitUserForm = async (e) => {
     e.preventDefault();
-    fetch(`${baseURL}/auth/signin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(creatorData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Invalid credentials");
-      })
-      .then((data) => {
-        // Save the token to local storage or session storage
-        localStorage.setItem("user-details", data.token);
-        console.log("Sign-in successful");
-      })
-      .catch((error) => {
-        console.error("Sign-in failed", error);
-      });
-    const result_token = localStorage.getItem("user-details");
-
-    const token_response = jwt_decode(result_token);
+    try {
+      const response = await axios.post(SIGNIN_URL, creatorData);
+      console.log(response.data); // handle response data
+      setCreatorToken(response.data.token);
+    } catch (error) {
+      console.error(error);
+    }
+    localStorage.setItem("user-details", creatorToken);
+    const token_response = jwt_decode(creatorToken);
     /* localStorage.setItem("user-details", token_response.email); */
     /* const tokenC = jwt_decode(result.token); */
     const { role, email } = token_response;
     alert(`Welcome ${email.split("@")[0]}`);
 
-    setAuth({ role, email, result_token: result_token });
+    setAuth({ role, email, creatorToken: creatorToken });
 
     setCreatorData({
       name: "",
@@ -58,6 +45,7 @@ const SignInCreator = () => {
       password: "",
     });
   };
+
   const submitForm = (e) => {
     const postCreatorData = { ...creatorData };
     postCreatorData[e.target.name] = e.target.value;

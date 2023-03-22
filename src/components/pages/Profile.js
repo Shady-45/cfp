@@ -30,7 +30,7 @@ const Profile = ({ count }) => {
   const [updateM, setUpdateM] = useState(false);
   const [updateS, setUpdateS] = useState(false);
   const [updateN, setUpdateN] = useState(false);
-
+  const baseURL = "https://www.fundingportal.site";
   const config = {
     headers: { Authorization: token },
   };
@@ -72,7 +72,7 @@ const Profile = ({ count }) => {
   };
   console.log(updateMusicId);
   const handleRemoveMusic = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=music`, {
+    fetch(`https://www.fundingportal.site/favorites/${id}?type=music`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Profile = ({ count }) => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .get("/favorites/me", getObj)
           .then((res) => setFavourites(res.data.music))
           .catch((err) => console.log(err));
       })
@@ -91,7 +91,7 @@ const Profile = ({ count }) => {
   };
 
   const handleRemoveScript = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=script`, {
+    fetch(`https://www.fundingportal.site/favorites/${id}?type=script`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const Profile = ({ count }) => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .get("/favorites/me", getObj)
           .then((res) => setFavouritesScript(res.data.script))
           .catch((err) => console.log(err));
       })
@@ -109,7 +109,7 @@ const Profile = ({ count }) => {
       .catch((err) => console.log(err, "🔥🔥"));
   };
   const handleRemoveNft = (id) => {
-    fetch(`http://144.126.252.25:8080/favorites/${id}?type=nft`, {
+    fetch(`https://www.fundingportal.site/favorites/${id}?type=nft`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const Profile = ({ count }) => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("http://144.126.252.25:8080/favorites/me", getObj)
+          .get("/favorites/me", getObj)
           .then((res) => setFavouritesNft(res.data.nft))
           .catch((err) => console.log(err));
       })
@@ -199,13 +199,13 @@ const Profile = ({ count }) => {
 
   const deleteNft = (id) => {
     axios
-      .delete(`${baseURL}/nft/delete/${id}`, config)
+      .delete(`/nft/delete/${id}`, config)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.data));
   };
   useEffect(() => {
     axios
-      .get("${baseURL}/home/uploads/me", config)
+      .get(`/home/uploads/me`, config)
       .then((res) => {
         console.log(res.data);
         setUserScriptData(res.data.script);
@@ -216,7 +216,7 @@ const Profile = ({ count }) => {
   }, []);
   useEffect(() => {
     axios
-      .get("${baseURL}/favorites/me", config)
+      .get(`/favorites/me`, config)
       .then((res) => {
         console.log(res.data);
         setFavourites(res.data.music);

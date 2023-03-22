@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "../Cascading-Style-Sheets/Navbar.css";
 import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,14 @@ import MusicForm from "./pages/uploads/MusicForm";
 import Web3 from "web3";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
-const Navbar = ({ count, setCount }) => {
+
+const Navbar = ({ count, setCount, userToken, setUserToken }) => {
+  useEffect(() => {
+    let storedToken = localStorage.getItem("user-details");
+    if (storedToken) {
+      setUserToken(storedToken);
+    }
+  });
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -51,11 +58,10 @@ const Navbar = ({ count, setCount }) => {
 
   let user = localStorage.getItem("user-details");
   console.log(user);
-  const navigate = useNavigate();
+
   const logOut = () => {
     localStorage.removeItem("user-details");
     window.location.reload();
-    navigate("/");
   };
   const close = () => {
     closeref.current.style.display = "none";
@@ -72,7 +78,9 @@ const Navbar = ({ count, setCount }) => {
         </div>
       ) : null} */}
 
-      {signIn ? <SignInuser /> : null}
+      {signIn ? (
+        <SignInuser userToken={userToken} setUserToken={setUserToken} />
+      ) : null}
       {signInCreator ? <SignInCreator /> : null}
       {signUp ? <SignUpuser /> : null}
       {signUpCreator ? <SignUpCreator /> : null}
@@ -265,10 +273,11 @@ const Navbar = ({ count, setCount }) => {
               <hr />
               <li className="point">Favourites</li>
               <hr />
-
-              <li className="point" onClick={logOut}>
-                Log Out
-              </li>
+              <Link to="/">
+                <li className="point" onClick={logOut}>
+                  Log Out
+                </li>
+              </Link>
             </ul>
           ) : null}
 
