@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "axios";
+import baseURL from "../../api/axios";
 const SignUpCreator = () => {
   const SIGNUP_URL = "auth/signUp";
 
@@ -15,7 +16,7 @@ const SignUpCreator = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://144.126.252.25:8080/auth/signUp",
+        `${baseURL}/auth/signUp`,
         JSON.stringify({
           name: creatorData.name,
           email: creatorData.email,

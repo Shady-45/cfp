@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import script1 from "../../assets/script1.jpg";
 import axios from "../../api/axios";
 import "../../Cascading-Style-Sheets/Hero.css";
+import baseURL from "../../api/axios";
 
 const ScriptPage = () => {
   const SCRIPT_URL = "script/all";
   const [getScript, setGetScript] = useState([]);
   useEffect(() => {
     axios
-      .get("http://144.126.252.25:8080/script/all")
+      .get(`${baseURL}/script/all`)
       .then((res) => setGetScript(res.data) && console.log(res.data));
   }, []);
   return (
@@ -20,7 +21,7 @@ const ScriptPage = () => {
           <div key={index} className="card card-1">
             <img
               className="card-img"
-              src={`http://144.126.252.25:8080/uploads/${item.image}`}
+              src={`${baseURL}/uploads/${item.image}`}
               alt={item.name}
             />
             <div className="text-details">
@@ -33,7 +34,7 @@ const ScriptPage = () => {
                   <img
                     className="avatar author-img"
                     alt={item.name}
-                    src={`http://144.126.252.25:8080/uploads/${item.image}`}
+                    src={`${baseURL}/uploads/${item.image}`}
                   />
                   <p className="author-name">{item.name}</p>
                 </p>
