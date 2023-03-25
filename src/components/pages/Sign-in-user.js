@@ -7,15 +7,13 @@ import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
 import baseURL from "../../api/axios";
 
-const SignInuser = () => {
+const SignInuser = ({ click, setClick }) => {
   const { auth, setAuth } = useContext(AuthContext);
   const SIGNIN_URL = "auth/signIn";
   const [userToken, setUserToken] = useState(" ");
   const [userData, setUserData] = useState({
-    name: "",
     email: "",
     password: "",
-    role: "user",
   });
   const submitData = (e) => {
     const postUserData = { ...userData };
@@ -26,7 +24,7 @@ const SignInuser = () => {
 
   const clickRef = useRef(null);
   const toggle = () => {
-    clickRef.current.style.display = "none";
+    setClick(!click);
   };
   const SubmitUserData = async (e) => {
     e.preventDefault();
@@ -47,7 +45,6 @@ const SignInuser = () => {
     setAuth({ role, email, userToken: userToken });
 
     setUserData({
-      name: "",
       email: "",
       password: "",
     });
@@ -60,15 +57,7 @@ const SignInuser = () => {
         className="sign-in-form"
       >
         <AiOutlineCloseCircle onClick={toggle} className="close" />
-        <input
-          className="inpt"
-          type="text"
-          name="name"
-          value={userData.name}
-          placeholder="Name"
-          onChange={(e) => submitData(e)}
-          id=""
-        />
+
         <input
           type="email"
           name="email"

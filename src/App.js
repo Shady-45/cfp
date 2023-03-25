@@ -14,6 +14,8 @@ import axios from "./api/axios";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [signUp, setSignUp] = useState(true);
+  const [click, setClick] = useState(false);
 
   const [getCreatorMusicData, setgetCreatorMusicData] = useState([]);
   const [getCreatorScriptData, setgetCreatorScriptData] = useState([]);
@@ -39,7 +41,14 @@ function App() {
 
   return (
     <>
-      <Navbar count={count} setCount={setCount} />
+      <Navbar
+        signUp={signUp}
+        setSignUp={setSignUp}
+        count={count}
+        setCount={setCount}
+        click={click}
+        setClick={setClick}
+      />
       {/* 
       <Footer/> */}
       <Routes>

@@ -304,6 +304,48 @@ padding: 7rem;
     cursor: pointer;
     
 }
+.role-selection{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+select{
+  background: rgba(255, 255, 255, 0.38);
+   background-color: #64666c;
+   color: whitesmoke;
+  border: 2px solid whitesmoke;
+    font-family: 'Poppins';
+    padding: 4px;
+
+}
+option{
+  background: rgba(255, 255, 255, 0.38);
+}
+.drop-menu-open{
+  display: inline;
+  display: inline;
+  margin-top: -2rem;
+  border: 2px solid white;
+  padding: 4px 56px;
+  border-radius: 10px;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease-in;
+}
+.drop-menu-open > li{
+  cursor: pointer;
+}
+.drop-menu-close{
+  display:none;
+}
+.dropdown-menu{
+  display: flex;
+  
+  gap: 3rem;
+}
+.dropdown-icon{
+  font-size: 23px;
+}
 .buttonns{
   display: flex;
   gap: 2rem;

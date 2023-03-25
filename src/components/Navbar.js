@@ -18,7 +18,7 @@ import Web3 from "web3";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
 
-const Navbar = ({ count, setCount }) => {
+const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -38,11 +38,11 @@ const Navbar = ({ count, setCount }) => {
   const closeref = useRef(null);
   const [openWallet, setOpenWWallet] = useState(false);
   const { auth } = useContext(AuthContext);
-  const [click, setClick] = useState(false);
+
   const [upload, setUpload] = useState(false);
   const [click2, setClick2] = useState(false);
   const [signIn, setSignIn] = useState(false);
-  const [signUp, setSignUp] = useState(false);
+
   const [signInCreator, setSignInCreator] = useState(false);
   const [signUpCreator, setSignUpCreator] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -60,6 +60,7 @@ const Navbar = ({ count, setCount }) => {
   const close = () => {
     closeref.current.style.display = "none";
   };
+
   return (
     <>
       {/*      {openWallet ? (
@@ -72,9 +73,9 @@ const Navbar = ({ count, setCount }) => {
         </div>
       ) : null} */}
 
-      {signIn ? <SignInuser /> : null}
+      {signIn ? <SignUpuser /> : null}
       {signInCreator ? <SignInCreator /> : null}
-      {signUp ? <SignUpuser /> : null}
+      {signUp ? <SignUpuser signUp={signUp} setSignUp={setSignUp} /> : null}
       {signUpCreator ? <SignUpCreator /> : null}
       {movieForm ? <Movieform /> : null}
       {nftForm ? <NftForm /> : null}
@@ -117,7 +118,7 @@ const Navbar = ({ count, setCount }) => {
                 Sign In
               </button>
               {click ? (
-                <ul className="sign-in">
+                /*  <ul className="sign-in">
                   <li
                     className="sign-in-user"
                     onClick={() => {
@@ -133,28 +134,12 @@ const Navbar = ({ count, setCount }) => {
                   >
                     Creators
                   </li>
-                </ul>
+                </ul> */
+                <SignInuser click={click} setClick={setClick} />
               ) : null}
-              <button className="btn-nav" onClick={() => setClick2(!click2)}>
+              <button className="btn-nav" onClick={() => setSignUp(!signUp)}>
                 Sign Up
               </button>
-              {click2 ? (
-                <ul className="sign-up">
-                  <li
-                    className="sign-up-user"
-                    onClick={() => setSignUp(!signUp)}
-                  >
-                    {" "}
-                    Users
-                  </li>
-                  <li
-                    className="sign-up-creators"
-                    onClick={() => setSignUpCreator(!signUpCreator)}
-                  >
-                    Creators
-                  </li>
-                </ul>
-              ) : null}
             </div>
           </div>
         </div>
