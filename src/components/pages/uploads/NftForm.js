@@ -4,7 +4,7 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
 import baseURL from "../../../api/axios";
 
-const NftForm = () => {
+const NftForm = ({ nftForm, setNftForm }) => {
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -13,7 +13,7 @@ const NftForm = () => {
   const NFT_UPLOAD_URL = "nft/create";
   const clickRef = useRef(null);
   const toggle = () => {
-    clickRef.current.style.display = "none";
+    setNftForm(!nftForm);
   };
   const submitScriptform = async (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const NftForm = () => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post(`${baseURL}/nft/create`, formData, {
+      .post(`${baseURL}/${NFT_UPLOAD_URL}`, formData, {
         headers: {
           Authorization: item,
         },

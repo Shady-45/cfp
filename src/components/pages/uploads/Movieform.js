@@ -5,7 +5,7 @@ import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
 import baseURL from "../../../api/axios";
 
-const Movieform = () => {
+const Movieform = ({ movieForm, setMovieForm }) => {
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -13,7 +13,7 @@ const Movieform = () => {
   const MOVIE_UPLOAD_URL = "script/create";
   const clickRef = useRef(null);
   const toggle = () => {
-    clickRef.current.style.display = "none";
+    setMovieForm(!movieForm);
   };
   const item = localStorage.getItem("user-details");
 

@@ -12,13 +12,28 @@ import SignUpCreator from "./pages/Sign-up-creator";
 import AuthContext from "../context/AuthProvider";
 import Movieform from "./pages/uploads/Movieform";
 import NftForm from "./pages/uploads/NftForm";
-
+import jwt_decode from "jwt-decode";
 import MusicForm from "./pages/uploads/MusicForm";
 import Web3 from "web3";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
 
-const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
+const Navbar = ({
+  count,
+  setCount,
+  signUp,
+  setSignUp,
+  click,
+  setClick,
+  movieForm,
+  setMovieForm,
+  musicForm,
+  setMusicForm,
+  nftForm,
+  setNftForm,
+}) => {
+  const { auth, setAuth } = useContext(AuthContext);
+  console.log(auth);
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -37,7 +52,6 @@ const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
   };
   const closeref = useRef(null);
   const [openWallet, setOpenWWallet] = useState(false);
-  const { auth } = useContext(AuthContext);
 
   const [upload, setUpload] = useState(false);
   const [click2, setClick2] = useState(false);
@@ -46,9 +60,6 @@ const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
   const [signInCreator, setSignInCreator] = useState(false);
   const [signUpCreator, setSignUpCreator] = useState(false);
   const [profile, setProfile] = useState(false);
-  const [movieForm, setMovieForm] = useState(false);
-  const [nftForm, setNftForm] = useState(false);
-  const [musicForm, setMusicForm] = useState(false);
 
   let user = localStorage.getItem("user-details");
   console.log(user);
@@ -77,17 +88,42 @@ const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
       {signInCreator ? <SignInCreator /> : null}
       {signUp ? <SignUpuser signUp={signUp} setSignUp={setSignUp} /> : null}
       {signUpCreator ? <SignUpCreator /> : null}
-      {movieForm ? <Movieform /> : null}
-      {nftForm ? <NftForm /> : null}
-      {musicForm ? <MusicForm /> : null}
+      {movieForm ? (
+        <Movieform movieForm={movieForm} setMovieForm={setMovieForm} />
+      ) : null}
+      {nftForm ? <NftForm nftForm={nftForm} setNftForm={setNftForm} /> : null}
+      {musicForm ? (
+        <MusicForm musicForm={musicForm} setMusicForm={setMusicForm} />
+      ) : null}
       {upload ? (
         <div>
           <ul className="upload-container">
-            <li onClick={() => setMusicForm(!musicForm)}>Music</li>
+            <li
+              onClick={() => {
+                setMusicForm(!musicForm);
+                setUpload(!upload);
+              }}
+            >
+              Music
+            </li>
             <hr />
-            <li onClick={() => setMovieForm(!movieForm)}>Script</li>
+            <li
+              onClick={() => {
+                setMovieForm(!movieForm);
+                setUpload(!upload);
+              }}
+            >
+              Script
+            </li>
             <hr />
-            <li onClick={() => setNftForm(!nftForm)}>NFTs</li>
+            <li
+              onClick={() => {
+                setNftForm(!nftForm);
+                setUpload(!upload);
+              }}
+            >
+              NFTs
+            </li>
           </ul>
         </div>
       ) : null}
@@ -147,23 +183,28 @@ const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
       {auth.role === "creator" ? (
         <div className="nav-main">
           {" "}
-          <div className="logo-main-new">
-            <SiBlockchaindotcom />
-            <h3>IndieCrypt</h3>
-          </div>
+          <Link to="/">
+            <div className="logo-main-new">
+              <SiBlockchaindotcom />
+              <h3>IndieCrypt</h3>
+            </div>
+          </Link>
           <div className="search-logo-main">
             <input type="search-main" name="" id="" placeholder="Search" />
             <BsSearch className="search-img-main" />
           </div>
+          <button onClick={() => setUpload(!upload)} className="btn-nav">
+            Upload
+          </button>
           {profile && localStorage.getItem("user-details") ? (
             <ul className="avatar-container-new">
-              <Link to="/profile" className="class">
+              <Link to="/favourites" className="class">
                 <li onClick={handleCount} className="point">
-                  Profile
+                  Favourites
                 </li>
               </Link>
               <hr />
-              <li className="point">Favourites</li>
+
               <hr />
 
               <li className="point" onClick={logOut}>
@@ -242,14 +283,13 @@ const Navbar = ({ count, setCount, signUp, setSignUp, click, setClick }) => {
           />
           {profile ? (
             <ul className="avatar-container-new-user">
-              <Link to="/profile" className="class">
+              <Link to="/favourites" className="class">
                 <li onClick={handleCount} className="point">
-                  Profile
+                  Favourites
                 </li>
               </Link>
               <hr />
-              <li className="point">Favourites</li>
-              <hr />
+
               <Link to="/">
                 <li className="point" onClick={logOut}>
                   Log Out

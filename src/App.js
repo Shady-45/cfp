@@ -6,17 +6,20 @@ import MoviePage from "../src/components/pages/MoviePage";
 
 import { Routes, Route } from "react-router-dom";
 import ScriptPage from "./components/pages/ScriptPage";
-import Profile from "./components/pages/Profile";
+
 import { useState, useEffect } from "react";
 import axios from "./api/axios";
+import Favourites from "./components/pages/Favourites";
 
 /* import Footer from "./components/Footer"; */
 
 function App() {
   const [count, setCount] = useState(0);
-  const [signUp, setSignUp] = useState(true);
+  const [signUp, setSignUp] = useState(false);
   const [click, setClick] = useState(false);
-
+  const [movieForm, setMovieForm] = useState(false);
+  const [nftForm, setNftForm] = useState(false);
+  const [musicForm, setMusicForm] = useState(false);
   const [getCreatorMusicData, setgetCreatorMusicData] = useState([]);
   const [getCreatorScriptData, setgetCreatorScriptData] = useState([]);
   const [getCreatorNftData, setgetCreatorNftData] = useState([]);
@@ -48,6 +51,12 @@ function App() {
         setCount={setCount}
         click={click}
         setClick={setClick}
+        movieForm={movieForm}
+        setMovieForm={setMovieForm}
+        musicForm={musicForm}
+        setMusicForm={setMusicForm}
+        nftForm={nftForm}
+        setNftForm={setNftForm}
       />
       {/* 
       <Footer/> */}
@@ -58,9 +67,9 @@ function App() {
         <Route path="/nfts" element={<MoviePage />} />
 
         <Route
-          path="/profile"
+          path="/favourites"
           element={
-            <Profile
+            <Favourites
               handleUpdateMusicData={(id) => handleUpdateMusicData(id)}
               count={count}
             />

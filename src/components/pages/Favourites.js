@@ -5,8 +5,9 @@ import "../../Cascading-Style-Sheets/Profile.css";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 import baseURL from "../../api/axios";
+import jwt_decode from "jwt-decode";
 
-const Profile = ({ count }) => {
+const Favourites = ({ count }) => {
   const token = localStorage.getItem("user-details");
   const [image, setImage] = useState("");
   const [audio, setAudio] = useState("");
@@ -154,10 +155,10 @@ const Profile = ({ count }) => {
     e.preventDefault();
     let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateNftId}`;
     const UpdateFormData = new FormData();
-    UpdateFormData.append("image", image);
+    image && UpdateFormData.append("image", image);
 
-    UpdateFormData.append("name", name);
-    UpdateFormData.append("price", price);
+    name && UpdateFormData.append("name", name);
+    price && UpdateFormData.append("price", price);
     axios
       .put(SCRIPT_UPDATE_URL, UpdateFormData, {
         headers: {
@@ -177,10 +178,10 @@ const Profile = ({ count }) => {
     e.preventDefault();
     let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateScriptId}`;
     const UpdateFormData = new FormData();
-    UpdateFormData.append("image", image);
+    image && UpdateFormData.append("image", image);
 
-    UpdateFormData.append("name", name);
-    UpdateFormData.append("price", price);
+    name && UpdateFormData.append("name", name);
+    price && UpdateFormData.append("price", price);
     axios
       .put(SCRIPT_UPDATE_URL, UpdateFormData, {
         headers: {
@@ -237,12 +238,14 @@ const Profile = ({ count }) => {
   const handleDeleteScript = (id) => {
     deleteScript(id);
   };
+  console.log(auth);
+  const details = jwt_decode(auth.userToken);
 
   return (
     <div>
       {auth.role === "creator" ? (
         <div className="main-container">
-          <h1>{`Welcome ${auth.email.split("@")[0].toUpperCase()}!`}</h1>
+          <h1 className="analytic">{`Welcome ${details.name}!`}</h1>
           <div className="analytics">
             <h1 className="analytics">Your Analytics!</h1>
             <h2>{`Total Imperssions: ${count} Views`}</h2>
@@ -545,9 +548,7 @@ const Profile = ({ count }) => {
         </div>
       ) : (
         <div className="main-container">
-          <h1 className="analytic">{`Welcome ${auth.email
-            .split("@")[0]
-            .toUpperCase()}!`}</h1>
+          <h1 className="analytic">{`Welcome ${details.name}!`}</h1>
           <div className="analytics">
             {favourites.length === 0 &&
             favouritesNft.length === 0 &&
@@ -670,4 +671,4 @@ const Profile = ({ count }) => {
   );
 };
 
-export default Profile;
+export default Favourites;

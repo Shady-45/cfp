@@ -4,7 +4,7 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
 import baseURL from "../../../api/axios";
 
-const MusicForm = () => {
+const MusicForm = ({ musicForm, setMusicForm }) => {
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const MusicForm = () => {
   const MUSIC_UPLOAD_URL = "music/create";
   const clickRef = useRef(null);
   const toggle = () => {
-    clickRef.current.style.display = "none";
+    setMusicForm(!musicForm);
   };
   const item = localStorage.getItem("user-details");
   const submitMusicform = async (e) => {
