@@ -33,6 +33,7 @@ const Navbar = ({
   setNftForm,
 }) => {
   const { auth, setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
   console.log(auth);
   const handleCount = () => {
     setCount(count + 1);
@@ -66,7 +67,8 @@ const Navbar = ({
 
   const logOut = () => {
     localStorage.removeItem("user-details");
-    window.location.reload();
+
+    navigate("/");
   };
   const close = () => {
     closeref.current.style.display = "none";
@@ -127,7 +129,7 @@ const Navbar = ({
           </ul>
         </div>
       ) : null}
-      {auth.role !== "creator" && auth.role !== "user" ? (
+      {!localStorage.getItem("user-details") ? (
         <div className="nav-main">
           <Link to="/">
             {" "}
@@ -179,8 +181,7 @@ const Navbar = ({
             </div>
           </div>
         </div>
-      ) : null}
-      {auth.role === "creator" ? (
+      ) : (
         <div className="nav-main">
           {" "}
           <Link to="/">
@@ -204,7 +205,11 @@ const Navbar = ({
                 </li>
               </Link>
               <hr />
-
+              <Link to="/works" className="class">
+                <li onClick={handleCount} className="point">
+                  Works
+                </li>
+              </Link>
               <hr />
 
               <li className="point" onClick={logOut}>
@@ -217,90 +222,50 @@ const Navbar = ({
             onClick={() => setProfile(!profile)}
           />
           {/* <div>
-            <div className="buttonns">
-              <button className="btn-nav" onClick={() => setClick(!click)}>
-                Sign In
-              </button>
-              {click ? (
-                <ul className="sign-in">
-                  <li
-                    className="sign-in-user"
-                    onClick={() => setSignIn(!signIn)}
-                  >
-                    Users
-                  </li>
-                  <li
-                    className="sign-in-creators"
-                    onClick={() => setSignInCreator(!signInCreator)}
-                  >
-                    Creators
-                  </li>
-                </ul>
-              ) : null}
-              <button className="btn-nav" onClick={() => setClick2(!click2)}>
-                Sign Up
-              </button>
-              {click2 ? (
-                <ul className="sign-up">
-                  <li
-                    className="sign-up-user"
-                    onClick={() => setSignUp(!signUp)}
-                  >
-                    {" "}
-                    Users
-                  </li>
-                  <li
-                    className="sign-up-creators"
-                    onClick={() => setSignUpCreator(!signUpCreator)}
-                  >
-                    Creators
-                  </li>
-                </ul>
-              ) : null}
-            </div>
-          </div> */}
-        </div>
-      ) : null}
-      {auth.role === "user" ? (
-        <div className="nav-main">
-          <Link to="/">
-            <div className="logo-main-new">
-              <SiBlockchaindotcom className="logo-icon" />
-              <h3>IndieCrypt</h3>
-            </div>
-          </Link>
-
-          <div className="search-logo-main">
-            <input type="search-main" name="" id="" placeholder="Search" />
-            <BsSearch className="search-img-main" />
-          </div>
-          <button className="btn-nav" onClick={(e) => handleClick(e)}>
-            Connect Web3
+        <div className="buttonns">
+          <button className="btn-nav" onClick={() => setClick(!click)}>
+            Sign In
           </button>
-          <CgProfile
-            className="profile-icon"
-            onClick={() => setProfile(!profile)}
-          />
-          {profile ? (
-            <ul className="avatar-container-new-user">
-              <Link to="/favourites" className="class">
-                <li onClick={handleCount} className="point">
-                  Favourites
-                </li>
-              </Link>
-              <hr />
-
-              <Link to="/">
-                <li className="point" onClick={logOut}>
-                  Log Out
-                </li>
-              </Link>
+          {click ? (
+            <ul className="sign-in">
+              <li
+                className="sign-in-user"
+                onClick={() => setSignIn(!signIn)}
+              >
+                Users
+              </li>
+              <li
+                className="sign-in-creators"
+                onClick={() => setSignInCreator(!signInCreator)}
+              >
+                Creators
+              </li>
             </ul>
           ) : null}
-
-          <span onClick={() => setProfile(!profile)} className="avatar"></span>
+          <button className="btn-nav" onClick={() => setClick2(!click2)}>
+            Sign Up
+          </button>
+          {click2 ? (
+            <ul className="sign-up">
+              <li
+                className="sign-up-user"
+                onClick={() => setSignUp(!signUp)}
+              >
+                {" "}
+                Users
+              </li>
+              <li
+                className="sign-up-creators"
+                onClick={() => setSignUpCreator(!signUpCreator)}
+              >
+                Creators
+              </li>
+            </ul>
+          ) : null}
         </div>
-      ) : null}
+      </div> */}
+        </div>
+      )}
     </>
   );
 };

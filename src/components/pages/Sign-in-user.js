@@ -2,10 +2,10 @@ import React, { useEffect, useContext, useRef } from "react";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
-import axios from "../../api/axios";
+
 import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
-import baseURL from "../../api/axios";
+import axios from "axios";
 
 const SignInuser = ({ click, setClick }) => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -29,7 +29,10 @@ const SignInuser = ({ click, setClick }) => {
   const SubmitUserData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(SIGNIN_URL, userData);
+      const response = await axios.post(
+        `https://www.fundingportal.site/${SIGNIN_URL}`,
+        userData
+      );
       console.log(response.data); // handle response data
       setUserToken(response.data.token);
     } catch (error) {

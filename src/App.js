@@ -10,6 +10,7 @@ import ScriptPage from "./components/pages/ScriptPage";
 import { useState, useEffect } from "react";
 import axios from "./api/axios";
 import Favourites from "./components/pages/Favourites";
+import Works from "./components/pages/Works";
 
 /* import Footer from "./components/Footer"; */
 
@@ -75,6 +76,7 @@ function App() {
             />
           }
         />
+        <Route path="/works" element={<Works />} />
       </Routes>
     </>
   );

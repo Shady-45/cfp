@@ -232,366 +232,199 @@ const Hero = () => {
 
   return (
     <>
-      {auth.role === "user" ? (
-        <main>
-          <section className="section section-hero">
-            <div className="left-text">
-              <h1 className="main-heading">
-                Discover a New Era of Crypto Currency
-              </h1>
-              <p className="sub-text">
-                met nft the primier marketplace for NFT, which are digital items
-                you can truly own. Digital items have existed for a long time,
-                but never like this. eg: movies,musics,scripts etc..
-              </p>
+      <main>
+        <section className="section section-hero">
+          <div className="left-text">
+            <h1 className="main-heading">
+              Discover a New Era of Crypto Currency
+            </h1>
+            <p className="sub-text">
+              met nft the primier marketplace for NFT, which are digital items
+              you can truly own. Digital items have existed for a long time, but
+              never like this. eg: movies,musics,scripts etc..
+            </p>
 
-              <a href="#music">
-                {" "}
-                <button className="hero-btn">Get Started</button>
-              </a>
-            </div>
-            <div className="right-img"></div>
-          </section>
+            <a href="#music">
+              {" "}
+              <button className="hero-btn">Get Started</button>
+            </a>
+          </div>
+          <div className="right-img"></div>
+        </section>
 
-          <section id="music" className="section section-music">
-            <div className="heading-script-music">
-              <h2 className="section-heading">MUSIC</h2>
-              <Link to="/music">
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
+        <section id="music" className="section section-music">
+          <div className="heading-script-music">
+            <h2 className="section-heading">MUSIC</h2>
+            <Link to="/music">
+              <button className="btn-nav btn-script-music">View More</button>
+            </Link>
+          </div>
 
-            <div className="cards">
-              {musicData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                    alt=""
-                  />
+          <div className="cards">
+            {musicData.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`${baseURL}/uploads/${item.image}`}
+                  alt=""
+                />
 
-                  <AudioPlayer
-                    className="audio"
-                    src={`${baseURL}/uploads/${item.audio}`}
-                    volume={0.5}
-                  />
-                  <div className="text-details">
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
+                <AudioPlayer
+                  className="audio"
+                  src={`${baseURL}/uploads/${item.audio}`}
+                  volume={0.5}
+                />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
                   </div>
-
-                  <div className="hearts-contain">
-                    <button>
-                      {item.isLiked ? (
-                        <AiFillHeart
-                          onClick={() => handleDisLike(item)}
-                          className="heart-btns-red"
-                        />
-                      ) : (
-                        <AiOutlineHeart
-                          onClick={() => handleLike(item)}
-                          className="heart-btns"
-                        />
-                      )}
-                    </button>
-                    <button className="btn-script-music-buy  hero-btn">
-                      Buy
-                    </button>
+                  <div className="secondrow">
+                    <p className="author">
+                      <p className="author-name">{item.user.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-          <section className="section section-script">
-            <div className="heading-script-music">
-              <h2 className="section-heading">SCRIPT</h2>
-              <Link to="script">
-                {" "}
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
-            <div className="cards">
-              {scriptData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                    alt=""
-                  />
-                  <div className="text-details">
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
+
+                <div className="hearts-contain">
+                  <button>
+                    {item.isLiked ? (
+                      <AiFillHeart
+                        onClick={() => handleDisLike(item)}
+                        className="heart-btns-red"
+                      />
+                    ) : (
+                      <AiOutlineHeart
+                        onClick={() => handleLike(item)}
+                        className="heart-btns"
+                      />
+                    )}
+                  </button>
+                  <button className="btn-script-music-buy  hero-btn">
+                    Buy
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="section section-script">
+          <div className="heading-script-music">
+            <h2 className="section-heading">SCRIPT</h2>
+            <Link to="script">
+              {" "}
+              <button className="btn-nav btn-script-music">View More</button>
+            </Link>
+          </div>
+          <div className="cards">
+            {scriptData.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`${baseURL}/uploads/${item.image}`}
+                  alt=""
+                />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
                   </div>
-                  <div className="btns-script">
-                    {/*   <AiOutlineHeart
+                  <div className="secondrow">
+                    <p className="author">
+                      <p className="author-name">{item.user.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
+                  </div>
+                </div>
+                <div className="btns-script">
+                  {/*   <AiOutlineHeart
                   className={`${like ? "heart-red" : "heart-white"}`}
                   onClick={() => setLike(!like)}
                 />
 
  */}
+                  <button className="btn-script-music-buy  hero-btn">
+                    Buy
+                  </button>
+                  <a href={`${baseURL}/uploads/${item.text}`}>
+                    {" "}
                     <button className="btn-script-music-buy  hero-btn">
-                      Buy
+                      View
                     </button>
-                    <a href={`${baseURL}/uploads/${item.text}`}>
-                      {" "}
-                      <button className="btn-script-music-buy  hero-btn">
-                        View
-                      </button>
-                    </a>
+                  </a>
+                </div>
+                <div className="hearts-contain">
+                  <button>
+                    {item.isLiked ? (
+                      <AiFillHeart
+                        onClick={() => handleDisLikeScript(item)}
+                        className="heart-btns-red"
+                      />
+                    ) : (
+                      <AiOutlineHeart
+                        onClick={() => handleLikeScript(item)}
+                        className="heart-btns"
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section className="section section-movie">
+          <div className="heading-script-music">
+            <h2 className="section-heading">HOT NFTS</h2>
+            <Link to="nfts">
+              {" "}
+              <button className="btn-nav btn-script-music">View More</button>
+            </Link>
+          </div>
+
+          <div className="cards">
+            {nftData.map((item, index) => (
+              <div key={index} className="card card-1">
+                <img
+                  className="card-img"
+                  src={`${baseURL}/uploads/${item.image}`}
+                ></img>
+                <img src="" alt="" />
+                <div className="text-details">
+                  <div className="firstrow">
+                    <p className="name">{item.name}</p>
+                    <p className="currency">Current eth</p>
                   </div>
+                  <div className="secondrow">
+                    <p className="author">
+                      <p className="author-name">{item.user.name}</p>
+                    </p>
+                    <p className="price">{item.price}</p>
+                  </div>
+                </div>
+                <div className="btnss">
                   <div className="hearts-contain">
                     <button>
                       {item.isLiked ? (
                         <AiFillHeart
-                          onClick={() => handleDisLikeScript(item)}
+                          onClick={() => handleDisLikeNft(item)}
                           className="heart-btns-red"
                         />
                       ) : (
                         <AiOutlineHeart
-                          onClick={() => handleLikeScript(item)}
+                          onClick={() => handleLikeNft(item)}
                           className="heart-btns"
                         />
                       )}
                     </button>
                   </div>
+                  <button className="btn-movie  hero-btn">Buy</button>
                 </div>
-              ))}
-            </div>
-          </section>
-          <section className="section section-movie">
-            <div className="heading-script-music">
-              <h2 className="section-heading">HOT NFTS</h2>
-              <Link to="nfts">
-                {" "}
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
-
-            <div className="cards">
-              {nftData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                  ></img>
-                  <img src="" alt="" />
-                  <div className="text-details">
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
-                  </div>
-                  <div className="btnss">
-                    <div className="hearts-contain">
-                      <button>
-                        {item.isLiked ? (
-                          <AiFillHeart
-                            onClick={() => handleDisLikeNft(item)}
-                            className="heart-btns-red"
-                          />
-                        ) : (
-                          <AiOutlineHeart
-                            onClick={() => handleLikeNft(item)}
-                            className="heart-btns"
-                          />
-                        )}
-                      </button>
-                    </div>
-                    <button className="btn-movie  hero-btn">Buy</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </main>
-      ) : (
-        <main>
-          <section className="section section-hero">
-            <div className="left-text">
-              <h1 className="main-heading">
-                Discover a New Era of Crypto Currency
-              </h1>
-              <p className="sub-text">
-                met nft the primier marketplace for NFT, which are digital items
-                you can truly own. Digital items have existed for a long time,
-                but never like this. eg: movies,musics,scripts etc..
-              </p>
-              <a href="#music">
-                {" "}
-                <button className="hero-btn">Get Started</button>
-              </a>
-            </div>
-            <div className="right-img"></div>
-          </section>
-
-          <section id="music" className="section section-music">
-            <div className="heading-script-music">
-              <h2 className="section-heading">MUSIC</h2>
-              <Link to="/music">
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
-
-            <div className="cards">
-              {musicData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                    alt=""
-                  />
-
-                  <AudioPlayer
-                    className="audio"
-                    src={`${baseURL}/uploads/${item.audio}`}
-                    volume={0.5}
-                  />
-                  <div className="text-details">
-                    {}
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
-                  </div>
-
-                  <button className="btn-script-music-buy  hero-btn">
-                    Buy
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="section section-script">
-            <div className="heading-script-music">
-              <h2 className="section-heading">SCRIPT</h2>
-              <Link to="script">
-                {" "}
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
-            <div className="cards">
-              {scriptData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                    alt=""
-                  />
-                  <div className="text-details">
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
-                  </div>
-                  <div className="btns-script">
-                    {/*   <AiOutlineHeart
-                       className={`${like ? "heart-red" : "heart-white"}`}
-                       onClick={() => setLike(!like)}
-                     />
-     
-      */}
-                    <button className="btn-script-music-buy  hero-btn">
-                      Buy
-                    </button>
-                    <a href={`${baseURL}/uploads/${item.text}`}>
-                      {" "}
-                      <button className="btn-script-music-buy  hero-btn">
-                        View
-                      </button>
-                    </a>
-                  </div>
-                  <button onClick={() => handleLike(item.id)}>
-                    {item.isLiked ? (
-                      <AiFillHeart className="heart-btns-red" />
-                    ) : (
-                      <AiOutlineHeart className="heart-btns" />
-                    )}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="section section-movie">
-            <div className="heading-script-music">
-              <h2 className="section-heading">HOT NFTS</h2>
-              <Link to="nfts">
-                {" "}
-                <button className="btn-nav btn-script-music">View More</button>
-              </Link>
-            </div>
-
-            <div className="cards">
-              {nftData.map((item, index) => (
-                <div key={index} className="card card-1">
-                  <img
-                    className="card-img"
-                    src={`${baseURL}/uploads/${item.image}`}
-                  ></img>
-                  <img src="" alt="" />
-                  <div className="text-details">
-                    <div className="firstrow">
-                      <p className="name">{item.name}</p>
-                      <p className="currency">Current eth</p>
-                    </div>
-                    <div className="secondrow">
-                      <p className="author">
-                        <p className="author-name">{item.user.name}</p>
-                      </p>
-                      <p className="price">{item.price}</p>
-                    </div>
-                  </div>
-                  <div className="btnss">
-                    <div className="hearts-contain">
-                      <button onClick={() => handleLike(item.id)}>
-                        {item.isLiked ? (
-                          <AiFillHeart className="heart-btns-red" />
-                        ) : (
-                          <AiOutlineHeart className="heart-btns" />
-                        )}
-                      </button>
-                    </div>
-                    <button className="btn-movie  hero-btn">Buy</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </main>
-      )}
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
     </>
   );
 };

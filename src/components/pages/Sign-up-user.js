@@ -48,7 +48,7 @@ const SignUpuser = ({ signUp, setSignUp }) => {
           name: userData.name,
           email: userData.email,
           password: userData.password,
-          role: userData.role,
+          role: "creator",
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -70,6 +70,7 @@ const SignUpuser = ({ signUp, setSignUp }) => {
       name: "",
       email: "",
       password: "",
+      role: "creator",
     });
   };
   const submitForm = (e) => {
@@ -125,57 +126,6 @@ const SignUpuser = ({ signUp, setSignUp }) => {
             onChange={(e) => submitForm(e)}
             id=""
           />
-          {/*   <div className="dropdown-menu">
-            <p>Select a Role</p>
-
-            <span>
-              {dropdownMenu ? (
-                <IoIosArrowDropdownCircle
-                  className="dropdown-icon"
-                  onClick={() => setDropdownMenu(!dropdownMenu)}
-                />
-              ) : (
-                <IoIosArrowDropupCircle
-                  className="dropdown-icon"
-                  onClick={() => setDropdownMenu(!dropdownMenu)}
-                />
-              )}
-            </span>
-          </div> */}
-
-          {/*    <ul
-            className={`${dropdownMenu ? "drop-menu-open" : "drop-menu-close"}`}
-          >
-            <li
-              onClick={() => {
-                setRole("creator");
-                setDropdownMenu(!dropdownMenu);
-              }}
-            >
-              Creator
-            </li>
-
-            <li
-              onClick={() => {
-                setRole("user");
-                setDropdownMenu(!dropdownMenu);
-              }}
-            >
-              User
-            </li>
-          </ul> */}
-          <div className="role-selection">
-            <label for="role">Choose a Role:</label>
-            <select
-              id="role"
-              name="role"
-              value={userData.role}
-              onChange={(e) => submitForm(e)}
-            >
-              <option value="creator">Creator</option>
-              <option value="user">User</option>
-            </select>
-          </div>
 
           <button className="btn">Submit</button>
         </form>
