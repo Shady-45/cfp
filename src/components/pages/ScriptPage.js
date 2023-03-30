@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import script1 from "../../assets/script1.jpg";
 import axios from "../../api/axios";
 import "../../Cascading-Style-Sheets/Hero.css";
+import payments from "../payments/payment.service";
 
 const ScriptPage = () => {
   const SCRIPT_URL = "script/all";
@@ -16,7 +17,12 @@ const ScriptPage = () => {
 
       <div className="cards namecards">
         {getScript.map((item, index) => (
-          <div key={index} className="card card-1">
+          <div
+            data-account={item.user.account}
+            data-price={item.price}
+            key={index}
+            className="card card-1"
+          >
             <img
               className="card-img"
               src={`${baseURL}/uploads/${item.image}`}
@@ -34,7 +40,12 @@ const ScriptPage = () => {
                 <p className="price">{item.price}</p>
               </div>
             </div>
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            <button
+              onClick={payments.manageTransactionFlow}
+              className="btn-script-music-buy  hero-btn btn-pay"
+            >
+              Buy
+            </button>
           </div>
         ))}
       </div>
