@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import movie1 from "../../assets/movie1.mp4";
 import movieAvatar1 from "../../assets/avatar.webp";
+import payments from "../payments/payment.service";
 
 const MoviePage = () => {
   const baseURL = "https://www.fundingportal.site";
@@ -16,7 +17,12 @@ const MoviePage = () => {
       <h1 className="title-card">Hot nfts</h1>
       <div className="cards">
         {data.map((item, index) => (
-          <div key={index} className="card card-1">
+          <div
+            data-account={item.user.account}
+            data-price={item.price}
+            key={index}
+            className="card card-1"
+          >
             <img
               className="card-img"
               src={`${baseURL}/uploads/${item.image}`}
@@ -34,7 +40,12 @@ const MoviePage = () => {
                 <p className="price">{item.price}</p>
               </div>
             </div>
-            <button className="btn-movie  hero-btn">Contribute</button>
+            <button
+              onClick={payments.manageTransactionFlow}
+              className="btn-movie  hero-btn btn-pay"
+            >
+              Contribute
+            </button>
           </div>
         ))}
       </div>
