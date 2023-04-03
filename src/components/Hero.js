@@ -15,18 +15,20 @@ import { AiFillHeart } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 import axios from "../api/axios";
+import MusicItem from "./pages/page-items/MusicItem";
+import ScriptItem from "./pages/page-items/ScriptItem";
+import NftItem from "./pages/page-items/NftItem";
 
 const Hero = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const [alertMessage, setAlertMessage] = useState(" ");
   const [likes, setLikes] = useState([]);
-  const [getMusic, setgetMusic] = useState([]);
-  const [getScript, setgetScript] = useState([]);
-  const [getNft, setgetNft] = useState([]);
+  const [musicData, setMusicData] = useState([]);
+  const [scriptData, setScriptData] = useState([]);
+  const [nftData, setNftData] = useState([]);
   const [isMusicLike, setIsMusicLike] = useState(0);
-  const GET_MUSIC_URL = "music/all";
-  const GET_NFT_URL = "nft/all";
-  const GET_SCRIPT_URL = "script/all";
+  const GET_HOME_URL = "home?limit=3";
+
   const [showMessage, setShowMessage] = useState(false);
   const baseURL = "https://www.fundingportal.site";
 
@@ -40,20 +42,14 @@ const Hero = () => {
   }
   useEffect(() => {
     axios
-      .get(GET_MUSIC_URL, getObj)
-      .then((res) => setgetMusic(res.data))
+      .get(GET_HOME_URL, getObj)
+      .then((res) => {
+        setMusicData(res.data.music);
+        setScriptData(res.data.script);
+        setNftData(res.data.nft);
+      })
       .catch((err) => console.log(err));
   }, []);
-  useEffect(() => {
-    axios.get(GET_SCRIPT_URL, getObj).then((res) => setgetScript(res.data));
-  }, []);
-  useEffect(() => {
-    axios.get(GET_NFT_URL, getObj).then((res) => setgetNft(res.data));
-  }, []);
-  const musicData = getMusic.slice(0, 3);
-
-  const scriptData = getScript.slice(0, 3);
-  const nftData = getNft.slice(0, 3);
 
   const handleLike = (item) => {
     const liked = item.count + 1;
@@ -69,7 +65,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setgetMusic(res.data))
+          .then((res) => setMusicData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -87,7 +83,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setgetScript(res.data))
+          .then((res) => setScriptData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -107,7 +103,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setgetNft(res.data))
+          .then((res) => setNftData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -125,7 +121,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setgetMusic(res.data))
+          .then((res) => setMusicData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -143,7 +139,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/script/all`, getObj)
-          .then((res) => setgetScript(res.data))
+          .then((res) => setScriptData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -161,7 +157,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setgetNft(res.data))
+          .then((res) => setNftData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -180,7 +176,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/script/all`, getObj)
-          .then((res) => setgetScript(res.data))
+          .then((res) => setScriptData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -199,7 +195,7 @@ const Hero = () => {
       .then((data) => {
         axios
           .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setgetNft(res.data))
+          .then((res) => setNftData(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -233,6 +229,11 @@ const Hero = () => {
   return (
     <>
       <main>
+        {window.ethereum ? null : (
+          <a className="meta" href="https://metamask.io/download/">
+            <span>Install MetaMask 🦉👀 </span>
+          </a>
+        )}
         <section className="section section-hero">
           <div className="left-text">
             <h1 className="main-heading">
@@ -263,17 +264,26 @@ const Hero = () => {
           <div className="cards">
             {musicData.map((item, index) => (
               <div key={index} className="card card-1">
-                <img
-                  className="card-img"
-                  src={`${baseURL}/uploads/${item.image}`}
-                  alt=""
-                />
+                <Link
+                  to={`/musics/${item.id}`}
+                  element={<MusicItem />}
+                  key={item.id}
+                >
+                  {" "}
+                  <img
+                    className="card-img"
+                    src={`${baseURL}/uploads/${item.image}`}
+                    alt=""
+                  />
+                </Link>
+                <div>
+                  <AudioPlayer
+                    className="music-player"
+                    src={`${baseURL}/uploads/${item.audio}`}
+                    volume={0.5}
+                  />
+                </div>
 
-                <AudioPlayer
-                  className="audio"
-                  src={`${baseURL}/uploads/${item.audio}`}
-                  volume={0.5}
-                />
                 <div className="text-details">
                   <div className="firstrow">
                     <p className="name">{item.name}</p>
@@ -288,7 +298,7 @@ const Hero = () => {
                 </div>
 
                 <div className="hearts-contain">
-                  <button>
+                  <button className="button">
                     {item.isLiked ? (
                       <AiFillHeart
                         onClick={() => handleDisLike(item)}
@@ -318,13 +328,16 @@ const Hero = () => {
             </Link>
           </div>
           <div className="cards">
-            {scriptData.map((item, index) => (
-              <div key={index} className="card card-1">
-                <img
-                  className="card-img"
-                  src={`${baseURL}/uploads/${item.image}`}
-                  alt=""
-                />
+            {scriptData.map((item) => (
+              <div className="card-script " key={item.id}>
+                <Link to={`/scripts/${item.id}`}>
+                  <img
+                    className="card-img"
+                    src={`${baseURL}/uploads/${item.image}`}
+                    alt=""
+                  />
+                </Link>
+
                 <div className="text-details">
                   <div className="firstrow">
                     <p className="name">{item.name}</p>
@@ -384,11 +397,18 @@ const Hero = () => {
 
           <div className="cards">
             {nftData.map((item, index) => (
-              <div key={index} className="card card-1">
-                <img
-                  className="card-img"
-                  src={`${baseURL}/uploads/${item.image}`}
-                ></img>
+              <div key={index} className="card-nft">
+                <Link
+                  to={`/nfts/${item.id}`}
+                  element={<NftItem />}
+                  key={item.id}
+                >
+                  <img
+                    className="card-img"
+                    src={`${baseURL}/uploads/${item.image}`}
+                  ></img>
+                </Link>
+
                 <img src="" alt="" />
                 <div className="text-details">
                   <div className="firstrow">

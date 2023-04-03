@@ -3,44 +3,46 @@ import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { IoIosArrowDropupCircle } from "react-icons/io";
+const SignUpuser = ({
+  signUp,
+  setSignUp,
+  showSucessMessage,
+  setShowSucessMessage,
+  showErrorMessage,
+  setShowErrorMessage,
+  message,
+  setMessage,
+}) => {
+  const navigate = useNavigate();
+  const [userEthAccount, setUserEthAccount] = useState(" ");
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState(false);
 
-const SignUpuser = ({ signUp, setSignUp }) => {
-  const [dropdownMenu, setDropdownMenu] = useState(false);
   const SIGNUP_URL = "auth/signUp";
   const [showForm, setShowForm] = useState(true);
-  const [role, setRole] = useState(" ");
+  const role = "creator";
+
+  window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+    // Return the address of the wallet
+    setUserEthAccount(res[0]);
+  });
 
   const [userData, setUserData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "",
+    role: role,
+    account: userEthAccount,
   });
 
-  console.log(role);
   const toggle = () => {
-    /*   clickRef.current.style.display = "none"; */
     setSignUp(!signUp);
   };
   const submitUserForm = async (e) => {
     e.preventDefault();
-    /*  const rawResponse = await fetch(host, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
 
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: userData.name,
-        email: userData.email,
-        password: userData.password,
-        role: "user",
-      }),
-    }); */
     try {
       const response = await axios.post(
         `https://www.fundingportal.site/auth/signUp`,
@@ -48,7 +50,8 @@ const SignUpuser = ({ signUp, setSignUp }) => {
           name: userData.name,
           email: userData.email,
           password: userData.password,
-          role: "creator",
+          role: role,
+          account: userEthAccount,
         }),
         {
           headers: { "Content-Type": "application/json" },
@@ -56,21 +59,19 @@ const SignUpuser = ({ signUp, setSignUp }) => {
       );
       let messageData = response.data;
       console.log(messageData);
-      alert(messageData.message);
-
-      /*  {
-        messageData ? alert(messageData.message) : alert("pls check");
-      } */
-
-      /* console.log(response.accessToken); */
+      setShowSucessMessage(!showSucessMessage);
+      setMessage(messageData);
     } catch (err) {
       console.log(err);
+      setShowErrorMessage(!setErrorMessage);
+      setMessage("Check");
     }
     setUserData({
       name: "",
       email: "",
       password: "",
-      role: "creator",
+      role: role,
+      account: userEthAccount,
     });
   };
   const submitForm = (e) => {
@@ -90,6 +91,11 @@ const SignUpuser = ({ signUp, setSignUp }) => {
 
   return (
     <div>
+      {sucessMessage ? (
+        <div>
+          <h2 className="analytic">User SucessFully Signed In</h2>
+        </div>
+      ) : null}
       {showForm ? (
         <form
           onSubmit={(e) => submitUserForm(e)}

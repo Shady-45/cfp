@@ -14,6 +14,7 @@ const MusicPage = () => {
   useEffect(() => {
     axios.get(`/music/all`).then((res) => setgetMusicData(res.data));
   }, []);
+  console.log(musicData);
   return (
     <>
       <h1 className="title-card">Music</h1>

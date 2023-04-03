@@ -370,3 +370,31 @@ option{
   color: whitesmoke;
   font-family: 'Poppins',sans-serif;
 }
+.sucess-message{
+  position: absolute;
+    color: white;
+    top: 3%;
+    border: 2px solid green;
+    /* padding: 0.5% 4%; */
+    left: 35%;
+    background-color: green;
+    height: 2.7%;
+    width: 22%;
+    padding: 15px;
+    font-size: 25px;
+
+}
+.error-message{
+  position: absolute;
+    color: white;
+    top: 3%;
+    border: 2px solid red;
+    /* padding: 0.5% 4%; */
+    left: 35%;
+    background-color: red;
+    height: 2.7%;
+    width: 22%;
+    padding: 18px;
+    font-size: 25px;
+
+}

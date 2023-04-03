@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
+
 import axios from "axios";
 import baseURL from "../../api/axios";
 const SignUpCreator = () => {
@@ -12,6 +13,7 @@ const SignUpCreator = () => {
     password: "",
     role: "creator",
   });
+
   const submitUserForm = async (e) => {
     e.preventDefault();
     try {
@@ -29,6 +31,8 @@ const SignUpCreator = () => {
       );
       console.log(response.data);
       alert(response.data.message);
+      localStorage.setItem("user-details", response.data.userToken);
+
       /* console.log(response.accessToken); */
     } catch (err) {
       console.log(err);

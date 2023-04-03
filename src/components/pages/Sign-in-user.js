@@ -2,15 +2,24 @@ import React, { useEffect, useContext, useRef } from "react";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
-
 import AuthContext from "../../context/AuthProvider";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
-const SignInuser = ({ click, setClick }) => {
-  const { auth, setAuth } = useContext(AuthContext);
+const SignInuser = ({
+  click,
+  setClick,
+  showSucessMessage,
+  setShowSucessMessage,
+  showErrorMessage,
+  setShowErrorMessage,
+  message,
+  setMessage,
+}) => {
   const SIGNIN_URL = "auth/signIn";
-  const [userToken, setUserToken] = useState(" ");
+  const { auth, setAuth } = useContext(AuthContext);
+
+ 
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -26,32 +35,37 @@ const SignInuser = ({ click, setClick }) => {
   const toggle = () => {
     setClick(!click);
   };
-  const SubmitUserData = async (e) => {
+  const SubmitUserData = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        `https://www.fundingportal.site/${SIGNIN_URL}`,
-        userData
-      );
-      console.log(response.data); // handle response data
-      setUserToken(response.data.token);
-    } catch (error) {
-      console.log(error);
-    }
-    localStorage.setItem("user-details", userToken);
-    const token_response = jwt_decode(userToken);
-    /* localStorage.setItem("user-details", token_response.email); */
-    /* const tokenC = jwt_decode(result.token); */
-    const { role, email } = token_response;
-    alert(`Welcome ${email.split("@")[0]}`);
-
-    setAuth({ role, email, userToken: userToken });
+    fetch("https://www.fundingportal.site/auth/signIn", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        localStorage.setItem("user-details", data.token);
+        const token = localStorage.getItem("user-details");
+        const token_res = jwt_decode(token);
+        const { name, email } = token_res;
+        setAuth({ name, email, userToken: token });
+        setMessage(`welcome ${name} 🔥🔥 `);
+        setShowSucessMessage(!showSucessMessage);
+      })
+      .catch((error) => {
+        setShowErrorMessage(!showErrorMessage);
+        setMessage(`Error ☠️☠️`);
+      });
 
     setUserData({
       email: "",
       password: "",
     });
   };
+
   return (
     <div>
       <form

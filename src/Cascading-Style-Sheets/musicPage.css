@@ -9,3 +9,96 @@
     color: white;
     text-align: center;
 }
+.music-item{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  
+    gap: 3rem;
+    margin-top: 3rem;
+}
+.img-container > img{
+   border-radius: 100%;
+}
+.music-info{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+}
+.audio-player{
+    background-color: #02050e;
+}
+
+.img-script{
+    display: flex;
+    justify-content: center;
+}
+.img-script >img{
+    height: 20rem;
+    border: 15px solid white;
+    border-radius: 20px;
+}
+.script-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+}
+.logo-main-new-item{
+    display: flex;
+  align-items: center;
+  gap: 10px;
+  color: whitesmoke;
+  margin-top: 35px;
+  font-size: 20px;
+}
+.author{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.script-container{
+    display: flex;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 3rem;
+    flex-direction: row;
+    margin-top: 4rem;
+}
+.container-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+.script-btns{
+    display: flex;
+    gap: 1rem;
+}
+.nft-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    gap: 6rem;
+    margin-top: 4rem;
+
+}
+.nft-container > img{
+    height: 20rem;
+    border: 15px solid white;
+    border-radius: 20px;
+}
+.nft-details{
+    display: flex;
+    
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    
+}

@@ -31,7 +31,33 @@ const Navbar = ({
   setMusicForm,
   nftForm,
   setNftForm,
+  showSucessMessage,
+  setShowSucessMessage,
+  showErrorMessage,
+  setShowErrorMessage,
+  message,
+  setMessage,
+  userEthAccount,
+  setUserEthAccount,
 }) => {
+  useEffect(() => {
+    let timeout;
+    if (showSucessMessage) {
+      timeout = setTimeout(() => {
+        setShowSucessMessage(false);
+      }, 3000); // 5000 milliseconds = 5 seconds
+    }
+    return () => clearTimeout(timeout);
+  }, [showSucessMessage]);
+  useEffect(() => {
+    let timeout_error;
+    if (showErrorMessage) {
+      timeout_error = setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000); // 5000 milliseconds = 5 seconds
+    }
+    return () => clearTimeout(timeout_error);
+  }, [showErrorMessage]);
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   console.log(auth);
@@ -40,17 +66,7 @@ const Navbar = ({
     setProfile(!profile);
     console.log(count);
   };
-  const handleClick = async (e) => {
-    if (window.ethereum) {
-      console.log("etherium is installed");
-    } else {
-      alert("install metamask extension!!");
-    }
-    window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
-      // Return the address of the wallet
-      console.log(res);
-    });
-  };
+
   const closeref = useRef(null);
   const [openWallet, setOpenWWallet] = useState(false);
 
@@ -70,12 +86,15 @@ const Navbar = ({
 
     navigate("/");
   };
-  const close = () => {
-    closeref.current.style.display = "none";
-  };
 
   return (
     <>
+      {showSucessMessage ? (
+        <span className="sucess-message">{message}</span>
+      ) : null}
+      {showErrorMessage ? (
+        <span className="error-message">{message}</span>
+      ) : null}
       {/*      {openWallet ? (
         <div className="wallet-container" ref={closeref}>
           <AiOutlineClose className="close-wallet" onClick={close} />
@@ -86,7 +105,16 @@ const Navbar = ({
         </div>
       ) : null} */}
 
-      {signIn ? <SignUpuser /> : null}
+      {signIn ? (
+        <SignUpuser
+          showSucessMessage={showSucessMessage}
+          setShowSucessMessage={setShowSucessMessage}
+          showErrorMessage={showErrorMessage}
+          setShowErrorMessage={setShowErrorMessage}
+          message={message}
+          setMessage={setMessage}
+        />
+      ) : null}
       {signInCreator ? <SignInCreator /> : null}
       {signUp ? <SignUpuser signUp={signUp} setSignUp={setSignUp} /> : null}
       {signUpCreator ? <SignUpCreator /> : null}
@@ -173,7 +201,16 @@ const Navbar = ({
                     Creators
                   </li>
                 </ul> */
-                <SignInuser click={click} setClick={setClick} />
+                <SignInuser
+                  showSucessMessage={showSucessMessage}
+                  setShowSucessMessage={setShowSucessMessage}
+                  showErrorMessage={showErrorMessage}
+                  setShowErrorMessage={setShowErrorMessage}
+                  message={message}
+                  setMessage={setMessage}
+                  click={click}
+                  setClick={setClick}
+                />
               ) : null}
               <button className="btn-nav" onClick={() => setSignUp(!signUp)}>
                 Sign Up
