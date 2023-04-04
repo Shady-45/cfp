@@ -71,6 +71,9 @@ that.manageTransactionFlow = async function (e) {
     console.log("transaction successfull");
     await fetch(`www.fundingportal.site/payments/send/${id}?type=${type}`, {
       method: "POST",
+      headers: {
+        authorization: localStorage.getItem("user-details"),
+      },
     });
   } catch (err) {
     console.log(err);
