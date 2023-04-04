@@ -41,7 +41,7 @@ that.getPaymentDetails = async function (e) {
     const parentComponent = e.target.closest(".payment");
     const { account: toAccount, price, id, type } = parentComponent.dataset;
     const fromAccount = await that.getEthereumAcccount();
-    return { fromAccount, toAccount, price };
+    return { fromAccount, toAccount, price, id, type };
   } catch (err) {
     throw err.message || err;
   }

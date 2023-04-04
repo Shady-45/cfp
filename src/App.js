@@ -44,6 +44,9 @@ function App() {
   const [showSucessMessage, setShowSucessMessage] = useState(false);
   const [message, setMessage] = useState(" ");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [SignUpMess, setSignUpMess] = useState("");
+  const [showSignUp, setShowSignUp] = useState(false);
+  const signUpMessage = "";
 
   /* const GET_NFT_URL = "nft/all"; */
   const handleUpdateMusicData = (id) => {
@@ -75,7 +78,12 @@ function App() {
           setMusicForm={setMusicForm}
           nftForm={nftForm}
           setNftForm={setNftForm}
+          SignUpMess={SignUpMess}
+          setSignUpMess={setSignUpMess}
+          showSignUp={showSignUp}
+          setShowSignUp={setShowSignUp}
           showSucessMessage={showSucessMessage}
+          signUpMessage={signUpMessage}
           setShowSucessMessage={setShowSucessMessage}
           showErrorMessage={showErrorMessage}
           setShowErrorMessage={setShowErrorMessage}

@@ -39,6 +39,11 @@ const Navbar = ({
   setMessage,
   userEthAccount,
   setUserEthAccount,
+  signUpMessage,
+  SignUpMess,
+  setSignUpMess,
+  showSignUp,
+  setShowSignUp,
 }) => {
   useEffect(() => {
     let timeout;
@@ -49,6 +54,15 @@ const Navbar = ({
     }
     return () => clearTimeout(timeout);
   }, [showSucessMessage]);
+  useEffect(() => {
+    let timeout;
+    if (signUpMessage) {
+      timeout = setTimeout(() => {
+        setShowSignUp(false);
+      }, 3000); //
+    }
+    return () => clearTimeout(timeout);
+  }, [showSignUp]);
   useEffect(() => {
     let timeout_error;
     if (showErrorMessage) {
@@ -82,11 +96,15 @@ const Navbar = ({
     localStorage.removeItem("user-details");
     navigate("/");
   };
-
+  console.log(SignUpMess);
+  console.log(setShowSignUp);
   return (
     <>
       {showSucessMessage ? (
         <span className="sucess-message">{message}</span>
+      ) : null}
+      {showSignUp ? (
+        <span className="sucess-message">{signUpMessage}</span>
       ) : null}
       {showErrorMessage ? (
         <span className="error-message">{message}</span>
@@ -112,7 +130,17 @@ const Navbar = ({
         />
       ) : null}
       {signInCreator ? <SignInCreator /> : null}
-      {signUp ? <SignUpuser signUp={signUp} setSignUp={setSignUp} /> : null}
+      {signUp ? (
+        <SignUpuser
+          signUp={signUp}
+          setSignUp={setSignUp}
+          signUpMessage={signUpMessage}
+          SignUpMess={SignUpMess}
+          setSignUpMess={setSignUpMess}
+          showSignUp={showSignUp}
+          setShowSignUp={setShowSignUp}
+        />
+      ) : null}
       {signUpCreator ? <SignUpCreator /> : null}
       {movieForm ? (
         <Movieform movieForm={movieForm} setMovieForm={setMovieForm} />

@@ -14,6 +14,11 @@ const SignUpuser = ({
   setShowErrorMessage,
   message,
   setMessage,
+  SignUpMess,
+  setSignUpMess,
+  showSignUp,
+  setShowSignUp,
+  signUpMessage,
 }) => {
   const navigate = useNavigate();
   const [userEthAccount, setUserEthAccount] = useState(" ");
@@ -59,12 +64,14 @@ const SignUpuser = ({
       );
       let messageData = response.data;
       console.log(messageData);
-      setShowSucessMessage(!showSucessMessage);
-      setMessage(messageData);
+      signUpMessage(messageData);
+      setShowSignUp(!showSignUp);
+      alert(messageData);
+      signUpMessage = messageData;
     } catch (err) {
       console.log(err);
-      setShowErrorMessage(!setErrorMessage);
-      setMessage("Check");
+      /*    setShowErrorMessage(!setErrorMessage);
+      setMessage("Check"); */
     }
     setUserData({
       name: "",

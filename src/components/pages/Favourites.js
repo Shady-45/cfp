@@ -70,8 +70,8 @@ const Favourites = ({ count }) => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("/favorites/me", getObj)
-          .then((res) => setFavourites(res.data.music))
+          .get("www.fundingportal.site/favorites/me", getObj)
+          .then((res) => setFavourites(res.data))
           .catch((err) => console.log(err));
       })
 
@@ -207,9 +207,9 @@ const Favourites = ({ count }) => {
       .get(`https://www.fundingportal.site/favorites/me`, config)
       .then((res) => {
         console.log(res.data);
-        setFavourites(res.data.music);
-        setFavouritesScript(res.data.script);
-        setFavouritesNft(res.data.nft);
+        setFavourites(res.data);
+        /*   setFavouritesScript(res.data.script);
+        setFavouritesNft(res.data.nft); */
       })
       .catch((err) => console.log(err));
   }, []);
@@ -222,11 +222,7 @@ const Favourites = ({ count }) => {
     <div>
       <div className="main-container">
         <h1 className="analytic">{`Welcome ${details.name}!`}</h1>
-        <div className="analytics">
-          <h1 className="analytic">
-            You Haven't Added any Favourites, Add to see Here
-          </h1>
-        </div>
+        <div className="analytics"></div>
 
         <div className="cards namecards">
           {favourites.map((item, index) => (
@@ -264,88 +260,6 @@ const Favourites = ({ count }) => {
                 <button
                   className="btn-script-music-buy  hero-btn"
                   onClick={() => handleRemoveMusic(item.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          ))}
-          {favouritesScript.map((item, index) => (
-            <div
-              data-account={item.user.account}
-              data-price={item.price}
-              data-id={item.id}
-              data-type={item.type}
-              key={index}
-              className="card card-1"
-            >
-              <img
-                className="card-img"
-                src={`${baseURL}/uploads/${item.image}`}
-                alt={item.name}
-              />
-              <div className="text-details">
-                <div className="firstrow">
-                  <p className="name">{item.name}</p>
-                  <p className="currency">Current eth</p>
-                </div>
-                <div className="secondrow">
-                  <p className="author">
-                    {/*   <img
-                        className="avatar author-img"
-                        alt={item.name}
-                        src={`${baseURL}/uploads/${item.image}`}
-                      /> */}
-                    <p className="author-name">{item.name}</p>
-                  </p>
-                  <p className="price">{item.price}</p>
-                </div>
-              </div>
-              <div>
-                <button
-                  className="btn-script-music-buy  hero-btn"
-                  onClick={() => handleRemoveScript(item.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          ))}
-          {favouritesNft.map((item, index) => (
-            <div
-              data-account={item.user.account}
-              data-price={item.price}
-              data-id={item.id}
-              data-type={item.type}
-              key={index}
-              className="card card-1"
-            >
-              <img
-                className="card-img"
-                src={`${baseURL}/uploads/${item.image}`}
-                alt={item.name}
-              />
-              <div className="text-details">
-                <div className="firstrow">
-                  <p className="name">{item.name}</p>
-                  <p className="currency">Current eth</p>
-                </div>
-                <div className="secondrow">
-                  <p className="author">
-                    {/*  <img
-                        className="avatar author-img"
-                        alt={item.name}
-                        src={`${baseURL}/uploads/${item.image}`}
-                      /> */}
-                    <p className="author-name">{item.name}</p>
-                  </p>
-                  <p className="price">{item.price}</p>
-                </div>
-              </div>
-              <div>
-                <button
-                  className="btn-script-music-buy  hero-btn"
-                  onClick={() => handleRemoveNft(item.id)}
                 >
                   Remove
                 </button>
