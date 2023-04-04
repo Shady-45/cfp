@@ -38,8 +38,8 @@ that.sendTransaction = async function (fromAccount, toAccount, price) {
 
 that.getPaymentDetails = async function (e) {
   try {
-    const parentComponent = e.target.closest(".card");
-    const { account: toAccount, price } = parentComponent.dataset;
+    const parentComponent = e.target.closest(".payment");
+    const { account: toAccount, price, id, type } = parentComponent.dataset;
     const fromAccount = await that.getEthereumAcccount();
     return { fromAccount, toAccount, price };
   } catch (err) {
@@ -64,10 +64,14 @@ that.getTransactionStatus = async function (tHex) {
 
 that.manageTransactionFlow = async function (e) {
   try {
-    const { fromAccount, toAccount, price } = await that.getPaymentDetails(e);
+    const { fromAccount, toAccount, price, id, type } =
+      await that.getPaymentDetails(e);
     const tHex = await that.sendTransaction(fromAccount, toAccount, price);
     await that.getTransactionStatus(tHex);
     console.log("transaction successfull");
+    await fetch(`www.fundingportal.site/payments/send/${id}?type=${type}`, {
+      method: "POST",
+    });
   } catch (err) {
     console.log(err);
   }

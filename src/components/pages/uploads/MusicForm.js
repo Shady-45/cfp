@@ -6,9 +6,10 @@ import baseURL from "../../../api/axios";
 
 const MusicForm = ({ musicForm, setMusicForm }) => {
   const [image, setImage] = useState("");
-  const [text, setText] = useState("");
+  const [audio, setAudio] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const url = "https://www.fundingportal.site";
   const MUSIC_UPLOAD_URL = "music/create";
   const clickRef = useRef(null);
   const toggle = () => {
@@ -19,12 +20,12 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("text", text);
+    formData.append("audio", audio);
     formData.append("name", name);
     formData.append("price", price);
     console.log(formData);
     axios
-      .post(`${baseURL}/music/create`, formData, {
+      .post(`${url}/music/create`, formData, {
         headers: {
           Authorization: item,
         },
@@ -33,10 +34,11 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
         console.log(res);
       })
       .catch((err) => console.log(err));
-    setText(" ");
-    setImage(" ");
+
+    setAudio(" ");
     setName(" ");
     setPrice(" ");
+    setImage("");
   };
 
   return (
@@ -61,7 +63,7 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
           type="file"
           placeholder="Script"
           name="image"
-          accept=".jpeg,.jpg,.png"
+          accept=".jpeg,.jpg"
           onChange={(e) => setImage(e.target.files[0])}
           id=""
         />
@@ -70,9 +72,9 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
           className="inpt"
           type="file"
           placeholder="Artist"
-          name="text"
+          name="audio"
           accept=".mp3"
-          onChange={(e) => setText(e.target.files[0])}
+          onChange={(e) => setAudio(e.target.files[0])}
           id=""
         />
         <input

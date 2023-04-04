@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
-import baseURL from "../../../api/axios";
 
 const NftForm = ({ nftForm, setNftForm }) => {
+  const url = "https://www.fundingportal.site";
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ const NftForm = ({ nftForm, setNftForm }) => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post(`${baseURL}/${NFT_UPLOAD_URL}`, formData, {
+      .post(`${url}/${NFT_UPLOAD_URL}`, formData, {
         headers: {
           Authorization: item,
         },

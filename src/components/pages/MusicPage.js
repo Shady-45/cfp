@@ -24,6 +24,8 @@ const MusicPage = () => {
           <div
             data-account={item.user.account}
             data-price={item.price}
+            data-id={item.id}
+            data-type={item.type}
             key={index}
             className="card card-1"
           >

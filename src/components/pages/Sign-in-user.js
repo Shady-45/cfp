@@ -19,7 +19,6 @@ const SignInuser = ({
   const SIGNIN_URL = "auth/signIn";
   const { auth, setAuth } = useContext(AuthContext);
 
- 
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -35,30 +34,35 @@ const SignInuser = ({
   const toggle = () => {
     setClick(!click);
   };
-  const SubmitUserData = (e) => {
+  const SubmitUserData = async (e) => {
     e.preventDefault();
-    fetch("https://www.fundingportal.site/auth/signIn", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        localStorage.setItem("user-details", data.token);
-        const token = localStorage.getItem("user-details");
-        const token_res = jwt_decode(token);
-        const { name, email } = token_res;
-        setAuth({ name, email, userToken: token });
-        setMessage(`welcome ${name} 🔥🔥 `);
-        setShowSucessMessage(!showSucessMessage);
-      })
-      .catch((error) => {
-        setShowErrorMessage(!showErrorMessage);
-        setMessage(`Error ☠️☠️`);
-      });
+    try {
+      const response = await fetch(
+        "https://www.fundingportal.site/auth/signIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw new Error(data.message);
+      }
+
+      localStorage.setItem("user-details", data.token);
+      const token = localStorage.getItem("user-details");
+      const token_res = jwt_decode(token);
+      const { name } = token_res;
+      // setAuth({ name, email, userToken: token });
+      setMessage(`welcome ${name}`);
+      setShowSucessMessage(!showSucessMessage);
+    } catch (error) {
+      setShowErrorMessage(!showErrorMessage);
+      setMessage(error.message);
+    }
 
     setUserData({
       email: "",

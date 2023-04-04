@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../Cascading-Style-Sheets/Navbar.css";
 import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import SignInuser from "./pages/Sign-in-user";
 import SignInCreator from "./pages/Sign-in-creator";
 import SignUpuser from "./pages/Sign-up-user";
 import SignUpCreator from "./pages/Sign-up-creator";
-import AuthContext from "../context/AuthProvider";
+
 import Movieform from "./pages/uploads/Movieform";
 import NftForm from "./pages/uploads/NftForm";
 import jwt_decode from "jwt-decode";
@@ -58,9 +58,9 @@ const Navbar = ({
     }
     return () => clearTimeout(timeout_error);
   }, [showErrorMessage]);
-  const { auth, setAuth } = useContext(AuthContext);
+
   const navigate = useNavigate();
-  console.log(auth);
+
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -78,12 +78,8 @@ const Navbar = ({
   const [signUpCreator, setSignUpCreator] = useState(false);
   const [profile, setProfile] = useState(false);
 
-  let user = localStorage.getItem("user-details");
-  console.log(user);
-
   const logOut = () => {
     localStorage.removeItem("user-details");
-
     navigate("/");
   };
 
@@ -157,7 +153,8 @@ const Navbar = ({
           </ul>
         </div>
       ) : null}
-      {!localStorage.getItem("user-details") ? (
+      {!localStorage.getItem("user-details") &&
+      localStorage.getItem("user-details") !== undefined ? (
         <div className="nav-main">
           <Link to="/">
             {" "}

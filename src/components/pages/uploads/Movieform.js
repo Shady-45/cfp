@@ -3,9 +3,9 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../../Cascading-Style-Sheets/Navbar.css";
 import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
-import baseURL from "../../../api/axios";
 
 const Movieform = ({ movieForm, setMovieForm }) => {
+  const url = "https://www.fundingportal.site";
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");
@@ -25,7 +25,7 @@ const Movieform = ({ movieForm, setMovieForm }) => {
     formData.append("name", name);
     formData.append("price", price);
     axios
-      .post(`${baseURL}/script/create`, formData, {
+      .post(`${url}/script/create`, formData, {
         headers: {
           Authorization: item,
         },

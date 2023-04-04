@@ -36,7 +36,7 @@ const Favourites = ({ count }) => {
   const config = {
     headers: { Authorization: token },
   };
-  const { auth } = useContext(AuthContext);
+
   const [updateM, setUpdateM] = useState(false);
   const [updateS, setUpdateS] = useState(false);
   const [updateN, setUpdateN] = useState(false);
@@ -193,7 +193,7 @@ const Favourites = ({ count }) => {
   };
   useEffect(() => {
     axios
-      .get(`/home/uploads/me`, config)
+      .get(`https://www.fundingportal.site/home/uploads/me`, config)
       .then((res) => {
         console.log(res.data);
         setUserScriptData(res.data.script);
@@ -204,7 +204,7 @@ const Favourites = ({ count }) => {
   }, []);
   useEffect(() => {
     axios
-      .get(`/favorites/me`, config)
+      .get(`https://www.fundingportal.site/favorites/me`, config)
       .then((res) => {
         console.log(res.data);
         setFavourites(res.data.music);
@@ -216,23 +216,16 @@ const Favourites = ({ count }) => {
   const userData = [...userScriptData, ...userMusicData, ...userNftData];
   console.log(userData);
 
-  console.log(auth);
-  const details = jwt_decode(auth.userToken);
+  const details = jwt_decode(localStorage.getItem("user-details"));
 
   return (
     <div>
       <div className="main-container">
         <h1 className="analytic">{`Welcome ${details.name}!`}</h1>
         <div className="analytics">
-          {favourites.length === 0 &&
-          favouritesNft.length === 0 &&
-          favouritesScript.length === 0 ? (
-            <h1 className="analytic">
-              You Haven't Added any Favourites, Add to see Here
-            </h1>
-          ) : (
-            <h1 className="analytic">Your Favourites!</h1>
-          )}
+          <h1 className="analytic">
+            You Haven't Added any Favourites, Add to see Here
+          </h1>
         </div>
 
         <div className="cards namecards">
@@ -240,6 +233,8 @@ const Favourites = ({ count }) => {
             <div
               data-account={item.user.account}
               data-price={item.price}
+              data-id={item.id}
+              data-type={item.type}
               key={index}
               className="card card-1"
             >
@@ -279,6 +274,8 @@ const Favourites = ({ count }) => {
             <div
               data-account={item.user.account}
               data-price={item.price}
+              data-id={item.id}
+              data-type={item.type}
               key={index}
               className="card card-1"
             >
@@ -318,6 +315,8 @@ const Favourites = ({ count }) => {
             <div
               data-account={item.user.account}
               data-price={item.price}
+              data-id={item.id}
+              data-type={item.type}
               key={index}
               className="card card-1"
             >

@@ -45,7 +45,7 @@ const ScriptItem = () => {
           </div>
           <div className="script-bts">
             <a
-              href={`https://www.fundingportal.site/uploads/${scriptItem?.image}`}
+              href={`https://www.fundingportal.site/uploads/${scriptItem?.text}`}
             >
               {" "}
               <button className="btn-script-music-buy  hero-btn">View</button>

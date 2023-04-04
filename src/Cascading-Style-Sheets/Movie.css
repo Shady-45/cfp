@@ -59,10 +59,11 @@
 }
 
 .card-img {
-  height: 88%;
+  height: 19rem;
+  width : 18rem;
   object-fit: cover;
-  border-radius: 1.5rem;
-  margin-top: 1.5rem;
+  /* border-radius: 1.5rem; */
+  /* margin-top: 1.5rem; */
 }
 
 .text-details {

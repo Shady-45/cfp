@@ -9,7 +9,7 @@ import movieAvatar1 from "../assets/movie1.png";
 
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import AuthContext from "../../src/context/AuthProvider";
+
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 
@@ -21,7 +21,7 @@ import NftItem from "./pages/page-items/NftItem";
 import payments from "./payments/payment.service";
 
 const Hero = () => {
-  const { auth, setAuth } = useContext(AuthContext);
+  console.log(<MusicItem />);
   const [alertMessage, setAlertMessage] = useState(" ");
   const [likes, setLikes] = useState([]);
   const [musicData, setMusicData] = useState([]);
@@ -65,8 +65,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setMusicData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setMusicData(res.data.music))
           .catch((err) => console.log(err));
       })
 
@@ -83,8 +83,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setScriptData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setScriptData(res.data.script))
           .catch((err) => console.log(err));
       })
 
@@ -103,8 +103,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setNftData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setNftData(res.data.nft))
           .catch((err) => console.log(err));
       })
 
@@ -121,8 +121,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/music/all`, getObj)
-          .then((res) => setMusicData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setMusicData(res.data.music))
           .catch((err) => console.log(err));
       })
 
@@ -139,8 +139,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/script/all`, getObj)
-          .then((res) => setScriptData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setScriptData(res.data.script))
           .catch((err) => console.log(err));
       })
 
@@ -157,8 +157,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setNftData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setNftData(res.data.nft))
           .catch((err) => console.log(err));
       })
 
@@ -176,8 +176,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/script/all`, getObj)
-          .then((res) => setScriptData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setScriptData(res.data.script))
           .catch((err) => console.log(err));
       })
 
@@ -195,8 +195,8 @@ const Hero = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get(`${baseURL}/nft/all`, getObj)
-          .then((res) => setNftData(res.data))
+          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
+          .then((res) => setNftData(res.data.nft))
           .catch((err) => console.log(err));
       })
 
@@ -267,15 +267,16 @@ const Hero = () => {
               <div
                 data-account={item.user.account}
                 data-price={item.price}
+                data-id={item.id}
+                data-type={item.type}
                 key={index}
-                className="card card-1"
+                className="card card-1 payment"
               >
                 <Link
                   to={`/musics/${item.id}`}
                   element={<MusicItem />}
                   key={item.id}
                 >
-                  {" "}
                   <img
                     className="card-img"
                     src={`${baseURL}/uploads/${item.image}`}
@@ -289,7 +290,6 @@ const Hero = () => {
                     volume={0.5}
                   />
                 </div>
-
                 <div className="text-details">
                   <div className="firstrow">
                     <p className="name">{item.name}</p>
@@ -302,7 +302,6 @@ const Hero = () => {
                     <p className="price">{item.price}</p>
                   </div>
                 </div>
-
                 <div className="hearts-contain">
                   <button className="button">
                     {item.isLiked ? (
@@ -341,7 +340,9 @@ const Hero = () => {
               <div
                 data-account={item.user.account}
                 data-price={item.price}
-                className="card-script "
+                data-id={item.id}
+                data-type={item.type}
+                className="card-script payment"
                 key={item.id}
               >
                 <Link to={`/scripts/${item.id}`}>
@@ -365,32 +366,26 @@ const Hero = () => {
                   </div>
                 </div>
                 <div className="btns-script">
+                  <div className="hearts-contain">
+                    <button>
+                      {item.isLiked ? (
+                        <AiFillHeart
+                          onClick={() => handleDisLikeScript(item)}
+                          className="heart-btns-red"
+                        />
+                      ) : (
+                        <AiOutlineHeart
+                          onClick={() => handleLikeScript(item)}
+                          className="heart-btns"
+                        />
+                      )}
+                    </button>
+                  </div>
                   <button
                     onClick={payments.manageTransactionFlow}
                     className="btn-script-music-buy  hero-btn btn-pay"
                   >
                     Buy
-                  </button>
-                  <a href={`${baseURL}/uploads/${item.text}`}>
-                    {" "}
-                    <button className="btn-script-music-buy  hero-btn">
-                      View
-                    </button>
-                  </a>
-                </div>
-                <div className="hearts-contain">
-                  <button>
-                    {item.isLiked ? (
-                      <AiFillHeart
-                        onClick={() => handleDisLikeScript(item)}
-                        className="heart-btns-red"
-                      />
-                    ) : (
-                      <AiOutlineHeart
-                        onClick={() => handleLikeScript(item)}
-                        className="heart-btns"
-                      />
-                    )}
                   </button>
                 </div>
               </div>
@@ -399,7 +394,7 @@ const Hero = () => {
         </section>
         <section className="section section-movie">
           <div className="heading-script-music">
-            <h2 className="section-heading">HOT NFTS</h2>
+            <h2 className="section-heading">Graphic Designs</h2>
             <Link to="nfts">
               {" "}
               <button className="btn-nav btn-script-music">View More</button>
@@ -411,8 +406,10 @@ const Hero = () => {
               <div
                 data-account={item.user.account}
                 data-price={item.price}
+                data-id={item.id}
+                data-type={item.type}
                 key={index}
-                className="card-nft"
+                className="card-nft payment"
               >
                 <Link
                   to={`/nfts/${item.id}`}
