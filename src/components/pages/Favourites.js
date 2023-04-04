@@ -37,10 +37,6 @@ const Favourites = ({ count }) => {
     headers: { Authorization: token },
   };
 
-  const [updateM, setUpdateM] = useState(false);
-  const [updateS, setUpdateS] = useState(false);
-  const [updateN, setUpdateN] = useState(false);
-
   console.log(updateScriptId);
   const USER_UPLOAD_URL = "home/uploads/me";
 

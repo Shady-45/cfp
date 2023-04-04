@@ -69,12 +69,15 @@ that.manageTransactionFlow = async function (e) {
     const tHex = await that.sendTransaction(fromAccount, toAccount, price);
     await that.getTransactionStatus(tHex);
     console.log("transaction successfull");
-    await fetch(`www.fundingportal.site/payments/send/${id}?type=${type}`, {
-      method: "POST",
-      headers: {
-        authorization: localStorage.getItem("user-details"),
-      },
-    });
+    await fetch(
+      `https://www.fundingportal.site/payments/send/${id}?type=${type}`,
+      {
+        method: "POST",
+        headers: {
+          authorization: localStorage.getItem("user-details"),
+        },
+      }
+    );
   } catch (err) {
     console.log(err);
   }
