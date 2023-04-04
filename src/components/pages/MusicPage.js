@@ -6,6 +6,7 @@ import "../../Cascading-Style-Sheets/musicPage.css";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import baseURL from "../../api/axios";
+import payments from "../payments/payment.service";
 
 const MusicPage = () => {
   const [musicData, setgetMusicData] = useState([]);
@@ -20,7 +21,12 @@ const MusicPage = () => {
       <h1 className="title-card">Music</h1>
       <div className="cards namecards">
         {musicData.map((item, index) => (
-          <div key={index} className="card card-1">
+          <div
+            data-account={item.user.account}
+            data-price={item.price}
+            key={index}
+            className="card card-1"
+          >
             <img
               className="card-img"
               src={`${baseURL}/uploads/${item.image}`}
@@ -50,7 +56,12 @@ const MusicPage = () => {
               </div>
             </div>
 
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            <button
+              onClick={payments.manageTransactionFlow}
+              className="btn-script-music-buy  hero-btn btn-pay"
+            >
+              Buy
+            </button>
           </div>
         ))}
       </div>

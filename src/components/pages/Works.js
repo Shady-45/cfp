@@ -182,7 +182,12 @@ const Works = () => {
 
             <div className="cards namecards">
               {userScriptData.map((item, index) => (
-                <div key={index} className="card card-1">
+                <div
+                  data-account={item.user.account}
+                  data-price={item.price}
+                  key={index}
+                  className="card card-1"
+                >
                   <img
                     className="card-img"
                     src={`${baseURL}/uploads/${item.image}`}
@@ -222,7 +227,12 @@ const Works = () => {
                 </div>
               ))}
               {userMusicData.map((item, index) => (
-                <div key={index} className="card card-1">
+                <div
+                  data-account={item.user.account}
+                  data-price={item.price}
+                  key={index}
+                  className="card card-1"
+                >
                   <img
                     className="card-img"
                     src={`${baseURL}/uploads/${item.image}`}
@@ -263,7 +273,12 @@ const Works = () => {
                 </div>
               ))}
               {userNftData.map((item, index) => (
-                <div key={index} className="card card-1">
+                <div
+                  data-account={item.user.account}
+                  data-price={item.price}
+                  key={index}
+                  className="card card-1"
+                >
                   <img
                     className="card-img"
                     src={`${baseURL}/uploads/${item.image}`}

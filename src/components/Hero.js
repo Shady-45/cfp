@@ -18,6 +18,7 @@ import axios from "../api/axios";
 import MusicItem from "./pages/page-items/MusicItem";
 import ScriptItem from "./pages/page-items/ScriptItem";
 import NftItem from "./pages/page-items/NftItem";
+import payments from "./payments/payment.service";
 
 const Hero = () => {
   const { auth, setAuth } = useContext(AuthContext);
@@ -263,7 +264,12 @@ const Hero = () => {
 
           <div className="cards">
             {musicData.map((item, index) => (
-              <div key={index} className="card card-1">
+              <div
+                data-account={item.user.account}
+                data-price={item.price}
+                key={index}
+                className="card card-1"
+              >
                 <Link
                   to={`/musics/${item.id}`}
                   element={<MusicItem />}
@@ -311,7 +317,10 @@ const Hero = () => {
                       />
                     )}
                   </button>
-                  <button className="btn-script-music-buy  hero-btn">
+                  <button
+                    onClick={payments.manageTransactionFlow}
+                    className="btn-script-music-buy  hero-btn btn-pay"
+                  >
                     Buy
                   </button>
                 </div>
@@ -329,7 +338,12 @@ const Hero = () => {
           </div>
           <div className="cards">
             {scriptData.map((item) => (
-              <div className="card-script " key={item.id}>
+              <div
+                data-account={item.user.account}
+                data-price={item.price}
+                className="card-script "
+                key={item.id}
+              >
                 <Link to={`/scripts/${item.id}`}>
                   <img
                     className="card-img"
@@ -351,13 +365,10 @@ const Hero = () => {
                   </div>
                 </div>
                 <div className="btns-script">
-                  {/*   <AiOutlineHeart
-                  className={`${like ? "heart-red" : "heart-white"}`}
-                  onClick={() => setLike(!like)}
-                />
-
- */}
-                  <button className="btn-script-music-buy  hero-btn">
+                  <button
+                    onClick={payments.manageTransactionFlow}
+                    className="btn-script-music-buy  hero-btn btn-pay"
+                  >
                     Buy
                   </button>
                   <a href={`${baseURL}/uploads/${item.text}`}>
@@ -397,7 +408,12 @@ const Hero = () => {
 
           <div className="cards">
             {nftData.map((item, index) => (
-              <div key={index} className="card-nft">
+              <div
+                data-account={item.user.account}
+                data-price={item.price}
+                key={index}
+                className="card-nft"
+              >
                 <Link
                   to={`/nfts/${item.id}`}
                   element={<NftItem />}
@@ -438,7 +454,12 @@ const Hero = () => {
                       )}
                     </button>
                   </div>
-                  <button className="btn-movie  hero-btn">Buy</button>
+                  <button
+                    onClick={payments.manageTransactionFlow}
+                    className="btn-movie  hero-btn btn-pay"
+                  >
+                    Buy
+                  </button>
                 </div>
               </div>
             ))}

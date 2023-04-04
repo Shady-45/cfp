@@ -237,7 +237,12 @@ const Favourites = ({ count }) => {
 
         <div className="cards namecards">
           {favourites.map((item, index) => (
-            <div key={index} className="card card-1">
+            <div
+              data-account={item.user.account}
+              data-price={item.price}
+              key={index}
+              className="card card-1"
+            >
               <img
                 className="card-img"
                 src={`${baseURL}/uploads/${item.image}`}
@@ -271,7 +276,12 @@ const Favourites = ({ count }) => {
             </div>
           ))}
           {favouritesScript.map((item, index) => (
-            <div key={index} className="card card-1">
+            <div
+              data-account={item.user.account}
+              data-price={item.price}
+              key={index}
+              className="card card-1"
+            >
               <img
                 className="card-img"
                 src={`${baseURL}/uploads/${item.image}`}
@@ -305,7 +315,12 @@ const Favourites = ({ count }) => {
             </div>
           ))}
           {favouritesNft.map((item, index) => (
-            <div key={index} className="card card-1">
+            <div
+              data-account={item.user.account}
+              data-price={item.price}
+              key={index}
+              className="card card-1"
+            >
               <img
                 className="card-img"
                 src={`${baseURL}/uploads/${item.image}`}
