@@ -10,7 +10,7 @@ import AuthContext from "../../context/AuthProvider";
 const Works = () => {
   const { auth } = useContext(AuthContext);
   const token = localStorage.getItem("user-details");
-  const details = jwt_decode(auth.userToken);
+  const details = jwt_decode(token);
   const [image, setImage] = useState("");
   const [audio, setAudio] = useState("");
   const [name, setName] = useState("");
@@ -61,13 +61,17 @@ const Works = () => {
   const deleteScript = (id) => {
     axios
       .delete(`${baseURL}/script/delete/${id}`, config)
-      .then((res) => console.log(res.data))
+      .then((res) =>
+        console.log(res.data.filter((item) => item.type === "script"))
+      )
       .catch((err) => console.log(err.data));
   };
   const deleteMusic = (id) => {
     axios
       .delete(`${baseURL}/music/delete/${id}`, config)
-      .then((res) => console.log(res.data))
+      .then((res) =>
+        console.log(res.data.filter((item) => item.type === "music"))
+      )
       .catch((err) => console.log(err.data));
   };
   const UpdateMusic = (e) => {
@@ -146,19 +150,31 @@ const Works = () => {
 
   const clickRef = useRef(null);
   const deleteNft = (id) => {
-    axios
-      .delete(`/nft/delete/${id}`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
+    fetch(`https://www.fundingportal.site/nft/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        axios
+          .get("www.fundingportal.site/nft/all", getObj)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      })
+
+      .catch((err) => console.log(err, "🔥🔥"));
   };
   useEffect(() => {
     axios
-      .get(`/home/uploads/me`, config)
+      .get(`${baseURL}/home/uploads/me`, config)
       .then((res) => {
         console.log(res.data);
-        setUserScriptData(res.data.script);
-        setUserMusicData(res.data.music);
-        setUserNftData(res.data.nft);
+        setUserScriptData(res.data.filter((item) => item.type === "script"));
+        setUserMusicData(res.data.filter((item) => item.type === "music"));
+        setUserNftData(res.data.filter((item) => item.type === "nft"));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -319,12 +335,6 @@ const Works = () => {
                   <button
                     className="btn-script-music-buy  hero-btn"
                     onClick={() => handleDeleteNft(item.id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn-script-music-buy  hero-btn"
-                    onClick={() => handleUpdateNft(item.id)}
                   >
                     Delete
                   </button>

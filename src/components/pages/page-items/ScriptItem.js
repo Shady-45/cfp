@@ -4,16 +4,53 @@ import axios from "../../../api/axios";
 import "../../../Cascading-Style-Sheets/musicPage.css";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { Link } from "react-router-dom";
+import payments from "../../payments/payment.service";
 const ScriptItem = () => {
   const { scriptId } = useParams();
 
   const [scriptItem, setScriptItem] = useState({});
+  const [imageItem, setImageItem] = useState("");
+  const [textItem, setTextItem] = useState(" ");
+  const token = localStorage.getItem("user-details");
 
   useEffect(() => {
-    fetch(`https://www.fundingportal.site/script/${scriptId}`)
-      .then((response) => response.json())
-      .then((data) => setScriptItem(data));
-  }, [scriptId]);
+    const headersObj = {};
+    if (token) {
+      headersObj["authorization"] = token;
+    }
+    const fetchData = async function () {
+      const response = await fetch(
+        `https://www.fundingportal.site/script/${scriptId}`,
+        {
+          headers: headersObj,
+        }
+      );
+      const data = await response.json();
+      setScriptItem(data);
+
+      const fetchFiles = async function (filename, type) {
+        const headersObj = {};
+        if (token) {
+          headersObj["authorization"] = token;
+        }
+        const response = await fetch(
+          `https://www.fundingportal.site/uploads/${filename}`,
+          { headers: headersObj }
+        );
+        const fileBuffer = await response.blob();
+        const fileUrl = window.URL.createObjectURL(fileBuffer);
+        if (type === "img") {
+          setImageItem(fileUrl);
+        } else {
+          setTextItem(fileUrl);
+        }
+      };
+
+      fetchFiles(data.image, "img");
+      fetchFiles(data.text);
+    };
+    fetchData();
+  }, []);
   console.log(scriptItem);
 
   /*  useEffect(() => {
@@ -30,12 +67,15 @@ const ScriptItem = () => {
           <h3>IndieCrypt</h3>
         </div>
       </Link>
-      <div className="script-container">
+      <div
+        className="script-container payment"
+        data-account={scriptItem?.user?.account}
+        data-price={scriptItem?.price}
+        data-id={scriptItem?.id}
+        data-type={scriptItem?.type}
+      >
         <div className="img-script">
-          <img
-            src={`https://www.fundingportal.site/uploads/${scriptItem?.image}`}
-            alt=""
-          />
+          <img src={`${imageItem}`} alt="" />
         </div>
         <div className="container-2">
           <div className="author">
@@ -44,13 +84,18 @@ const ScriptItem = () => {
             <h1 className="analytic">{`Price : ${scriptItem?.price}`}</h1>
           </div>
           <div className="script-bts">
-            <a
-              href={`https://www.fundingportal.site/uploads/${scriptItem?.text}`}
-            >
+            <a href={`${textItem}`}>
               {" "}
               <button className="btn-script-music-buy  hero-btn">View</button>
             </a>
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            {scriptItem.isPaid ? null : (
+              <button
+                onClick={payments.manageTransactionFlow}
+                className="btn-script-music-buy  hero-btn"
+              >
+                Buy
+              </button>
+            )}
           </div>
         </div>
       </div>

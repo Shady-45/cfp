@@ -86,7 +86,9 @@ const MusicItem = () => {
               src={audioItem}
               volume={0.5}
             /> */}
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            {musicItem.isPaid ? null : (
+              <button className="btn-script-music-buy  hero-btn">Buy</button>
+            )}
           </div>
         </div>
       ) : (

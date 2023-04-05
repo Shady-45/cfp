@@ -302,27 +302,31 @@ const Hero = () => {
                     <p className="price">{item.price}</p>
                   </div>
                 </div>
-                <div className="hearts-contain">
-                  <button className="button">
-                    {item.isLiked ? (
-                      <AiFillHeart
-                        onClick={() => handleDisLike(item)}
-                        className="heart-btns-red"
-                      />
-                    ) : (
-                      <AiOutlineHeart
-                        onClick={() => handleLike(item)}
-                        className="heart-btns"
-                      />
+                {localStorage.getItem("user-details") ? (
+                  <div className="hearts-contain">
+                    <button className="button">
+                      {item.isLiked ? (
+                        <AiFillHeart
+                          onClick={() => handleDisLike(item)}
+                          className="heart-btns-red"
+                        />
+                      ) : (
+                        <AiOutlineHeart
+                          onClick={() => handleLike(item)}
+                          className="heart-btns"
+                        />
+                      )}
+                    </button>
+                    {item.isPaid ? null : (
+                      <button
+                        onClick={payments.manageTransactionFlow}
+                        className="btn-script-music-buy  hero-btn btn-pay"
+                      >
+                        Buy
+                      </button>
                     )}
-                  </button>
-                  <button
-                    onClick={payments.manageTransactionFlow}
-                    className="btn-script-music-buy  hero-btn btn-pay"
-                  >
-                    Buy
-                  </button>
-                </div>
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
@@ -365,29 +369,33 @@ const Hero = () => {
                     <p className="price">{item.price}</p>
                   </div>
                 </div>
-                <div className="btns-script">
-                  <div className="hearts-contain">
-                    <button>
-                      {item.isLiked ? (
-                        <AiFillHeart
-                          onClick={() => handleDisLikeScript(item)}
-                          className="heart-btns-red"
-                        />
-                      ) : (
-                        <AiOutlineHeart
-                          onClick={() => handleLikeScript(item)}
-                          className="heart-btns"
-                        />
-                      )}
-                    </button>
+                {localStorage.getItem("user-details") ? (
+                  <div className="btns-script">
+                    <div className="hearts-contain">
+                      <button>
+                        {item.isLiked ? (
+                          <AiFillHeart
+                            onClick={() => handleDisLikeScript(item)}
+                            className="heart-btns-red"
+                          />
+                        ) : (
+                          <AiOutlineHeart
+                            onClick={() => handleLikeScript(item)}
+                            className="heart-btns"
+                          />
+                        )}
+                      </button>
+                    </div>
+                    {item.isPaid ? null : (
+                      <button
+                        onClick={payments.manageTransactionFlow}
+                        className="btn-script-music-buy  hero-btn btn-pay"
+                      >
+                        Buy
+                      </button>
+                    )}
                   </div>
-                  <button
-                    onClick={payments.manageTransactionFlow}
-                    className="btn-script-music-buy  hero-btn btn-pay"
-                  >
-                    Buy
-                  </button>
-                </div>
+                ) : null}
               </div>
             ))}
           </div>
@@ -435,29 +443,33 @@ const Hero = () => {
                     <p className="price">{item.price}</p>
                   </div>
                 </div>
-                <div className="btnss">
-                  <div className="hearts-contain">
-                    <button>
-                      {item.isLiked ? (
-                        <AiFillHeart
-                          onClick={() => handleDisLikeNft(item)}
-                          className="heart-btns-red"
-                        />
-                      ) : (
-                        <AiOutlineHeart
-                          onClick={() => handleLikeNft(item)}
-                          className="heart-btns"
-                        />
-                      )}
-                    </button>
+                {localStorage.getItem("user-details") ? (
+                  <div className="btnss">
+                    <div className="hearts-contain">
+                      <button>
+                        {item.isLiked ? (
+                          <AiFillHeart
+                            onClick={() => handleDisLikeNft(item)}
+                            className="heart-btns-red"
+                          />
+                        ) : (
+                          <AiOutlineHeart
+                            onClick={() => handleLikeNft(item)}
+                            className="heart-btns"
+                          />
+                        )}
+                      </button>
+                    </div>
+                    {item.isPaid ? null : (
+                      <button
+                        onClick={payments.manageTransactionFlow}
+                        className="btn-movie  hero-btn btn-pay"
+                      >
+                        Buy
+                      </button>
+                    )}
                   </div>
-                  <button
-                    onClick={payments.manageTransactionFlow}
-                    className="btn-movie  hero-btn btn-pay"
-                  >
-                    Buy
-                  </button>
-                </div>
+                ) : null}
               </div>
             ))}
           </div>

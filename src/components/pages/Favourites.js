@@ -67,7 +67,9 @@ const Favourites = ({ count }) => {
       .then((data) => {
         axios
           .get("www.fundingportal.site/favorites/me", getObj)
-          .then((res) => setFavourites(res.data))
+          .then((res) =>
+            setFavourites(res.data.filter((item) => item.type === "music"))
+          )
           .catch((err) => console.log(err));
       })
 
@@ -86,7 +88,11 @@ const Favourites = ({ count }) => {
       .then((data) => {
         axios
           .get("/favorites/me", getObj)
-          .then((res) => setFavouritesScript(res.data.script))
+          .then((res) =>
+            setFavouritesScript(
+              res.data.filter((item) => item.type === "script")
+            )
+          )
           .catch((err) => console.log(err));
       })
 
@@ -104,7 +110,9 @@ const Favourites = ({ count }) => {
       .then((data) => {
         axios
           .get("/favorites/me", getObj)
-          .then((res) => setFavouritesNft(res.data.nft))
+          .then((res) =>
+            setFavouritesNft(res.data.filter((item) => item.type === "nft"))
+          )
           .catch((err) => console.log(err));
       })
 
@@ -203,9 +211,12 @@ const Favourites = ({ count }) => {
       .get(`https://www.fundingportal.site/favorites/me`, config)
       .then((res) => {
         console.log(res.data);
-        setFavourites(res.data);
+        setFavourites(res.data.filter((item) => item.type === "music"));
         /*   setFavouritesScript(res.data.script);
         setFavouritesNft(res.data.nft); */
+        /* const avengers = characters.filter(character => character.team === 'Avengers'); */
+        setFavouritesScript(res.data.filter((item) => item.type === "script"));
+        setFavouritesNft(res.data.filter((item) => item.type === "nft"));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -256,6 +267,88 @@ const Favourites = ({ count }) => {
                 <button
                   className="btn-script-music-buy  hero-btn"
                   onClick={() => handleRemoveMusic(item.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+          {favouritesScript.map((item, index) => (
+            <div
+              data-account={item.user.account}
+              data-price={item.price}
+              data-id={item.id}
+              data-type={item.type}
+              key={index}
+              className="card card-1"
+            >
+              <img
+                className="card-img"
+                src={`${baseURL}/uploads/${item.image}`}
+                alt={item.name}
+              />
+              <div className="text-details">
+                <div className="firstrow">
+                  <p className="name">{item.name}</p>
+                  <p className="currency">Current eth</p>
+                </div>
+                <div className="secondrow">
+                  <p className="author">
+                    {/*   <img
+                        className="avatar author-img"
+                        alt={item.name}
+                        src={`${baseURL}/uploads/${item.image}`}
+                      /> */}
+                    <p className="author-name">{item.name}</p>
+                  </p>
+                  <p className="price">{item.price}</p>
+                </div>
+              </div>
+              <div>
+                <button
+                  className="btn-script-music-buy  hero-btn"
+                  onClick={() => handleRemoveScript(item.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ))}
+          {favouritesNft.map((item, index) => (
+            <div
+              data-account={item.user.account}
+              data-price={item.price}
+              data-id={item.id}
+              data-type={item.type}
+              key={index}
+              className="card card-1"
+            >
+              <img
+                className="card-img"
+                src={`${baseURL}/uploads/${item.image}`}
+                alt={item.name}
+              />
+              <div className="text-details">
+                <div className="firstrow">
+                  <p className="name">{item.name}</p>
+                  <p className="currency">Current eth</p>
+                </div>
+                <div className="secondrow">
+                  <p className="author">
+                    {/*  <img
+                        className="avatar author-img"
+                        alt={item.name}
+                        src={`${baseURL}/uploads/${item.image}`}
+                      /> */}
+                    <p className="author-name">{item.name}</p>
+                  </p>
+                  <p className="price">{item.price}</p>
+                </div>
+              </div>
+              <div>
+                <button
+                  className="btn-script-music-buy  hero-btn"
+                  onClick={() => handleRemoveNft(item.id)}
                 >
                   Remove
                 </button>

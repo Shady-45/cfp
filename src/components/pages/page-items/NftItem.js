@@ -4,17 +4,48 @@ import axios from "../../../api/axios";
 import "../../../Cascading-Style-Sheets/musicPage.css";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { Link } from "react-router-dom";
+import payments from "../../payments/payment.service";
 const NftItem = () => {
   const { nftId } = useParams();
   const [nftItem, setNftItem] = useState([]);
+  const [imageItem, setImageItem] = useState(" ");
+  let token = localStorage.getItem("user-details");
   const nft_url = `/nft/${nftId}`;
   console.log(nftId);
 
   useEffect(() => {
-    axios
-      .get(nft_url)
-      .then((res) => setNftItem(res.data))
-      .catch((err) => console.log(err));
+    const headersObj = {};
+    if (token) {
+      headersObj["authorization"] = token;
+    }
+    const fetchData = async function () {
+      const response = await fetch(
+        `https://www.fundingportal.site/nft/${nftId}`,
+        {
+          headers: headersObj,
+        }
+      );
+      const data = await response.json();
+      setNftItem(data);
+
+      const fetchFiles = async function (filename, type) {
+        const headersObj = {};
+        if (token) {
+          headersObj["authorization"] = token;
+        }
+        const response = await fetch(
+          `https://www.fundingportal.site/uploads/${filename}`,
+          { headers: headersObj }
+        );
+        const fileBuffer = await response.blob();
+        const fileUrl = window.URL.createObjectURL(fileBuffer);
+
+        setImageItem(fileUrl);
+      };
+
+      fetchFiles(data.image);
+    };
+    fetchData();
   }, []);
   console.log(nftItem);
   const { name, image, price, user } = nftItem;
@@ -27,15 +58,30 @@ const NftItem = () => {
           <h3>IndieCrypt</h3>
         </div>
       </Link>
-      <div className="nft-container">
-        <img src={`https://www.fundingportal.site/uploads/${image}`} alt="" />
+      <div
+        className="nft-container payment"
+        data-account={nftItem?.user?.account}
+        data-price={nftItem?.price}
+        data-id={nftItem?.id}
+        data-type={nftItem?.type}
+      >
+        <img src={`${imageItem}`} alt="" />
         <div className="nft-details">
           <h1 className="analytic">{`Nft : ${name}`}</h1>
           <h1 className="analytic">{`Price : ${price}`}</h1>
 
           <h1 className="analytic">{`Artist : ${user?.name}`}</h1>
           <div className="btn-nft">
-            <button className="btn-script-music-buy  hero-btn">Buy</button>
+            {!nftItem.isPaid ? (
+              <button
+                onClick={payments.manageTransactionFlow}
+                className="btn-script-music-buy   hero-btn "
+              >
+                Buy
+              </button>
+            ) : (
+              <button className="btn-script-music-buy   hero-btn ">View</button>
+            )}
           </div>
         </div>
       </div>
