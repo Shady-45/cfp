@@ -7,6 +7,7 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { Link } from "react-router-dom";
+import payments from "../../payments/payment.service";
 
 const MusicItem = () => {
   const { musicId } = useParams();
@@ -67,7 +68,13 @@ const MusicItem = () => {
         </div>
       </Link>
       {musicItem ? (
-        <div className="music-item">
+        <div
+          data-account={musicItem?.user?.account}
+          data-price={musicItem?.price}
+          data-id={musicItem?.id}
+          data-type={musicItem?.type}
+          className="music-item payment"
+        >
           <div className="img-container">
             <img src={`${imageItem}`} alt={musicItem.name} />
           </div>
@@ -81,13 +88,13 @@ const MusicItem = () => {
               src={audioItem}
               type="audio/mp3"
             />
-            {/*  <AudioPlayer
-              className="audio-player"
-              src={audioItem}
-              volume={0.5}
-            /> */}
-            {musicItem.isPaid ? null : (
-              <button className="btn-script-music-buy  hero-btn">Buy</button>
+            {musicItem?.isPaid ? null : (
+              <button
+                onClick={payments.manageTransactionFlow}
+                className="btn-script-music-buy  hero-btn"
+              >
+                Buy
+              </button>
             )}
           </div>
         </div>
@@ -99,31 +106,3 @@ const MusicItem = () => {
 };
 
 export default MusicItem;
-
-/* const getData = async function (musicId) {
-  try {
-    const headersObj = {};
-    if (token) {
-      headersObj["authorization"] = token;
-    }
-
-    const response = await fetch(
-      `https://www.fundingportal.site/music/${musicId}`,
-      { headersObj }
-    );
-
-    let data = await response.json();
-    if (response.status !== 200) {
-      throw new Error(data.message);
-    }
-
-    const image = await getFile(data.image);
-    const audio = await getFile(data.audio);
-    data.image = URL.createObjectURL(image);
-    data.audio = URL.createObjectURL(audio);
-
-    return data;
-  } catch (error) {
-    console.log(error, "💙💙💙");
-  }
-}; */

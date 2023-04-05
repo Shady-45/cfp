@@ -52,12 +52,6 @@ const ScriptItem = () => {
     fetchData();
   }, []);
   console.log(scriptItem);
-
-  /*  useEffect(() => {
-    fetch(`https://www.fundingportal.site/uploads/${scriptItem?.text}`)
-      .then((res) => res.json())
-      .then((data) => setScriptText(data));
-  }); */
   return (
     <>
       <Link to="/">
