@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios";
-import movie1 from "../../assets/movie1.mp4";
-import movieAvatar1 from "../../assets/avatar.webp";
 import payments from "../payments/payment.service";
 
 const MoviePage = () => {

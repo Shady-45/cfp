@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import "../Cascading-Style-Sheets/Hero.css";
 
-import script1 from "../assets/script-base.jpg";
-
 import "../Cascading-Style-Sheets/Movie.css";
-import movie1 from "../assets/movie1.mp4";
-import movieAvatar1 from "../assets/movie1.png";
 
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";

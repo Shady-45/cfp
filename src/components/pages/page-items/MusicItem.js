@@ -52,8 +52,8 @@ const MusicItem = () => {
         }
       };
 
-      fetchFiles(data.image, "img");
-      fetchFiles(data.audio);
+      await fetchFiles(data.image, "img");
+      await fetchFiles(data.audio);
     };
     fetchData();
   }, []);

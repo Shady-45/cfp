@@ -28,22 +28,17 @@ const NftItem = () => {
       const data = await response.json();
       setNftItem(data);
 
-      const fetchFiles = async function (filename, type) {
-        const headersObj = {};
-        if (token) {
-          headersObj["authorization"] = token;
-        }
+      const fetchFiles = async function (filename) {
         const response = await fetch(
           `https://www.fundingportal.site/uploads/${filename}`,
           { headers: headersObj }
         );
         const fileBuffer = await response.blob();
         const fileUrl = window.URL.createObjectURL(fileBuffer);
-
         setImageItem(fileUrl);
       };
 
-      fetchFiles(data.image);
+      await fetchFiles(data?.image);
     };
     fetchData();
   }, []);

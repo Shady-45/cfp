@@ -46,8 +46,8 @@ const ScriptItem = () => {
         }
       };
 
-      fetchFiles(data.image, "img");
-      fetchFiles(data.text);
+      await fetchFiles(data.image, "img");
+      await fetchFiles(data.text);
     };
     fetchData();
   }, []);

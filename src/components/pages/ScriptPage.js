@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import script1 from "../../assets/script1.jpg";
 import axios from "../../api/axios";
 import "../../Cascading-Style-Sheets/Hero.css";
 import payments from "../payments/payment.service";
