@@ -72,7 +72,7 @@ const SignUpCreator = () => {
         <input
           className="inpt"
           type="text"
-          placeholder="Name"
+          placeholder="Naame"
           name="name"
           value={creatorData.name}
           onChange={(e) => submitForm(e)}

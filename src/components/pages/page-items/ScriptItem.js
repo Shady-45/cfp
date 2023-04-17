@@ -51,7 +51,7 @@ const ScriptItem = () => {
     };
     fetchData();
   }, []);
-  console.log(scriptItem);
+  
   return (
     <>
       <Link to="/">

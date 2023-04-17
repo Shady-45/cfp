@@ -4,10 +4,21 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import AuthContext from "../../../context/AuthProvider";
 import axios from "../../../api/axios";
 
-const Movieform = ({ movieForm, setMovieForm }) => {
+const Movieform = ({
+  movieForm,
+  setMovieForm,
+  showUpload,
+  setShowUpload,
+  uploadMess,
+  setUploadMess,
+  showError,
+  setShowError,
+  uploadError,
+  setUploadError,
+}) => {
   const url = "https://www.fundingportal.site";
-  const [image, setImage] = useState("");
-  const [text, setText] = useState("");
+  const [image, setImage] = useState(null);
+  const [text, setText] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const MOVIE_UPLOAD_URL = "script/create";
@@ -32,8 +43,14 @@ const Movieform = ({ movieForm, setMovieForm }) => {
       })
       .then((res) => {
         console.log(res);
+        setShowUpload(!showUpload);
+        setUploadMess("Script added Sucessfully");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setShowError(!showError);
+        setUploadError("Error adding Script");
+      });
     setText(" ");
     setImage(" ");
     setName("");
@@ -43,44 +60,53 @@ const Movieform = ({ movieForm, setMovieForm }) => {
     <div>
       <form ref={clickRef} onSubmit={handleSubmit} className="sign-in-form">
         <AiOutlineCloseCircle onClick={toggle} className="closeForm" />
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="inpt"
-          type="text"
-          name="name"
-          placeholder="name"
-          id=""
-        />
+        <div className="form-elements">
+          <label htmlFor="Name">Name </label>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="inpt"
+            type="text"
+            name="name"
+            id="Name"
+          />
+        </div>
 
-        <input
-          className="inpt"
-          type="file"
-          placeholder="Script"
-          name="image"
-          accept=".txt"
-          onChange={(e) => setText(e.target.files[0])}
-          id=""
-        />
+        <div className="form-elements">
+          <label htmlFor="Script">Script</label>
+          <input
+            className="inpt"
+            type="file"
+            name="image"
+            accept=".txt"
+            onChange={(e) => setText(e.target.files[0])}
+            id="Script"
+          />
+        </div>
 
-        <input
-          className="inpt"
-          type="file"
-          placeholder="Text"
-          accept=".jpeg,.png,.jpg"
-          name="text"
-          onChange={(e) => setImage(e.target.files[0])}
-          id=""
-        />
-        <input
-          className="inpt"
-          type="text"
-          placeholder="Price"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          id=""
-        />
+        <div className="form-elements">
+          <label htmlFor="Text">Text</label>
+          <input
+            className="inpt"
+            type="file"
+            accept=".jpeg,.png,.jpg"
+            name="text"
+            onChange={(e) => setImage(e.target.files[0])}
+            id="Text"
+          />
+        </div>
+        <div className="form-elements">
+          <label htmlFor="Price">Price</label>
+          <input
+            className="inpt"
+            type="text"
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            id="Price"
+          />
+        </div>
+
         <button type="submit" className="btn">
           Submit
         </button>

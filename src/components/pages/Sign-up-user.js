@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import "../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../api/axios";
-import { useNavigate } from "react-router-dom";
 
 const SignUpuser = ({
   signUp,
@@ -19,16 +18,27 @@ const SignUpuser = ({
   showSignUp,
   setShowSignUp,
   signUpMessage,
+  errorMessage,
+  setErrorMessage,
+  setShowSignUpError,
+  showSignUpError,
 }) => {
-  const navigate = useNavigate();
   const [userEthAccount, setUserEthAccount] = useState(" ");
-  const [errorMessage, setErrorMessage] = useState(false);
-  const [sucessMessage, setSucessMessage] = useState(false);
-
+  const [userId, setUserId] = useState(0);
+  const [otpForm, setOtpForm] = useState(false);
   const SIGNUP_URL = "auth/signUp";
   const [showForm, setShowForm] = useState(true);
   const role = "creator";
-
+  const [otp, setOtp] = useState("");
+  useEffect(() => {
+    let timeout;
+    if (otpForm) {
+      timeout = setTimeout(() => {
+        setOtpForm(false);
+      }, 120000); // 5000 milliseconds = 5 seconds
+    }
+    return () => clearTimeout(timeout);
+  }, [showSucessMessage]);
   window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
     // Return the address of the wallet
     setUserEthAccount(res[0]);
@@ -43,7 +53,42 @@ const SignUpuser = ({
   });
 
   const toggle = () => {
+    setShowForm(!setShowForm);
     setSignUp(!signUp);
+  };
+  const toggleOtp = () => {
+    setOtpForm(!otpForm);
+  };
+  const submitOtpForm = async (e) => {
+    e.preventDefault();
+    try {
+      const otpData = await axios.post(
+        "https://www.fundingportal.site/auth/verify",
+        JSON.stringify({
+          userId: userId,
+          otp: otp,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      let otpResponse = otpData.data;
+      console.log(otpResponse);
+      if (otpResponse.message === "otp verified successfully") {
+        setOtpForm(!otpForm);
+        setShowSignUp(!showSignUp);
+        setSignUpMess(otpResponse.message);
+        setShowForm(false);
+        setSignUp(false);
+      }
+    } catch (err) {
+      console.log(err);
+      setShowSignUpError(!showSignUpError);
+      setErrorMessage(err.response.data.message);
+      setOtpForm(!otpForm);
+      setShowForm(false);
+      setSignUp(false);
+    }
   };
   const submitUserForm = async (e) => {
     e.preventDefault();
@@ -63,15 +108,17 @@ const SignUpuser = ({
         }
       );
       let messageData = response.data;
-      console.log(messageData);
-      signUpMessage(messageData);
-      setShowSignUp(!showSignUp);
-      alert(messageData);
-      signUpMessage = messageData;
+      setUserId(messageData.userId);
+      if (messageData.message === "otp sent successfully, please verify") {
+        setOtpForm(!otpForm);
+        setShowForm(false);
+      }
+      console.log(messageData.message);
     } catch (err) {
       console.log(err);
-      /*    setShowErrorMessage(!setErrorMessage);
-      setMessage("Check"); */
+      setShowSignUpError(!showSignUpError);
+      setErrorMessage(err.response.data.message);
+      console.log(err.response.data.message);
     }
     setUserData({
       name: "",
@@ -82,12 +129,6 @@ const SignUpuser = ({
     });
   };
   const submitForm = (e) => {
-    /*   fetch(`${host}/auth/signUp`)
-      .then((res) => res.json)
-      .then((result) => console.log(result));
-      
- */
-
     const postUserData = { ...userData };
     postUserData[e.target.name] = e.target.value;
     setUserData(postUserData);
@@ -98,10 +139,22 @@ const SignUpuser = ({
 
   return (
     <div>
-      {sucessMessage ? (
-        <div>
-          <h2 className="analytic">User SucessFully Signed In</h2>
-        </div>
+      {otpForm ? (
+        <form className="sign-in-form" onSubmit={(e) => submitOtpForm(e)}>
+          <AiOutlineCloseCircle onClick={toggleOtp} className="close-otp" />
+          <h3>Please Enter the Otp </h3>
+          <input
+            type="text"
+            name="num"
+            placeholder="Enter Otp"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            id=""
+          />
+          <button type="submit" className="btn">
+            Submit
+          </button>
+        </form>
       ) : null}
       {showForm ? (
         <form

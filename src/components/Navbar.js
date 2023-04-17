@@ -9,7 +9,8 @@ import SignInuser from "./pages/Sign-in-user";
 import SignInCreator from "./pages/Sign-in-creator";
 import SignUpuser from "./pages/Sign-up-user";
 import SignUpCreator from "./pages/Sign-up-creator";
-
+import { RiCloseLine } from "react-icons/ri";
+import { ImMenu } from "react-icons/im";
 import Movieform from "./pages/uploads/Movieform";
 import NftForm from "./pages/uploads/NftForm";
 import jwt_decode from "jwt-decode";
@@ -17,6 +18,9 @@ import MusicForm from "./pages/uploads/MusicForm";
 import Web3 from "web3";
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
+import { RiCloseFill } from "react-icons/ri";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { FiMenu } from "react-icons/fi";
 
 const Navbar = ({
   count,
@@ -44,6 +48,20 @@ const Navbar = ({
   setSignUpMess,
   showSignUp,
   setShowSignUp,
+  errorMessage,
+  setErrorMessage,
+  showSignUpError,
+  setShowSignUpError,
+  showUpload,
+  setShowUpload,
+  uploadMess,
+  setUploadMess,
+  showError,
+  setShowError,
+  uploadError,
+  setUploadError,
+  musicData,
+  setMusicData,
 }) => {
   useEffect(() => {
     let timeout;
@@ -56,13 +74,31 @@ const Navbar = ({
   }, [showSucessMessage]);
   useEffect(() => {
     let timeout;
-    if (signUpMessage) {
+    if (SignUpMess) {
       timeout = setTimeout(() => {
         setShowSignUp(false);
       }, 3000); //
     }
     return () => clearTimeout(timeout);
   }, [showSignUp]);
+  useEffect(() => {
+    let timeout;
+    if (uploadMess) {
+      timeout = setTimeout(() => {
+        setShowUpload(false);
+      }, 3000); //
+    }
+    return () => clearTimeout(timeout);
+  }, [showUpload]);
+  useEffect(() => {
+    let timeout;
+    if (uploadError) {
+      timeout = setTimeout(() => {
+        setShowError(false);
+      }, 3000); //
+    }
+    return () => clearTimeout(timeout);
+  }, [uploadError]);
   useEffect(() => {
     let timeout_error;
     if (showErrorMessage) {
@@ -72,9 +108,18 @@ const Navbar = ({
     }
     return () => clearTimeout(timeout_error);
   }, [showErrorMessage]);
+  useEffect(() => {
+    let timeout_signUp_error;
+    if (showSignUpError) {
+      timeout_signUp_error = setTimeout(() => {
+        setShowSignUpError(false);
+      }, 3000); // 5000 milliseconds = 5 seconds
+    }
+    return () => clearTimeout(timeout_signUp_error);
+  }, [showSignUpError]);
 
   const navigate = useNavigate();
-
+  const [openNavbar, setOpenNavBar] = useState(false);
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
@@ -103,28 +148,21 @@ const Navbar = ({
       {showSucessMessage ? (
         <span className="sucess-message">{message}</span>
       ) : null}
+      {showUpload ? <span className="sucess-message">{uploadMess}</span> : null}
+      {showError ? <span className="error-message">{uploadError}</span> : null}
       {showSignUp ? (
-        <span className="sucess-message">{signUpMessage}</span>
+        <span className="sucess-message-signup">{SignUpMess}</span>
       ) : null}
       {showErrorMessage ? (
         <span className="error-message">{message}</span>
       ) : null}
-      {/*      {openWallet ? (
-        <div className="wallet-container" ref={closeref}>
-          <AiOutlineClose className="close-wallet" onClick={close} />
-          <div className="meta-mask">
-            <p className="meta-text">Connect to Meta Mask Wallet</p>
-            <img className="meta" src={metemask} alt="" />
-          </div>
-        </div>
-      ) : null} */}
-
+      {showSignUpError ? (
+        <span className="error-message">{errorMessage}</span>
+      ) : null}
       {signIn ? (
         <SignUpuser
           showSucessMessage={showSucessMessage}
           setShowSucessMessage={setShowSucessMessage}
-          showErrorMessage={showErrorMessage}
-          setShowErrorMessage={setShowErrorMessage}
           message={message}
           setMessage={setMessage}
         />
@@ -139,15 +177,54 @@ const Navbar = ({
           setSignUpMess={setSignUpMess}
           showSignUp={showSignUp}
           setShowSignUp={setShowSignUp}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+          showErrorMessage={showErrorMessage}
+          setShowErrorMessage={setShowErrorMessage}
+          showSignUpError={showSignUpError}
+          setShowSignUpError={setShowSignUpError}
         />
       ) : null}
       {signUpCreator ? <SignUpCreator /> : null}
       {movieForm ? (
-        <Movieform movieForm={movieForm} setMovieForm={setMovieForm} />
+        <Movieform
+          movieForm={movieForm}
+          setMovieForm={setMovieForm}
+          uploadMess={uploadMess}
+          setUploadMess={setUploadMess}
+          showError={showError}
+          setShowError={setShowError}
+          uploadError={uploadError}
+          setUploadError={setUploadError}
+        />
       ) : null}
-      {nftForm ? <NftForm nftForm={nftForm} setNftForm={setNftForm} /> : null}
+      {nftForm ? (
+        <NftForm
+          nftForm={nftForm}
+          setNftForm={setNftForm}
+          uploadMess={uploadMess}
+          setUploadMess={setUploadMess}
+          showError={showError}
+          setShowError={setShowError}
+          uploadError={uploadError}
+          setUploadError={setUploadError}
+        />
+      ) : null}
       {musicForm ? (
-        <MusicForm musicForm={musicForm} setMusicForm={setMusicForm} />
+        <MusicForm
+          musicForm={musicForm}
+          setMusicForm={setMusicForm}
+          showUpload={showUpload}
+          setShowUpload={setShowUpload}
+          uploadMess={uploadMess}
+          setUploadMess={setUploadMess}
+          showError={showError}
+          setShowError={setShowError}
+          uploadError={uploadError}
+          setUploadError={setUploadError}
+          musicData={musicData}
+          setMusicData={setMusicData}
+        />
       ) : null}
       {upload ? (
         <div>
@@ -183,149 +260,125 @@ const Navbar = ({
       ) : null}
       {!localStorage.getItem("user-details") &&
       localStorage.getItem("user-details") !== undefined ? (
-        <div className="nav-main">
-          <Link to="/">
-            {" "}
-            <div className="logo-main-new">
-              <SiBlockchaindotcom />
-              <h3>IndieCrypt</h3>
-            </div>
-          </Link>
-
-          <div className="search-logo-main">
-            <input
-              type="search"
-              className="search-inpt"
-              name=""
-              id=""
-              placeholder="Search"
-            />
-            {/*  <BsSearch className="search-img-main" /> */}
-          </div>
-
-          <div>
-            <div className="buttonns">
-              <button className="btn-nav" onClick={() => setClick(!click)}>
-                Sign In
-              </button>
-              {click ? (
-                /*  <ul className="sign-in">
-                  <li
-                    className="sign-in-user"
-                    onClick={() => {
-                      setSignIn(!signIn);
-                      setClick(!click);
-                    }}
-                  >
-                    Users
-                  </li>
-                  <li
-                    className="sign-in-creators"
-                    onClick={() => setSignInCreator(!signInCreator)}
-                  >
-                    Creators
-                  </li>
-                </ul> */
-                <SignInuser
-                  showSucessMessage={showSucessMessage}
-                  setShowSucessMessage={setShowSucessMessage}
-                  showErrorMessage={showErrorMessage}
-                  setShowErrorMessage={setShowErrorMessage}
-                  message={message}
-                  setMessage={setMessage}
-                  click={click}
-                  setClick={setClick}
+        <div>
+          <div className="nav-main">
+            <Link to="/">
+              {" "}
+              <div className="logo-main-new">
+                <SiBlockchaindotcom />
+                <h3>IndieCrypt</h3>
+              </div>
+            </Link>
+            <div className={`${openNavbar ? "nav-items" : "nav-items-mobile"}`}>
+              <div className="search-logo-main">
+                <input
+                  type="search"
+                  className="search-inpt"
+                  name=""
+                  id=""
+                  placeholder="Search"
                 />
-              ) : null}
-              <button className="btn-nav" onClick={() => setSignUp(!signUp)}>
-                Sign Up
-              </button>
+              </div>
+
+              <div>
+                <div className="buttonns">
+                  <button className="btn-nav" onClick={() => setClick(!click)}>
+                    Sign In
+                  </button>
+                  {click ? (
+                    <SignInuser
+                      showSucessMessage={showSucessMessage}
+                      setShowSucessMessage={setShowSucessMessage}
+                      showErrorMessage={showErrorMessage}
+                      setShowErrorMessage={setShowErrorMessage}
+                      message={message}
+                      setMessage={setMessage}
+                      click={click}
+                      setClick={setClick}
+                    />
+                  ) : null}
+                  <button
+                    className="btn-nav"
+                    onClick={() => setSignUp(!signUp)}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>{" "}
+          <div onClick={() => setOpenNavBar(!openNavbar)} className="icons">
+            {openNavbar ? <RiCloseLine /> : <ImMenu />}
           </div>
         </div>
       ) : (
         <div className="nav-main">
-          {" "}
-          <Link to="/">
-            <div className="logo-main-new">
-              <SiBlockchaindotcom />
-              <h3>IndieCrypt</h3>
+          <div className="nav-mobilee">
+            <Link to="/">
+              <div className="logo-main-new">
+                <SiBlockchaindotcom />
+                <h3>IndieCrypt</h3>
+              </div>
+            </Link>
+            <div onClick={() => setClick2(!click2)} className="menu-close">
+              {click2 ? <RiCloseFill className="close-form" /> : <FiMenu />}
             </div>
-          </Link>
-          <div className="search-logo-main">
-            <input type="search-main" name="" id="" placeholder="Search" />
-            <BsSearch className="search-img-main" />
           </div>
-          <button onClick={() => setUpload(!upload)} className="btn-nav">
-            Upload
-          </button>
-          {profile && localStorage.getItem("user-details") ? (
-            <ul className="avatar-container-new">
+
+          <div className={`${click2 ? "container-nav" : "container-close"}`}>
+            <div className="search-logo-main">
+              <input type="search-main" name="" id="" placeholder="Search" />
+              <BsSearch className="search-img-main" />
+            </div>
+            <button onClick={() => setUpload(!upload)} className="btn-nav">
+              Upload
+            </button>
+            {profile && localStorage.getItem("user-details") ? (
+              <ul className="avatar-container-new">
+                <Link to="/favourites" className="class">
+                  <li onClick={handleCount} className="point">
+                    Favourites
+                  </li>
+                </Link>
+                <hr />
+                <Link to="/works" className="class">
+                  <li onClick={handleCount} className="point">
+                    Works
+                  </li>
+                </Link>
+                <hr />
+                <Link to="/buys" className="class">
+                  <li className="point">Buys</li>
+                </Link>
+                <hr />
+                <li className="point" onClick={logOut}>
+                  Log Out
+                </li>
+              </ul>
+            ) : null}
+            <ul className="avatar-container-mobile">
               <Link to="/favourites" className="class">
                 <li onClick={handleCount} className="point">
                   Favourites
                 </li>
               </Link>
-              <hr />
+
               <Link to="/works" className="class">
                 <li onClick={handleCount} className="point">
                   Works
                 </li>
               </Link>
-              <hr />
 
               <li className="point" onClick={logOut}>
                 Log Out
               </li>
             </ul>
-          ) : null}
+          </div>
+
           <CgProfile
             className="profile-icon"
             onClick={() => setProfile(!profile)}
           />
-          {/* <div>
-        <div className="buttonns">
-          <button className="btn-nav" onClick={() => setClick(!click)}>
-            Sign In
-          </button>
-          {click ? (
-            <ul className="sign-in">
-              <li
-                className="sign-in-user"
-                onClick={() => setSignIn(!signIn)}
-              >
-                Users
-              </li>
-              <li
-                className="sign-in-creators"
-                onClick={() => setSignInCreator(!signInCreator)}
-              >
-                Creators
-              </li>
-            </ul>
-          ) : null}
-          <button className="btn-nav" onClick={() => setClick2(!click2)}>
-            Sign Up
-          </button>
-          {click2 ? (
-            <ul className="sign-up">
-              <li
-                className="sign-up-user"
-                onClick={() => setSignUp(!signUp)}
-              >
-                {" "}
-                Users
-              </li>
-              <li
-                className="sign-up-creators"
-                onClick={() => setSignUpCreator(!signUpCreator)}
-              >
-                Creators
-              </li>
-            </ul>
-          ) : null}
-        </div>
-      </div> */}
         </div>
       )}
     </>

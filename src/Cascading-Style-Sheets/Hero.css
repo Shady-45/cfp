@@ -1,4 +1,4 @@
-.section-hero {
+.hero-section {
   color: var(--color-heading);
   display: flex;
   
@@ -69,26 +69,30 @@
 .heart-red{
   color: red;
 }
-.left-text {
+.left-text-section {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  width: 66%;
+  width:70%;
   margin: auto 0 auto 0;
   padding-right: 9%;
   padding-left: 3%;
 }
 
-.main-heading {
+.main-heading-section {
   font-size: 3.2rem;
-  line-height: 1.2;
+  color: whitesmoke;
+    line-height: 1.2;
+    width: 89%;
 }
 
 .sub-text {
   font-size: 0.9rem;
   color: var(--secondary);
 }
-
+.sub-text-section{
+  font-size: 16px;
+}
 .hero-btn {
   display: inline-block;
   width: 10rem;
@@ -112,9 +116,23 @@
   width: 30rem;
   height: 30rem;
 }
-/* @media only screen and (min-width: 600px) {
-  section{
-    display: flex;
-   
-  }
-} */
+
+
+@media screen and (max-width: 800px) {
+.hero-section{
+  display: flex;
+  flex-direction: column;
+}
+.left-text-section{
+  margin: 1% 8%;
+  width: 100%;
+}
+.main-heading-section{
+  font-size: 3.2rem;
+    color: whitesmoke;
+    line-height: 1.2;
+    width: 90%;
+    width: 90%;
+}
+
+}

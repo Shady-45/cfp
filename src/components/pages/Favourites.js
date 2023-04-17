@@ -42,18 +42,6 @@ const Favourites = ({ count }) => {
 
   const clickRef = useRef(null);
 
-  const deleteScript = (id) => {
-    axios
-      .delete(`${baseURL}/script/delete/${id}`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
-  };
-  const deleteMusic = (id) => {
-    axios
-      .delete(`${baseURL}/music/delete/${id}`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
-  };
   console.log(updateMusicId);
   const handleRemoveMusic = (id) => {
     fetch(`https://www.fundingportal.site/favorites/${id}?type=music`, {
@@ -66,7 +54,7 @@ const Favourites = ({ count }) => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("www.fundingportal.site/favorites/me", getObj)
+          .get("/favorites/me", getObj)
           .then((res) =>
             setFavourites(res.data.filter((item) => item.type === "music"))
           )
@@ -118,118 +106,47 @@ const Favourites = ({ count }) => {
 
       .catch((err) => console.log(err, "🔥🔥"));
   };
-  const UpdateMusic = (e) => {
-    e.preventDefault();
-    let MUSIC_UPDATE_URL = `${baseURL}/music/update/${updateMusicId}`;
-    const UpdateFormData = new FormData();
-    image && UpdateFormData.append("image", image);
-    audio && UpdateFormData.append("audio", audio);
-    name && UpdateFormData.append("name", name);
-    price && UpdateFormData.append("price", price);
 
-    axios
-      .put(MUSIC_UPDATE_URL, UpdateFormData, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-    setAudio(" ");
-    setImage(" ");
-    setName(" ");
-    setPrice(" ");
-  };
-  const UpdateScript = (e) => {
-    e.preventDefault();
-    let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateNftId}`;
-    const UpdateFormData = new FormData();
-    image && UpdateFormData.append("image", image);
-
-    name && UpdateFormData.append("name", name);
-    price && UpdateFormData.append("price", price);
-    axios
-      .put(SCRIPT_UPDATE_URL, UpdateFormData, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-
-    setImage(" ");
-    setName(" ");
-    setPrice(" ");
-  };
-  const UpdateNft = (e) => {
-    e.preventDefault();
-    let SCRIPT_UPDATE_URL = `${baseURL}/music/update/${updateScriptId}`;
-    const UpdateFormData = new FormData();
-    image && UpdateFormData.append("image", image);
-
-    name && UpdateFormData.append("name", name);
-    price && UpdateFormData.append("price", price);
-    axios
-      .put(SCRIPT_UPDATE_URL, UpdateFormData, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-    setAudio(" ");
-    setImage(" ");
-    setName(" ");
-    setPrice(" ");
-  };
-
-  const deleteNft = (id) => {
-    axios
-      .delete(`/nft/delete/${id}`, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.data));
-  };
   useEffect(() => {
     axios
       .get(`https://www.fundingportal.site/home/uploads/me`, config)
       .then((res) => {
         console.log(res.data);
-        setUserScriptData(res.data.script);
-        setUserMusicData(res.data.music);
-        setUserNftData(res.data.nft);
+        setUserScriptData(res.data.filter((item) => item.type === "script"));
+        setUserMusicData(res.data.filter((item) => item.type === "music"));
+        setUserNftData(res.data.filter((item) => item.type === "nft"));
       })
       .catch((err) => console.log(err));
   }, []);
+  console.log(userScriptData);
   useEffect(() => {
     axios
       .get(`https://www.fundingportal.site/favorites/me`, config)
       .then((res) => {
         console.log(res.data);
         setFavourites(res.data.filter((item) => item.type === "music"));
-        /*   setFavouritesScript(res.data.script);
-        setFavouritesNft(res.data.nft); */
-        /* const avengers = characters.filter(character => character.team === 'Avengers'); */
         setFavouritesScript(res.data.filter((item) => item.type === "script"));
         setFavouritesNft(res.data.filter((item) => item.type === "nft"));
       })
       .catch((err) => console.log(err));
   }, []);
-  const userData = [...userScriptData, ...userMusicData, ...userNftData];
-  console.log(userData);
 
   const details = jwt_decode(localStorage.getItem("user-details"));
-
+  const data = [...userScriptData, ...userNftData, ...userMusicData];
+  console.log(data);
   return (
     <div>
       <div className="main-container">
         <h1 className="analytic">{`Welcome ${details.name}!`}</h1>
-        <div className="analytics"></div>
+        <div className="analytics">
+          {favourites.length === 0 &&
+          favouritesScript.length === 0 &&
+          favouritesNft.length === 0 ? (
+            <h1>You Haven't added any favourites!!</h1>
+          ) : (
+            <h1>Your Favourites</h1>
+          )}
+        </div>
 
         <div className="cards namecards">
           {favourites.map((item, index) => (

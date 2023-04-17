@@ -4,9 +4,20 @@ import "../../../Cascading-Style-Sheets/Navbar.css";
 import axios from "../../../api/axios";
 import baseURL from "../../../api/axios";
 
-const MusicForm = ({ musicForm, setMusicForm }) => {
-  const [image, setImage] = useState("");
-  const [audio, setAudio] = useState("");
+const MusicForm = ({
+  musicForm,
+  setMusicForm,
+  showUpload,
+  setShowUpload,
+  uploadMess,
+  setUploadMess,
+  showError,
+  setShowError,
+  uploadError,
+  setUploadError,
+}) => {
+  const [image, setImage] = useState(null);
+  const [audio, setAudio] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const url = "https://www.fundingportal.site";
@@ -32,13 +43,23 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
       })
       .then((res) => {
         console.log(res);
-      })
-      .catch((err) => console.log(err));
 
-    setAudio(" ");
+        setShowUpload(!showUpload);
+        if (res.status === 201 || 202) {
+          setUploadMess("Music Added Sucessfully");
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowError(!showError);
+        setUploadError("Incorrect Body Format");
+      });
+
+    setAudio(null);
     setName(" ");
     setPrice(" ");
-    setImage("");
+    setImage(null);
   };
 
   return (
@@ -49,43 +70,53 @@ const MusicForm = ({ musicForm, setMusicForm }) => {
         className="sign-in-form"
       >
         <AiOutlineCloseCircle onClick={toggle} className="closeForm" />
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="inpt"
-          type="text"
-          placeholder="name"
-          id=""
-        />
+        <div className="form-elements">
+          <label htmlFor="Name">Name: </label>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="inpt"
+            type="text"
+            id="Name"
+          />
+        </div>
+        <div className="form-elements">
+          <label htmlFor="Script">Image </label>
+          <input
+            className="inpt"
+            type="file"
+            name="image"
+            accept=".jpeg,.jpg"
+            onChange={(e) => setImage(e.target.files[0])}
+            id="Script"
+          />
+        </div>
+        <div className="form-elements">
+          {" "}
+          <label htmlFor="Audio">Audio </label>
+          <input
+            className="inpt"
+            type="file"
+            placeholder="Artist"
+            name="audio"
+            accept=".mp3"
+            onChange={(e) => setAudio(e.target.files[0])}
+            id="Audio"
+          />
+        </div>
+        <div className="form-elements">
+          {" "}
+          <label htmlFor="Price">Price </label>
+          <input
+            className="inpt"
+            type="text"
+            name="price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            id="Price"
+          />
+        </div>
 
-        <input
-          className="inpt"
-          type="file"
-          placeholder="Script"
-          name="image"
-          accept=".jpeg,.jpg"
-          onChange={(e) => setImage(e.target.files[0])}
-          id=""
-        />
-
-        <input
-          className="inpt"
-          type="file"
-          placeholder="Artist"
-          name="audio"
-          accept=".mp3"
-          onChange={(e) => setAudio(e.target.files[0])}
-          id=""
-        />
-        <input
-          className="inpt"
-          type="text"
-          placeholder="Price"
-          name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          id=""
-        />
         <button type="submit" className="btn">
           Submit
         </button>

@@ -1,8 +1,10 @@
 import Web3 from "web3";
+let paymentSucess;
 const etherscanApiUrl = "https://api.etherscan.io/api";
 const apiKey = "XR842H61S6EMJR9IDPQVKQ34E6XZZA9XP7";
 
 const that = {};
+
 that.getEthereumAcccount = async function () {
   try {
     if (!window.ethereum?.isMetaMask) throw "metamask not installed";
@@ -64,11 +66,13 @@ that.getTransactionStatus = async function (tHex) {
 
 that.manageTransactionFlow = async function (e) {
   try {
+    paymentSucess = true;
     const { fromAccount, toAccount, price, id, type } =
       await that.getPaymentDetails(e);
     const tHex = await that.sendTransaction(fromAccount, toAccount, price);
     await that.getTransactionStatus(tHex);
     console.log("transaction successfull");
+    paymentSucess = false;
     await fetch(
       `https://www.fundingportal.site/payments/send/${id}?type=${type}`,
       {
@@ -79,8 +83,9 @@ that.manageTransactionFlow = async function (e) {
       }
     );
   } catch (err) {
+    paymentSucess = false;
     console.log(err);
   }
 };
-
+export { paymentSucess };
 export default that;

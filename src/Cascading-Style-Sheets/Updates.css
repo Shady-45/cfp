@@ -44,3 +44,21 @@ input:focus {
     cursor: pointer;
 
 }
+.rotate{
+    position: absolute;
+    left: 50%;
+    top: 18rem;
+}
+.rotate-black{
+    background: #02050e;
+}
+.rotate-white{
+    background: #000;
+ opacity: 0.5;
+    height: 100vh;
+}
+/* buys */
+.buys{
+    text-align: center;
+    color: whitesmoke;
+}

@@ -15,6 +15,7 @@ import MusicItem from "./components/pages/page-items/MusicItem";
 import { useLocation } from "react-router-dom";
 import ScriptItem from "./components/pages/page-items/ScriptItem";
 import NftItem from "./components/pages/page-items/NftItem";
+import Buys from "./components/pages/Buys";
 
 /* import MusicItem from "./components/pages/page-items/MusicItem"; */
 
@@ -28,25 +29,33 @@ function App() {
   const match_music = location.pathname.match(regex_music);
   const match_script = location.pathname.match(regex_script);
   const match_nft = location.pathname.match(regex_nft);
+  const match_buy = location.pathname.match("/buys");
   const [count, setCount] = useState(0);
   const [signUp, setSignUp] = useState(false);
   const [click, setClick] = useState(false);
   const [movieForm, setMovieForm] = useState(false);
   const [nftForm, setNftForm] = useState(false);
   const [musicForm, setMusicForm] = useState(false);
+  const [showSignUpError, setShowSignUpError] = useState(false);
   const [getCreatorMusicData, setgetCreatorMusicData] = useState([]);
   const [getCreatorScriptData, setgetCreatorScriptData] = useState([]);
   const [getCreatorNftData, setgetCreatorNftData] = useState([]);
-
+  const [musicData, setMusicData] = useState([]);
   const GET_MUSIC_URL = "music/all";
   const GET_NFT_URL = "nft/all";
   const GET_SCRIPT_URL = "script/all";
   const [showSucessMessage, setShowSucessMessage] = useState(false);
   const [message, setMessage] = useState(" ");
+  const [isDownloading, setIsDownloading] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [SignUpMess, setSignUpMess] = useState("");
   const [showSignUp, setShowSignUp] = useState(false);
   const signUpMessage = "";
+  const [showUpload, setShowUpload] = useState(false);
+  const [uploadMess, setUploadMess] = useState(" ");
+  const [showError, setShowError] = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   /* const GET_NFT_URL = "nft/all"; */
   const handleUpdateMusicData = (id) => {
@@ -64,7 +73,7 @@ function App() {
 
   return (
     <>
-      {match_music || match_nft || match_script ? null : (
+      {match_music || match_nft || match_script || match_buy ? null : (
         <Navbar
           signUp={signUp}
           setSignUp={setSignUp}
@@ -89,16 +98,53 @@ function App() {
           setShowErrorMessage={setShowErrorMessage}
           message={message}
           setMessage={setMessage}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+          showSignUpError={showSignUpError}
+          setShowSignUpError={setShowSignUpError}
+          showUpload={showUpload}
+          setShowUpload={setShowUpload}
+          uploadMess={uploadMess}
+          setUploadMess={setUploadMess}
+          showError={showError}
+          setShowError={setShowError}
+          uploadError={uploadError}
+          setUploadError={setUploadError}
+          musicData={musicData}
+          setMusicData={setMusicData}
         />
       )}
 
       {/* 
       <Footer/> */}
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route
+          path="/"
+          element={
+            <Hero
+              musicData={musicData}
+              setMusicData={setMusicData}
+              setMessage={setMessage}
+              message={message}
+              setShowErrorMessage={setShowErrorMessage}
+              showErrorMessage={showErrorMessage}
+              setShowSucessMessage={setShowSucessMessage}
+              showSucessMessage={showSucessMessage}
+            />
+          }
+        />
         <Route path="/music" element={<MusicPage />} />
         <Route path="/script" element={<ScriptPage />} />
         <Route path="/nfts" element={<MoviePage />} />
+        <Route
+          path="/buys"
+          element={
+            <Buys
+              isDownloading={isDownloading}
+              setIsDownloading={setIsDownloading}
+            />
+          }
+        />
         <Route path="/musics/:musicId" element={<MusicItem />} />
         <Route path="/scripts/:scriptId" element={<ScriptItem />} />
         <Route path="/nfts/:nftId" element={<NftItem />} />

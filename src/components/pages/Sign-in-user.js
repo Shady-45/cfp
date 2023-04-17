@@ -57,11 +57,12 @@ const SignInuser = ({
       const token_res = jwt_decode(token);
       const { name } = token_res;
       // setAuth({ name, email, userToken: token });
-      setMessage(`welcome ${name}`);
+      setMessage(`Welcome ${name}`);
       setShowSucessMessage(!showSucessMessage);
     } catch (error) {
       setShowErrorMessage(!showErrorMessage);
       setMessage(error.message);
+      console.log(message);
     }
 
     setUserData({

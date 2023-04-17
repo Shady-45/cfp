@@ -3,10 +3,21 @@
 .nav-main{
   display: flex;
   justify-content: space-evenly;
-  background-color: #000;
+  background-color: #02050e;
   align-items: center;
   height: 4rem;
 
+}
+.nav-items{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-right: 13rem;
+  
+}
+.icons{
+  color: whitesmoke;
+  font-size: 20px;
 }
 .logo-main-new{
   display: flex;
@@ -43,6 +54,10 @@
   height: 23px;
   width: 47px;
   border-radius: 2px solid;
+}
+.check-fill{
+  color: whitesmoke;
+  font-size: 20px;
 }
 
 .nav {
@@ -142,7 +157,11 @@
   padding: 0.3% 0.7%;
   border-radius: 12px;
 }
-
+.form-elements{
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
 .upload{
   background: black;
   border: 1px solid white;
@@ -268,7 +287,7 @@
  display: flex;
   position: absolute;
   flex-direction: column;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   
 
@@ -286,7 +305,14 @@ padding: 7rem;
 .close{
   position: absolute;
   top: 2rem;
-    left: 21rem;
+    left: 26rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.close-otp{
+  position: absolute;
+  top: 2rem;
+    left: 22.5rem;
     font-size: 1.4rem;
     cursor: pointer;
 }
@@ -358,7 +384,7 @@ option{
 
 
 .inpt{
-  width: 100%;
+  width: 16vw;
   outline: none;
   border: none;
   border-top: none;
@@ -372,29 +398,148 @@ option{
 }
 .sucess-message{
   position: absolute;
-    color: white;
-    top: 3%;
-    border: 2px solid green;
-    /* padding: 0.5% 4%; */
-    left: 35%;
-    background-color: green;
-    height: 2.7%;
-    width: 22%;
-    padding: 15px;
-    font-size: 25px;
+  color: white;
+  top: 4%;
+  border: 2px solid green;
+  /* padding: 0.5% 4%; */
+  left: 40%;
+  background-color: green;
+  height: 5rem;
+  width: 22%;
+  padding: 21px;
+  font-size: 23px;
+
+}
+.sucess-message-signup{
+  position: absolute;
+  color: white;
+  top: 4%;
+  border: 2px solid green;
+  /* padding: 0.5% 4%; */
+  left: 40%;
+  background-color: green;
+  height: 5rem;
+  width: 26%;
+  padding: 21px;
+  font-size: 22px;
 
 }
 .error-message{
   position: absolute;
-    color: white;
-    top: 3%;
-    border: 2px solid red;
-    /* padding: 0.5% 4%; */
-    left: 35%;
-    background-color: red;
-    height: 2.7%;
-    width: 22%;
-    padding: 18px;
-    font-size: 25px;
+  color: white;
+  top: 3%;
+  border: 2px solid red;
+  /* padding: 0.5% 4%; */
+  left: 35%;
+  background-color: red;
+  height: 2.7%;
+  width: 29%;
+  padding: 18px;
+  font-size: 19px;
 
+}
+.icons{
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: none;
+}
+/*  */
+.nav-items-mobile{
+  display: flex;
+  gap: 2rem;
+}
+/* music Page */
+.back-container{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.back{
+  display: flex;
+  flex-direction: column;
+  color: whitesmoke;
+  align-items: center;
+}
+.avatar-container-mobile{
+  display: none;
+}
+ .container-nav{
+  display: flex;
+  gap: 1rem;
+  
+  
+}
+.container-close{
+  display: flex;
+  gap: 1rem;
+}
+.menu-close{
+  display: none;
+}
+@media screen and (max-width: 800px){
+  .logo-main-new{
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+
+  }
+  .container-close{
+    display: none;
+  }
+  .nav-items-mobile{
+    display: none;
+  }
+ 
+  .icons{
+    display: block;
+  }
+  .nav-items{
+    display: flex;
+flex-direction: column;
+margin-top: 9.8rem;
+margin-left: 18rem;
+background-color: #02050e;
+padding: 2rem 6rem;
+z-index: 100;
+
+
+  }
+  .buttonns{
+    display: flex;
+    flex-direction: column;
+  }
+  .sign-in-form{
+    margin: 0rem -10rem;
+  }
+  .close-form{
+    color: whitesmoke
+  }
+  .menu-close{
+    color: whitesmoke;
+    display: block;
+    position: absolute;
+    right: 0.5rem;
+    font-size: 20px;
+    top: 1rem;
+  }
+  .profile-icon{
+    display: none;
+  }
+  .avatar-container-mobile{
+display: flex;
+flex-direction: column;
+gap: .5rem;
+  }
+  .container-nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10rem;
+    background: #02050e;
+    border: 2px solid #02050e;
+    z-index: 100;
+
+  }
 }

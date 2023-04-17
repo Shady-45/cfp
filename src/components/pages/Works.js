@@ -217,14 +217,6 @@ const Works = () => {
                       <p className="currency">Current eth</p>
                     </div>
                     <div className="secondrow">
-                      <p className="author">
-                        <img
-                          className="avatar author-img"
-                          alt={item.name}
-                          src={`${baseURL}/uploads/${item.image}`}
-                        />
-                        <p className="author-name">{item.name}</p>
-                      </p>
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
