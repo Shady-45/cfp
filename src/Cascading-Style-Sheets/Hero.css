@@ -17,12 +17,23 @@
 }
 
 .meta{
-  background: red;
   color: white;
   padding: 14px 138px;
   position: absolute;
-  left: 33%;
-  height: 47px;
+  left: 20%;
+  height: 136px;
+  border: 2px solid white;
+  top: 18rem;
+  width: 60%;
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 3rem;
+}
+.tri{
+  font-size: 61px;
 }
 .music-player{
   background-color: #272d37;

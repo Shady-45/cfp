@@ -261,125 +261,145 @@ const Navbar = ({
       {!localStorage.getItem("user-details") &&
       localStorage.getItem("user-details") !== undefined ? (
         <div>
-          <div className="nav-main">
-            <Link to="/">
-              {" "}
-              <div className="logo-main-new">
-                <SiBlockchaindotcom />
-                <h3>IndieCrypt</h3>
-              </div>
-            </Link>
-            <div className={`${openNavbar ? "nav-items" : "nav-items-mobile"}`}>
-              <div className="search-logo-main">
-                <input
-                  type="search"
-                  className="search-inpt"
-                  name=""
-                  id=""
-                  placeholder="Search"
-                />
-              </div>
+          {window.ethereum ? (
+            <div className="nav-main">
+              <Link to="/">
+                {" "}
+                <div className="logo-main-new">
+                  <SiBlockchaindotcom />
+                  <h3>IndieCrypt</h3>
+                </div>
+              </Link>
+              <div
+                className={`${openNavbar ? "nav-items" : "nav-items-mobile"}`}
+              >
+                <div className="search-logo-main">
+                  <input
+                    type="search"
+                    className="search-inpt"
+                    name=""
+                    id=""
+                    placeholder="Search"
+                  />
+                </div>
 
-              <div>
-                <div className="buttonns">
-                  <button className="btn-nav" onClick={() => setClick(!click)}>
-                    Sign In
-                  </button>
-                  {click ? (
-                    <SignInuser
-                      showSucessMessage={showSucessMessage}
-                      setShowSucessMessage={setShowSucessMessage}
-                      showErrorMessage={showErrorMessage}
-                      setShowErrorMessage={setShowErrorMessage}
-                      message={message}
-                      setMessage={setMessage}
-                      click={click}
-                      setClick={setClick}
-                    />
-                  ) : null}
-                  <button
-                    className="btn-nav"
-                    onClick={() => setSignUp(!signUp)}
-                  >
-                    Sign Up
-                  </button>
+                <div>
+                  <div className="buttonns">
+                    <button
+                      className="btn-nav"
+                      onClick={() => setClick(!click)}
+                    >
+                      Sign In
+                    </button>
+                    {click ? (
+                      <SignInuser
+                        showSucessMessage={showSucessMessage}
+                        setShowSucessMessage={setShowSucessMessage}
+                        showErrorMessage={showErrorMessage}
+                        setShowErrorMessage={setShowErrorMessage}
+                        message={message}
+                        setMessage={setMessage}
+                        click={click}
+                        setClick={setClick}
+                      />
+                    ) : null}
+                    <button
+                      className="btn-nav"
+                      onClick={() => setSignUp(!signUp)}
+                    >
+                      Sign Up
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>{" "}
-          <div onClick={() => setOpenNavBar(!openNavbar)} className="icons">
-            {openNavbar ? <RiCloseLine /> : <ImMenu />}
-          </div>
+          ) : null}
+          {window.ethereum ? (
+            <div onClick={() => setOpenNavBar(!openNavbar)} className="icons">
+              {openNavbar ? <RiCloseLine /> : <ImMenu />}
+            </div>
+          ) : null}
         </div>
       ) : (
-        <div className="nav-main">
-          <div className="nav-mobilee">
-            <Link to="/">
-              <div className="logo-main-new">
-                <SiBlockchaindotcom />
-                <h3>IndieCrypt</h3>
+        <main>
+          {window.ethereum ? (
+            <div className="nav-main">
+              <div className="nav-mobilee">
+                <Link to="/">
+                  <div className="logo-main-new">
+                    <SiBlockchaindotcom />
+                    <h3>IndieCrypt</h3>
+                  </div>
+                </Link>
+                <div onClick={() => setClick2(!click2)} className="menu-close">
+                  {click2 ? <RiCloseFill className="close-form" /> : <FiMenu />}
+                </div>
               </div>
-            </Link>
-            <div onClick={() => setClick2(!click2)} className="menu-close">
-              {click2 ? <RiCloseFill className="close-form" /> : <FiMenu />}
-            </div>
-          </div>
 
-          <div className={`${click2 ? "container-nav" : "container-close"}`}>
-            <div className="search-logo-main">
-              <input type="search-main" name="" id="" placeholder="Search" />
-              <BsSearch className="search-img-main" />
-            </div>
-            <button onClick={() => setUpload(!upload)} className="btn-nav">
-              Upload
-            </button>
-            {profile && localStorage.getItem("user-details") ? (
-              <ul className="avatar-container-new">
-                <Link to="/favourites" className="class">
-                  <li onClick={handleCount} className="point">
-                    Favourites
+              <div
+                className={`${click2 ? "container-nav" : "container-close"}`}
+              >
+                <div className="search-logo-main">
+                  <input
+                    type="search-main"
+                    name=""
+                    id=""
+                    placeholder="Search"
+                  />
+                  <BsSearch className="search-img-main" />
+                </div>
+                <button onClick={() => setUpload(!upload)} className="btn-nav">
+                  Upload
+                </button>
+                {profile && localStorage.getItem("user-details") ? (
+                  <ul className="avatar-container-new">
+                    <Link to="/favourites" className="class">
+                      <li onClick={handleCount} className="point">
+                        Favourites
+                      </li>
+                    </Link>
+                    <hr />
+                    <Link to="/works" className="class">
+                      <li onClick={handleCount} className="point">
+                        Works
+                      </li>
+                    </Link>
+                    <hr />
+                    <Link to="/buys" className="class">
+                      <li className="point">Buys</li>
+                    </Link>
+                    <hr />
+                    <li className="point" onClick={logOut}>
+                      Log Out
+                    </li>
+                  </ul>
+                ) : null}
+                <ul className="avatar-container-mobile">
+                  <Link to="/favourites" className="class">
+                    <li onClick={handleCount} className="point">
+                      Favourites
+                    </li>
+                  </Link>
+
+                  <Link to="/works" className="class">
+                    <li onClick={handleCount} className="point">
+                      Works
+                    </li>
+                  </Link>
+
+                  <li className="point" onClick={logOut}>
+                    Log Out
                   </li>
-                </Link>
-                <hr />
-                <Link to="/works" className="class">
-                  <li onClick={handleCount} className="point">
-                    Works
-                  </li>
-                </Link>
-                <hr />
-                <Link to="/buys" className="class">
-                  <li className="point">Buys</li>
-                </Link>
-                <hr />
-                <li className="point" onClick={logOut}>
-                  Log Out
-                </li>
-              </ul>
-            ) : null}
-            <ul className="avatar-container-mobile">
-              <Link to="/favourites" className="class">
-                <li onClick={handleCount} className="point">
-                  Favourites
-                </li>
-              </Link>
+                </ul>
+              </div>
 
-              <Link to="/works" className="class">
-                <li onClick={handleCount} className="point">
-                  Works
-                </li>
-              </Link>
-
-              <li className="point" onClick={logOut}>
-                Log Out
-              </li>
-            </ul>
-          </div>
-
-          <CgProfile
-            className="profile-icon"
-            onClick={() => setProfile(!profile)}
-          />
-        </div>
+              <CgProfile
+                className="profile-icon"
+                onClick={() => setProfile(!profile)}
+              />
+            </div>
+          ) : null}
+        </main>
       )}
     </>
   );
