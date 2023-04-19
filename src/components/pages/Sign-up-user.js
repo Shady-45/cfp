@@ -157,11 +157,7 @@ const SignUpuser = ({
         </form>
       ) : null}
       {showForm ? (
-        <form
-          onSubmit={(e) => submitUserForm(e)}
-          ref={clickRef}
-          className="sign-in-form"
-        >
+        <form className="sign-in-form">
           <AiOutlineCloseCircle onClick={toggle} className="close" />
           <input
             className="inpt"
@@ -193,7 +189,23 @@ const SignUpuser = ({
             id=""
           />
 
-          <button className="btn">Submit</button>
+          <button
+            onClick={(e) => submitUserForm(e)}
+            ref={clickRef}
+            className="btn"
+          >
+            Submit
+          </button>
+          <button
+            onClick={(e) => {
+              setOtpForm(!otpForm);
+              setShowForm(false);
+            }}
+            ref={clickRef}
+            className="btn"
+          >
+            verify OTP
+          </button>
         </form>
       ) : null}
     </div>
