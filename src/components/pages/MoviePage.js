@@ -61,6 +61,18 @@ const MoviePage = () => {
     <div>
       {" "}
       <h1 className="title-card">Graphic Designs</h1>
+      <ul className="url-items-page">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/nft">
+          <li>
+            <p>Designs/</p>
+          </li>
+        </Link>
+      </ul>
       {localStorage.getItem("user-details") ? (
         <div className="cards">
           {nftData.map((item, index) => (

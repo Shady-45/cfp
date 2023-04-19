@@ -92,13 +92,13 @@ const Navbar = ({
   }, [showUpload]);
   useEffect(() => {
     let timeout;
-    if (uploadError) {
+    if (showError) {
       timeout = setTimeout(() => {
         setShowError(false);
       }, 3000); //
     }
     return () => clearTimeout(timeout);
-  }, [uploadError]);
+  }, [showError]);
   useEffect(() => {
     let timeout_error;
     if (showErrorMessage) {

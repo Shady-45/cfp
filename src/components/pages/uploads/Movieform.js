@@ -45,11 +45,13 @@ const Movieform = ({
         console.log(res);
         setShowUpload(!showUpload);
         setUploadMess("Script added Sucessfully");
+        setMovieForm(!movieForm);
       })
       .catch((err) => {
         console.log(err);
         setShowError(!showError);
         setUploadError("Error adding Script");
+        setMovieForm(!movieForm);
       });
     setText(" ");
     setImage(" ");

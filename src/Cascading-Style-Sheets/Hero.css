@@ -20,16 +20,16 @@
   color: white;
   padding: 14px 138px;
   position: absolute;
-  left: 20%;
+  left: 7%;
   height: 136px;
   border: 2px solid white;
   top: 18rem;
-  width: 60%;
+  width: 84%;
   font-size: 23px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
   gap: 3rem;
 }
 .tri{
@@ -87,7 +87,7 @@
   width:70%;
   margin: auto 0 auto 0;
   padding-right: 9%;
-  padding-left: 3%;
+  padding-left: 11%;
 }
 
 .main-heading-section {

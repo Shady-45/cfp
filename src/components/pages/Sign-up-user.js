@@ -24,7 +24,7 @@ const SignUpuser = ({
   showSignUpError,
 }) => {
   const [userEthAccount, setUserEthAccount] = useState(" ");
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState(1e9);
   const [otpForm, setOtpForm] = useState(false);
   const SIGNUP_URL = "auth/signUp";
   const [showForm, setShowForm] = useState(true);

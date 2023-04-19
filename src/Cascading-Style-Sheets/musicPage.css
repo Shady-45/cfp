@@ -4,6 +4,13 @@
     display: flex;
     
 }
+.cards-music{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+ 
+    gap: 6rem;
+}
 .title-card{
     margin-top: 3rem;
     color: white;
@@ -103,6 +110,31 @@
     
 }
 
+.item-main{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+}
+.url-items{
+    display: flex;
+    position: absolute;
+    color: whitesmoke;
+    align-items: center;
+    right: 3rem;
+    top: 3rem;
+}
+.url-items-page{
+    display: flex;
+    position: absolute;
+    color: whitesmoke;
+    align-items: center;
+    right: 3rem;
+    top: 1rem;
+}
+.path{
+    list-style: none;
+color: whitesmoke;
+}
 
 @media screen and (max-width: 800px){
     .music-item{

@@ -67,6 +67,25 @@ const MusicItem = () => {
           <h3>IndieCrypt</h3>
         </div>
       </Link>
+
+      <ul className="url-items">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/music">
+          <li>
+            <p>Music/</p>
+          </li>
+        </Link>
+
+        <li>
+          {" "}
+          <p>{`${musicId}`}</p>
+        </li>
+      </ul>
+
       {musicItem ? (
         <div
           data-account={musicItem?.user?.account}
@@ -79,8 +98,8 @@ const MusicItem = () => {
             <img src={`${imageItem}`} alt={musicItem.name} />
           </div>
           <div className="music-info">
-            <h1 className="analytic">{`Song Name : ${musicItem?.name}`}</h1>
-            <h1 className="analytic">{`Artist Name: ${musicItem?.user?.name}`}</h1>
+            <h1 className="analytic">{`Song : ${musicItem?.name}`}</h1>
+            <h1 className="analytic">{`Artist : ${musicItem?.user?.name}`}</h1>
             <h1 className="analytic">{`Price: ${musicItem?.price}`}</h1>
             <audio
               className="audio-player"

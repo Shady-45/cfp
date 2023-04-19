@@ -15,7 +15,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
     headersObj["authorization"] = token;
   }
 
-  const downloadScriptFile = (filename) => {
+  const downloadFile = (filename) => {
     setIsDownloading(true);
     axios
       .get(`https://www.fundingportal.site/uploads/${filename}`, {
@@ -26,49 +26,8 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", "text.txt");
-        document.body.appendChild(link);
-        link.click();
-        setIsDownloading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setIsDownloading(false);
-      });
-  };
-  const downloadMusicFile = (filename) => {
-    setIsDownloading(true);
-    axios
-      .get(`https://www.fundingportal.site/uploads/${filename}`, {
-        responseType: "arraybuffer",
-        headers: headersObj,
-      })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "audio.mp3");
-        document.body.appendChild(link);
-        link.click();
-        setIsDownloading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setIsDownloading(false);
-      });
-  };
-  const downloadNftFile = (filename) => {
-    setIsDownloading(true);
-    axios
-      .get(`https://www.fundingportal.site/uploads/${filename}`, {
-        responseType: "arraybuffer",
-        headers: headersObj,
-      })
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "nft.jpg");
+        console.log(url);
+        link.setAttribute("download", filename);
         document.body.appendChild(link);
         link.click();
         setIsDownloading(false);
@@ -133,7 +92,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
                 {item.type === "music" ? (
                   <button
                     className="btn-nav"
-                    onClick={() => downloadMusicFile(item.audio)}
+                    onClick={() => downloadFile(item.audio)}
                   >
                     Download
                   </button>
@@ -141,7 +100,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
                 {item.type === "script" ? (
                   <button
                     className="btn-nav"
-                    onClick={() => downloadScriptFile(item.text)}
+                    onClick={() => downloadFile(item.text)}
                   >
                     Download
                   </button>
@@ -149,7 +108,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
                 {item.type === "nft" ? (
                   <button
                     className="btn-nav"
-                    onClick={() => downloadNftFile(item.image)}
+                    onClick={() => downloadFile(item.image)}
                   >
                     Download
                   </button>

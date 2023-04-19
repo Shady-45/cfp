@@ -42,11 +42,13 @@ const NftForm = ({
       .then((res) => {
         console.log(res);
         setShowUpload(!showUpload);
+        setNftForm(!nftForm);
         setUploadMess("Nft Added Sucessfully");
       })
       .catch((err) => {
         console.log(err);
         setShowError(!showError);
+        setNftForm(!nftForm);
         setUploadError("Error in adding data");
       });
     setText(" ");

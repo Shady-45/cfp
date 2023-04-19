@@ -59,7 +59,18 @@ const ScriptPage = () => {
   return (
     <>
       <h1 className="title-card">Script</h1>
-
+      <ul className="url-items-page">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/script">
+          <li>
+            <p>Script/</p>
+          </li>
+        </Link>
+      </ul>
       <div>
         {localStorage.getItem("user-details") ? (
           <div className="cards namecards">

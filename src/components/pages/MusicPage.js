@@ -68,9 +68,20 @@ const MusicPage = () => {
   return (
     <>
       <h1 className="title-card">Music</h1>
-
-      {localStorage.getItem("user-deetails") ? (
-        <div className="cards">
+      <ul className="url-items-page">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/music">
+          <li>
+            <p>Music/</p>
+          </li>
+        </Link>
+      </ul>
+      {localStorage.getItem("user-details") ? (
+        <div className="cards-music">
           {musicData.map((item, index) => (
             <div
               data-account={item.user.account}

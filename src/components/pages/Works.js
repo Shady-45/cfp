@@ -192,7 +192,7 @@ const Works = () => {
               userNftData.length === 0 ? (
                 <h1>You haven't Added any works yet..</h1>
               ) : (
-                <h1 className="work">Your Works</h1>
+                <h1 className="analytics">Your Works</h1>
               )}
             </div>
 
@@ -315,21 +315,21 @@ const Works = () => {
                       <p className="price">{item.price}</p>
                     </div>
                   </div>
-                  <div></div>
-                  <button
-                    className="btn-script-music-buy  hero-btn"
-                    onClick={() =>
-                      handleDeleteNft(item.id) && setUpdateN(!updateN)
-                    }
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn-script-music-buy  hero-btn"
-                    onClick={() => handleDeleteNft(item.id)}
-                  >
-                    Delete
-                  </button>
+                  <div>
+                    {" "}
+                    <button
+                      className="btn-script-music-buy  hero-btn"
+                      onClick={() => handleUpdateNft(item.id)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn-script-music-buy  hero-btn"
+                      onClick={() => handleDeleteNft(item.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -341,7 +341,9 @@ const Works = () => {
                   className="sign-in-form"
                 >
                   <AiOutlineCloseCircle
-                    onClick={toggle}
+                    onClick={() => {
+                      setUpdateM(!updateM);
+                    }}
                     className="closeForm"
                   />
                   <input
@@ -395,7 +397,9 @@ const Works = () => {
                   className="sign-in-form"
                 >
                   <AiOutlineCloseCircle
-                    onClick={toggle}
+                    onClick={() => {
+                      setUpdateS(!updateS);
+                    }}
                     className="closeForm"
                   />
                   <input
@@ -449,7 +453,9 @@ const Works = () => {
                   className="sign-in-form"
                 >
                   <AiOutlineCloseCircle
-                    onClick={toggle}
+                    onClick={() => {
+                      setUpdateN(!updateN);
+                    }}
                     className="closeForm"
                   />
                   <input

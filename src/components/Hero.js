@@ -17,6 +17,8 @@ import ScriptItem from "./pages/page-items/ScriptItem";
 import NftItem from "./pages/page-items/NftItem";
 import payments from "./payments/payment.service";
 import Footer from "./Footer";
+import { loadingFun } from "../loading";
+
 import RotateLoader from "react-spinners/RotateLoader";
 const Hero = ({
   musicData,
@@ -184,12 +186,14 @@ const Hero = ({
   return (
     <>
       {window.ethereum ? (
-        <main className={`${paymentSucess ? "rotate-white" : "rotate-black"}`}>
+        <main
+          className={`${loadingFun.loading ? "rotate-white" : "rotate-black"}`}
+        >
           <span className="rotate">
             {paymentSucess ? (
               <RotateLoader
                 color={"#1a1aff"}
-                loading={paymentSucess}
+                loading={loadingFun.loading}
                 size={15}
               />
             ) : null}
@@ -220,7 +224,7 @@ const Hero = ({
               <section id="music" className="section section-music">
                 <div className="heading-script-music">
                   <h2 className="section-heading">MUSIC</h2>
-                  {musicData.length > 3 ? (
+                  {musicData.length >= 3 ? (
                     <Link to="/music">
                       <button className="btn-nav btn-script-music">
                         View More
@@ -372,8 +376,8 @@ const Hero = ({
               <section className="section section-movie">
                 <div className="heading-script-music">
                   <h2 className="section-heading">GRAPHIC DESIGNS</h2>
-                  {nftData.length > 3 ? (
-                    <Link to="nfts">
+                  {nftData.length >=3 ? (
+                    <Link to="/nfts">
                       {" "}
                       <button className="btn-nav btn-script-music">
                         View More
@@ -626,13 +630,17 @@ const Hero = ({
           )}
         </main>
       ) : (
-        <a className="meta" href="https://metamask.io/download/">
-          <h1>Install MetaMask</h1>
-          <span>
-            {" "}
-            <BsExclamationTriangleFill className="tri"  />
-          </span>
-        </a>
+        <div>
+          {" "}
+          <a className="meta" href="https://metamask.io/download/">
+            <h1>Install MetaMask</h1>
+            <span>
+              {" "}
+              <BsExclamationTriangleFill className="tri" />
+            </span>
+            <h5>Please Click here to Download Metamask</h5>
+          </a>
+        </div>
       )}
     </>
   );

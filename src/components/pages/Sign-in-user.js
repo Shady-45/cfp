@@ -48,6 +48,7 @@ const SignInuser = ({
         }
       );
       const data = await response.json();
+      setClick(!click);
       if (response.status !== 200) {
         throw new Error(data.message);
       }
@@ -61,6 +62,7 @@ const SignInuser = ({
       setShowSucessMessage(!showSucessMessage);
     } catch (error) {
       setShowErrorMessage(!showErrorMessage);
+      setClick(!click);
       setMessage(error.message);
       console.log(message);
     }

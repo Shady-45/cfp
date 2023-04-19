@@ -53,6 +53,23 @@ const NftItem = () => {
           <h3>IndieCrypt</h3>
         </div>
       </Link>
+      <ul className="url-items">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/nft">
+          <li>
+            <p>Nft/</p>
+          </li>
+        </Link>
+
+        <li>
+          {" "}
+          <p>{`${nftId}`}</p>
+        </li>
+      </ul>
       <div
         className="nft-container payment"
         data-account={nftItem?.user?.account}

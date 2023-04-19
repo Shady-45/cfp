@@ -47,12 +47,14 @@ const MusicForm = ({
         setShowUpload(!showUpload);
         if (res.status === 201 || 202) {
           setUploadMess("Music Added Sucessfully");
+          setMusicForm(!musicForm);
         } else {
         }
       })
       .catch((err) => {
         console.log(err);
         setShowError(!showError);
+        setMusicForm(!musicForm);
         setUploadError("Incorrect Body Format");
       });
 

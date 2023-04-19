@@ -1,5 +1,7 @@
+import { loadingFun } from "../../loading";
 import Web3 from "web3";
 let paymentSucess;
+
 const etherscanApiUrl = "https://api.etherscan.io/api";
 const apiKey = "XR842H61S6EMJR9IDPQVKQ34E6XZZA9XP7";
 
@@ -66,6 +68,7 @@ that.getTransactionStatus = async function (tHex) {
 
 that.manageTransactionFlow = async function (e) {
   try {
+    loadingFun(true);
     paymentSucess = true;
     const { fromAccount, toAccount, price, id, type } =
       await that.getPaymentDetails(e);
@@ -73,6 +76,7 @@ that.manageTransactionFlow = async function (e) {
     await that.getTransactionStatus(tHex);
     console.log("transaction successfull");
     paymentSucess = false;
+    loadingFun(false);
     await fetch(
       `https://www.fundingportal.site/payments/send/${id}?type=${type}`,
       {
@@ -83,6 +87,7 @@ that.manageTransactionFlow = async function (e) {
       }
     );
   } catch (err) {
+    loadingFun(false);
     paymentSucess = false;
     console.log(err);
   }

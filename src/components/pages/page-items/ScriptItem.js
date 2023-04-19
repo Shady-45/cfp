@@ -51,7 +51,7 @@ const ScriptItem = () => {
     };
     fetchData();
   }, []);
-  
+
   return (
     <>
       <Link to="/">
@@ -61,6 +61,23 @@ const ScriptItem = () => {
           <h3>IndieCrypt</h3>
         </div>
       </Link>
+      <ul className="url-items">
+        <Link className="path" to="/">
+          <li>
+            <p>Home/</p>
+          </li>
+        </Link>
+        <Link className="path" to="/script">
+          <li>
+            <p>Script/</p>
+          </li>
+        </Link>
+
+        <li>
+          {" "}
+          <p>{`${scriptId}`}</p>
+        </li>
+      </ul>
       <div
         className="script-container payment"
         data-account={scriptItem?.user?.account}
