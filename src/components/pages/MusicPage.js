@@ -10,13 +10,17 @@ import baseURL from "../../api/axios";
 import payments from "../payments/payment.service";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
 const MusicPage = () => {
+  const navigate = useNavigate();
   const [musicData, setgetMusicData] = useState([]);
   const baseURL = "https://www.fundingportal.site";
   const token = localStorage.getItem("user-details");
-
+  const redirect = (item) => {
+    navigate(`/${item.type + "s"}/${item.id}`);
+  };
   const getObj = {};
   if (token) {
     getObj["headers"] = {
@@ -89,7 +93,7 @@ const MusicPage = () => {
               data-id={item.id}
               data-type={item.type}
               key={index}
-              className="card-music card-1 payment"
+              className="card-music card card-1 payment"
             >
               <Link
                 to={`/musics/${item.id}`}
@@ -121,31 +125,37 @@ const MusicPage = () => {
                   <p className="price">{item.price}</p>
                 </div>
               </div>
-              {localStorage.getItem("user-details") ? (
-                <div className="hearts-contain">
-                  <button className="button">
-                    {item.isLiked ? (
-                      <AiFillHeart
-                        onClick={() => handleDisLike(item)}
-                        className="heart-btns-red"
-                      />
-                    ) : (
-                      <AiOutlineHeart
-                        onClick={() => handleLike(item)}
-                        className="heart-btns"
-                      />
-                    )}
-                  </button>
-                  {item.isPaid ? null : (
-                    <button
-                      onClick={payments.manageTransactionFlow}
-                      className="btn-script-music-buy  hero-btn btn-pay"
-                    >
-                      Buy
-                    </button>
+              <div className="hearts-contain">
+                <button className="button">
+                  {item.isLiked ? (
+                    <AiFillHeart
+                      onClick={() => handleDisLike(item)}
+                      className="heart-btns-red"
+                    />
+                  ) : (
+                    <AiOutlineHeart
+                      onClick={() => handleLike(item)}
+                      className="heart-btns"
+                    />
                   )}
-                </div>
-              ) : null}
+                </button>
+
+                {item.isPaid ? (
+                  <button
+                    className="btn-script-music-buy  hero-btn btn-pay"
+                    onClick={() => redirect(item)}
+                  >
+                    View
+                  </button>
+                ) : (
+                  <button
+                    onClick={payments.manageTransactionFlow}
+                    className="btn-script-music-buy  hero-btn btn-pay"
+                  >
+                    Buy
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>

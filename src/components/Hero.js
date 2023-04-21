@@ -153,21 +153,6 @@ const Hero = ({
 
         {localStorage.getItem("user-details") ? (
           <>
-            {window.ethereum ? null : (
-              <div
-                className="meta-mask-container
-            "
-              >
-                <div className="meta-mask">
-                  <img src={Metamask} alt="" />
-                  <div className="meta-text">
-                    <h2>Meta Mask is requires</h2>
-                    <p>Install Metamask to buy and download assets</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
             <main>
               <section className="hero-section">
                 <div className="left-text-section">
