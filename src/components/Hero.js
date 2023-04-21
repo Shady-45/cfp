@@ -10,13 +10,15 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 import { paymentSucess } from "./payments/payment.service";
 import { BsExclamationTriangleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Metamask from "../assets/metamask.png";
 import axios from "../api/axios";
 import MusicItem from "./pages/page-items/MusicItem";
 import ScriptItem from "./pages/page-items/ScriptItem";
 import NftItem from "./pages/page-items/NftItem";
 import payments from "./payments/payment.service";
 import Footer from "./Footer";
+import { AiFillCloseCircle } from "react-icons/ai";
 import { loadingFun } from "../loading";
 
 import RotateLoader from "react-spinners/RotateLoader";
@@ -32,16 +34,22 @@ const Hero = ({
 }) => {
   console.log(<MusicItem />);
   const [alertMessage, setAlertMessage] = useState(" ");
-  const [likes, setLikes] = useState([]);
 
+  const [likes, setLikes] = useState([]);
+  const navigate = useNavigate();
+  const [openTask, setOpenTask] = useState(true);
   const [scriptData, setScriptData] = useState([]);
   const [nftData, setNftData] = useState([]);
   const [isMusicLike, setIsMusicLike] = useState(0);
   const GET_HOME_URL = "home?limit=3";
-
+  const redirect = (item) => {
+    navigate(`/${item.type + "s"}/${item.id}`);
+  };
   const [showMessage, setShowMessage] = useState(false);
   const baseURL = "https://www.fundingportal.site";
-
+  useEffect(() => {
+    if (window.ethereum) setOpenTask(false);
+  }, []);
   /* const GET_NFT_URL = "nft/all"; */
   useEffect(() => {
     let timeout;
@@ -59,6 +67,7 @@ const Hero = ({
       Authorization: token,
     };
   }
+
   useEffect(() => {
     axios
       .get(GET_HOME_URL, getObj)
@@ -71,9 +80,7 @@ const Hero = ({
   }, []);
 
   const handleLike = (item) => {
-    const liked = item.count + 1;
-    console.log(liked);
-    fetch(`${baseURL}/favorites/${item.id}?type=music`, {
+    fetch(`${baseURL}/favorites/${item.id}?type=${item.type}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,99 +91,45 @@ const Hero = ({
       .then((data) => {
         axios
           .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setMusicData(res.data.music))
+          .then((res) => {
+            if (item.type === "music") {
+              setMusicData(res.data.music);
+            } else if (item.type === "script") {
+              setScriptData(res.data.script);
+            } else {
+              setNftData(res.data.nft);
+            }
+          })
           .catch((err) => console.log(err));
       })
 
       .catch((err) => console.log(err, "🔥🔥"));
   };
-  const handleLikeScript = (item) => {
-    fetch(`${baseURL}/favorites/${item.id}?type=script`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        axios
-          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setScriptData(res.data.script))
-          .catch((err) => console.log(err));
-      })
 
-      .catch((err) => console.log(err, "🔥🔥"));
-  };
-  const handleLikeNft = (item) => {
-    const liked = item.count + 1;
-    console.log(liked);
-    fetch(`${baseURL}/favorites/${item.id}?type=nft`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        axios
-          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setNftData(res.data.nft))
-          .catch((err) => console.log(err));
-      })
-
-      .catch((err) => console.log(err, "🔥🔥"));
-  };
   const handleDisLike = (item) => {
-    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=music`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
+    fetch(
+      `https://www.fundingportal.site/favorites/${item.id}?type=${item.type}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      }
+    )
       .then((data) => data.json())
       .then((data) => {
         axios
           .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setMusicData(res.data.music))
-          .catch((err) => console.log(err));
-      })
-
-      .catch((err) => console.log(err, "🔥🔥"));
-  };
-  const handleDisLikeScript = (item) => {
-    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=script`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        axios
-          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setScriptData(res.data.script))
-          .catch((err) => console.log(err));
-      })
-
-      .catch((err) => console.log(err, "🔥🔥"));
-  };
-  const handleDisLikeNft = (item) => {
-    fetch(`https://www.fundingportal.site/favorites/${item.id}?type=nft`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        axios
-          .get(`${baseURL}/${GET_HOME_URL}`, getObj)
-          .then((res) => setNftData(res.data.nft))
+          .then((res) => {
+            if (item.type === "music") {
+              setMusicData(res.data.music);
+            } else if (item.type === "script") {
+              setScriptData(res.data.script);
+            } else {
+              setNftData(res.data.nft);
+            }
+          })
           .catch((err) => console.log(err));
       })
 
@@ -185,22 +138,37 @@ const Hero = ({
 
   return (
     <>
-      {window.ethereum ? (
-        <main
-          className={`${loadingFun.loading ? "rotate-white" : "rotate-black"}`}
-        >
-          <span className="rotate">
-            {paymentSucess ? (
-              <RotateLoader
-                color={"#1a1aff"}
-                loading={loadingFun.loading}
-                size={15}
-              />
-            ) : null}
-          </span>
+      <main
+        className={`${loadingFun.loading ? "rotate-white" : "rotate-black"}`}
+      >
+        <span className="rotate">
+          {paymentSucess ? (
+            <RotateLoader
+              color={"#1a1aff"}
+              loading={loadingFun.loading}
+              size={15}
+            />
+          ) : null}
+        </span>
 
-          {localStorage.getItem("user-details") ? (
-            <>
+        {localStorage.getItem("user-details") ? (
+          <>
+            {window.ethereum ? null : (
+              <div
+                className="meta-mask-container
+            "
+              >
+                <div className="meta-mask">
+                  <img src={Metamask} alt="" />
+                  <div className="meta-text">
+                    <h2>Meta Mask is requires</h2>
+                    <p>Install Metamask to buy and download assets</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <main>
               <section className="hero-section">
                 <div className="left-text-section">
                   <h1 className="main-heading-section">
@@ -241,7 +209,7 @@ const Hero = ({
                       data-id={item.id}
                       data-type={item.type}
                       key={index}
-                      className="card-music card-1 payment"
+                      className="card-music card card-1 payment"
                     >
                       <Link
                         to={`/musics/${item.id}`}
@@ -273,30 +241,37 @@ const Hero = ({
                           <p className="price">{item.price}</p>
                         </div>
                       </div>
-                      {item.isPaid ? null : (
-                        <div className="hearts-contain">
-                          <button className="button">
-                            {item.isLiked ? (
-                              <AiFillHeart
-                                onClick={() => handleDisLike(item)}
-                                className="heart-btns-red"
-                              />
-                            ) : (
-                              <AiOutlineHeart
-                                onClick={() => handleLike(item)}
-                                className="heart-btns"
-                              />
-                            )}
-                          </button>
+                      <div className="hearts-contain">
+                        <button className="button">
+                          {item.isLiked ? (
+                            <AiFillHeart
+                              onClick={() => handleDisLike(item)}
+                              className="heart-btns-red"
+                            />
+                          ) : (
+                            <AiOutlineHeart
+                              onClick={() => handleLike(item)}
+                              className="heart-btns"
+                            />
+                          )}
+                        </button>
 
+                        {item.isPaid ? (
+                          <button
+                            className="btn-script-music-buy  hero-btn btn-pay"
+                            onClick={() => redirect(item)}
+                          >
+                            View
+                          </button>
+                        ) : (
                           <button
                             onClick={payments.manageTransactionFlow}
                             className="btn-script-music-buy  hero-btn btn-pay"
                           >
                             Buy
                           </button>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -320,7 +295,7 @@ const Hero = ({
                       data-price={item.price}
                       data-id={item.id}
                       data-type={item.type}
-                      className="card-script-token payment"
+                      className="card-script-token card payment"
                       key={item.id}
                     >
                       <Link to={`/scripts/${item.id}`}>
@@ -343,32 +318,40 @@ const Hero = ({
                           <p className="price">{item.price}</p>
                         </div>
                       </div>
-                      {item.isPaid ? null : (
-                        <div className="btns-script">
-                          <div className="hearts-contain">
-                            <button>
-                              {item.isLiked ? (
-                                <AiFillHeart
-                                  onClick={() => handleDisLikeScript(item)}
-                                  className="heart-btns-red"
-                                />
-                              ) : (
-                                <AiOutlineHeart
-                                  onClick={() => handleLikeScript(item)}
-                                  className="heart-btns"
-                                />
-                              )}
-                            </button>
-                          </div>
 
-                          <button
-                            onClick={payments.manageTransactionFlow}
-                            className="btn-script-music-buy  hero-btn btn-pay"
-                          >
-                            Buy
+                      <div className="btnss">
+                        <div className="hearts-contain">
+                          <button className="button">
+                            {item.isLiked ? (
+                              <AiFillHeart
+                                onClick={() => handleDisLike(item)}
+                                className="heart-btns-red"
+                              />
+                            ) : (
+                              <AiOutlineHeart
+                                onClick={() => handleLike(item)}
+                                className="heart-btns"
+                              />
+                            )}
                           </button>
+
+                          {item.isPaid ? (
+                            <button
+                              className="btn-script-music-buy  hero-btn btn-pay"
+                              onClick={() => redirect(item)}
+                            >
+                              View
+                            </button>
+                          ) : (
+                            <button
+                              onClick={payments.manageTransactionFlow}
+                              className="btn-script-music-buy  hero-btn btn-pay"
+                            >
+                              Buy
+                            </button>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -376,7 +359,7 @@ const Hero = ({
               <section className="section section-movie">
                 <div className="heading-script-music">
                   <h2 className="section-heading">GRAPHIC DESIGNS</h2>
-                  {nftData.length >=3 ? (
+                  {nftData.length >= 3 ? (
                     <Link to="/nfts">
                       {" "}
                       <button className="btn-nav btn-script-music">
@@ -394,7 +377,7 @@ const Hero = ({
                       data-id={item.id}
                       data-type={item.type}
                       key={index}
-                      className="card-nft-token payment"
+                      className="card-nft-token card payment"
                     >
                       <Link
                         to={`/nfts/${item.id}`}
@@ -420,39 +403,71 @@ const Hero = ({
                           <p className="price">{item.price}</p>
                         </div>
                       </div>
-                      {item.isPaid ? null : (
-                        <div className="btnss">
-                          <div className="hearts-contain">
-                            <button>
-                              {item.isLiked ? (
-                                <AiFillHeart
-                                  onClick={() => handleDisLikeNft(item)}
-                                  className="heart-btns-red"
-                                />
-                              ) : (
-                                <AiOutlineHeart
-                                  onClick={() => handleLikeNft(item)}
-                                  className="heart-btns"
-                                />
-                              )}
-                            </button>
-                          </div>
 
-                          <button
-                            onClick={payments.manageTransactionFlow}
-                            className="btn-movie  hero-btn btn-pay"
-                          >
-                            Buy
+                      <div className="btnss">
+                        <div className="hearts-contain">
+                          <button className="button">
+                            {item.isLiked ? (
+                              <AiFillHeart
+                                onClick={() => handleDisLike(item)}
+                                className="heart-btns-red"
+                              />
+                            ) : (
+                              <AiOutlineHeart
+                                onClick={() => handleLike(item)}
+                                className="heart-btns"
+                              />
+                            )}
                           </button>
+
+                          {item.isPaid ? (
+                            <button
+                              className="btn-script-music-buy  hero-btn btn-pay"
+                              onClick={() => redirect(item)}
+                            >
+                              View
+                            </button>
+                          ) : (
+                            <button
+                              onClick={payments.manageTransactionFlow}
+                              className="btn-script-music-buy  hero-btn btn-pay"
+                            >
+                              Buy
+                            </button>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   ))}
                 </div>
               </section>
-            </>
-          ) : (
-            <>
+            </main>
+          </>
+        ) : (
+          <>
+            {window.ethereum ? null : (
+              <div>
+                {openTask ? (
+                  <div
+                    className="meta-mask-container
+          "
+                  >
+                    <div className="meta-mask">
+                      <AiFillCloseCircle
+                        className="toggle-metaclose"
+                        onClick={() => setOpenTask()}
+                      />
+                      <img src={Metamask} alt="" />
+                      <div className="meta-text">
+                        <h2>Meta Mask is required</h2>
+                        <p>Install Metamask to buy and download assets</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+            <main className={`${openTask ? "opac" : "non-opac"}`}>
               <section className="hero-section">
                 <div className="left-text-section">
                   <h1 className="main-heading-section">
@@ -548,7 +563,7 @@ const Hero = ({
                       data-price={item.price}
                       data-id={item.id}
                       data-type={item.type}
-                      className="card-script"
+                      className="card-script card card-1 payment"
                       key={item.id}
                     >
                       <Link to={`/scripts/${item.id}`}>
@@ -596,7 +611,7 @@ const Hero = ({
                       data-id={item.id}
                       data-type={item.type}
                       key={index}
-                      className="card-nft"
+                      className="card-nft card card-1 payment"
                     >
                       <Link
                         to={`/nfts/${item.id}`}
@@ -626,22 +641,10 @@ const Hero = ({
                   ))}
                 </div>
               </section>
-            </>
-          )}
-        </main>
-      ) : (
-        <div>
-          {" "}
-          <a className="meta" href="https://metamask.io/download/">
-            <h1>Install MetaMask</h1>
-            <span>
-              {" "}
-              <BsExclamationTriangleFill className="tri" />
-            </span>
-            <h5>Please Click here to Download Metamask</h5>
-          </a>
-        </div>
-      )}
+            </main>
+          </>
+        )}
+      </main>
     </>
   );
 };
