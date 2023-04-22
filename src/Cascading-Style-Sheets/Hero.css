@@ -5,6 +5,16 @@
   margin-top: 4rem;
   justify-content: space-between;
 }
+.opac {
+ 
+  opacity: 0.1;
+  
+  overflow: hidden;
+  
+}
+.non-opac{
+  opacity: 1;
+}
 .audio{
   background-color: black;
 }
@@ -89,12 +99,60 @@
   padding-right: 9%;
   padding-left: 11%;
 }
+.meta-mask{
 
+  background: rgba(255, 255, 255, 0.39);
+  color: white;
+display: flex;
+  width: 50%;
+  height: 20rem;
+  margin: auto;
+  
+}
+.toggle-metaclose{
+  position: relative;
+  top: -8rem;
+  left: 44rem;
+  color: whitesmoke;
+  font-size: 23px;
+}
+.meta-mask > img{
+  height: 20rem;  
+}
+.meta-mask-container{
+  position: absolute;
+  width: 97rem;
+  z-index: 100;
+  top: 9rem;
+}
+.close-circle{
+  position: absolute;
+    color: white;
+    left: 72%;
+    top: 10rem;
+    cursor: pointer;
+    font-size: 25px;
+}
+.meta-text{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  color: whitesmoke;
+}
+.meta-text > p{
+  font-size: 12px;
+}
 .main-heading-section {
   font-size: 3.2rem;
   color: whitesmoke;
     line-height: 1.2;
     width: 89%;
+}
+.npoac{
+  opacity: 1;
+}
+.opac{
+  opacity: 0.2;
 }
 
 .sub-text {
