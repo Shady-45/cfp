@@ -39,7 +39,9 @@ const MusicItem = () => {
           headersObj["authorization"] = token;
         }
         const response = await fetch(
-          `https://www.fundingportal.site/uploads/${filename}`,
+          `https://www.fundingportal.site/uploads/${filename}${
+            type !== "img" ? "" : "?cache=" + new Date().getTime()
+          }`,
           { headers: headersObj }
         );
         const fileBuffer = await response.blob();

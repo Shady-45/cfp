@@ -30,7 +30,7 @@ const NftItem = () => {
 
       const fetchFiles = async function (filename) {
         const response = await fetch(
-          `https://www.fundingportal.site/uploads/${filename}`,
+          `https://www.fundingportal.site/uploads/${filename}?cache=${new Date().getTime()}`,
           { headers: headersObj }
         );
         const fileBuffer = await response.blob();
