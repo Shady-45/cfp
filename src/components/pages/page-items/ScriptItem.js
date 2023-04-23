@@ -28,14 +28,14 @@ const ScriptItem = () => {
       const data = await response.json();
       setScriptItem(data);
 
-      const fetchFiles = async function (filename, type) {
+      const fetchFiles = async function (filename, type, isPaid = false) {
         const headersObj = {};
         if (token) {
           headersObj["authorization"] = token;
         }
         const response = await fetch(
           `https://www.fundingportal.site/uploads/${filename}${
-            type !== "img" ? "" : "?cache=" + new Date().getTime()
+            type !== "img" || !isPaid ? "" : "?cache=" + new Date().getTime()
           }`,
           { headers: headersObj }
         );
@@ -48,7 +48,7 @@ const ScriptItem = () => {
         }
       };
 
-      await fetchFiles(data.image, "img");
+      await fetchFiles(data.image, "img", data.isPaid);
       await fetchFiles(data.text);
     };
     fetchData();
