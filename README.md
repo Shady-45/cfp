@@ -1,6 +1,6 @@
 # Getting Started with IndieCrypt
 
-This project was bootstrapped with [React ](https://Indiecrypt.site).
+To view our project  [ IndieCrypt ](https://Indiecrypt.site).
 
 ## Description
 
