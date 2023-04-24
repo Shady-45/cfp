@@ -25,14 +25,13 @@ const SignInCreator = () => {
     e.preventDefault();
     try {
       const response = await axios.post(SIGNIN_URL, creatorData);
-      console.log(response.data); // handle response data
+
       setCreatorToken(response.data.token);
-      console.log(creatorToken);
     } catch (error) {
       console.error(error);
     }
     localStorage.setItem("user-details", creatorToken);
-    console.log(creatorToken, "$$$$$");
+
     const token_response = jwt_decode(creatorToken);
     /* localStorage.setItem("user-details", token_response.email); */
     /* const tokenC = jwt_decode(result.token); */
@@ -52,7 +51,6 @@ const SignInCreator = () => {
     const postCreatorData = { ...creatorData };
     postCreatorData[e.target.name] = e.target.value;
     setCreatorData(postCreatorData);
-    console.log(postCreatorData);
   };
   return (
     <div>

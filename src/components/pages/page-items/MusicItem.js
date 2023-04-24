@@ -49,7 +49,6 @@ const MusicItem = () => {
         if (type === "img") {
           setImageItem(fileUrl);
         } else {
-          console.log(fileUrl, "💙💙");
           setAudioItem(fileUrl);
         }
       };

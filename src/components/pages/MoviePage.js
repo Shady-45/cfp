@@ -19,8 +19,6 @@ const MoviePage = () => {
     };
   }
   const handleLikeNft = (item) => {
-    const liked = item.count + 1;
-    console.log(liked);
     fetch(`${baseURL}/favorites/${item.id}?type=nft`, {
       method: "POST",
       headers: {
@@ -74,7 +72,7 @@ const MoviePage = () => {
         </Link>
       </ul>
       {localStorage.getItem("user-details") ? (
-        <div className="cards">
+        <div className="cards-music">
           {nftData.map((item, index) => (
             <div
               data-account={item.user.account}
@@ -134,7 +132,7 @@ const MoviePage = () => {
           ))}
         </div>
       ) : (
-        <div className="cards">
+        <div className="cards-music">
           {nftData.map((item, index) => (
             <div
               data-account={item.user.account}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import axios from "../../api/axios";
+import axios from "axios";
 import MusicItem from "../pages/page-items/MusicItem";
 import { Link } from "react-router-dom";
 import "../../Cascading-Style-Sheets/musicPage.css";
@@ -46,12 +46,12 @@ const MusicPage = () => {
       .catch((err) => console.log(err, "🔥🔥"));
   };
   useEffect(() => {
-    axios.get(`/music/all`).then((res) => setgetMusicData(res.data));
+    axios
+      .get(`${baseURL}/music/all`, getObj)
+      .then((res) => setgetMusicData(res.data));
   }, []);
-  console.log(musicData);
+
   const handleLike = (item) => {
-    const liked = item.count + 1;
-    console.log(liked);
     fetch(`${baseURL}/favorites/${item.id}?type=music`, {
       method: "POST",
       headers: {
@@ -160,7 +160,7 @@ const MusicPage = () => {
           ))}
         </div>
       ) : (
-        <div className="cards">
+        <div className="cards-music">
           {musicData.map((item, index) => (
             <div
               data-account={item.user.account}
@@ -168,7 +168,7 @@ const MusicPage = () => {
               data-id={item.id}
               data-type={item.type}
               key={index}
-              className="card card-1 payment"
+              className="card-music card card-1 payment"
             >
               <Link
                 to={`/musics/${item.id}`}
@@ -181,7 +181,7 @@ const MusicPage = () => {
                   alt=""
                 />
               </Link>
-              <div>
+              <div className="music-play">
                 <AudioPlayer
                   className="music-player"
                   src={`${baseURL}/uploads/${item.audio}`}

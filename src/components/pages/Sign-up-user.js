@@ -73,7 +73,7 @@ const SignUpuser = ({
         }
       );
       let otpResponse = otpData.data;
-      console.log(otpResponse);
+
       if (otpResponse.message === "otp verified successfully") {
         setOtpForm(!otpForm);
         setShowSignUp(!showSignUp);
@@ -113,12 +113,10 @@ const SignUpuser = ({
         setOtpForm(!otpForm);
         setShowForm(false);
       }
-      console.log(messageData.message);
     } catch (err) {
       console.log(err);
       setShowSignUpError(!showSignUpError);
       setErrorMessage(err.response.data.message);
-      console.log(err.response.data.message);
     }
     setUserData({
       name: "",
@@ -132,7 +130,6 @@ const SignUpuser = ({
     const postUserData = { ...userData };
     postUserData[e.target.name] = e.target.value;
     setUserData(postUserData);
-    console.log(postUserData);
   };
 
   const clickRef = useRef(null);

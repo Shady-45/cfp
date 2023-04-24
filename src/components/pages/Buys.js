@@ -26,7 +26,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        console.log(url);
+
         link.setAttribute("download", filename);
         document.body.appendChild(link);
         link.click();
@@ -45,7 +45,6 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
       })
       .then((res) => {
         setGetUserBuys(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);

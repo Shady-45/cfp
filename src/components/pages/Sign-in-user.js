@@ -27,7 +27,6 @@ const SignInuser = ({
     const postUserData = { ...userData };
     postUserData[e.target.name] = e.target.value;
     setUserData(postUserData);
-    console.log(postUserData);
   };
 
   const clickRef = useRef(null);
@@ -64,7 +63,6 @@ const SignInuser = ({
       setShowErrorMessage(!showErrorMessage);
       setClick(!click);
       setMessage(error.message);
-      console.log(message);
     }
 
     setUserData({

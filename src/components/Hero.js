@@ -32,10 +32,6 @@ const Hero = ({
   message,
   setMessage,
 }) => {
-  console.log(<MusicItem />);
-  const [alertMessage, setAlertMessage] = useState(" ");
-
-  const [likes, setLikes] = useState([]);
   const navigate = useNavigate();
   const [openTask, setOpenTask] = useState(true);
   const [scriptData, setScriptData] = useState([]);
@@ -264,7 +260,7 @@ const Hero = ({
               <section className="section section-script">
                 <div className="heading-script-music">
                   <h2 className="section-heading">SCRIPT</h2>
-                  {scriptData.length > 3 ? (
+                  {scriptData.length >= 3 ? (
                     <Link to="script">
                       {" "}
                       <button className="btn-nav btn-script-music">

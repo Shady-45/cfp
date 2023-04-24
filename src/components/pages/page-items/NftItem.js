@@ -11,7 +11,6 @@ const NftItem = () => {
   const [imageItem, setImageItem] = useState(" ");
   let token = localStorage.getItem("user-details");
   const nft_url = `/nft/${nftId}`;
-  console.log(nftId);
 
   useEffect(() => {
     const headersObj = {};
@@ -44,7 +43,7 @@ const NftItem = () => {
     };
     fetchData();
   }, []);
-  console.log(nftItem);
+
   const { name, image, price, user } = nftItem;
   return (
     <>

@@ -30,7 +30,6 @@ const Works = () => {
     headers: { Authorization: token },
   };
   const handleUpdateMusicData = (item) => {
-    console.log(item);
     setUpdateMusicId(item.id);
     setUpdateM(!updateM);
   };
@@ -171,7 +170,6 @@ const Works = () => {
     axios
       .get(`${baseURL}/home/uploads/me`, config)
       .then((res) => {
-        console.log(res.data);
         setUserScriptData(res.data.filter((item) => item.type === "script"));
         setUserMusicData(res.data.filter((item) => item.type === "music"));
         setUserNftData(res.data.filter((item) => item.type === "nft"));
