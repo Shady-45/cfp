@@ -44,8 +44,14 @@ const Movieform = ({
       .then((res) => {
         console.log(res);
         setShowUpload(!showUpload);
-        setUploadMess("Script added Sucessfully");
-        setMovieForm(!movieForm);
+        if (res.message === "Script added Sucessfully") {
+          setUploadMess("Script added Sucessfully");
+          setMovieForm(!movieForm);
+        } else {
+          setShowError(!showError);
+          setUploadError("Error adding Script");
+          setMovieForm(!movieForm);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -87,14 +93,14 @@ const Movieform = ({
         </div>
 
         <div className="form-elements">
-          <label htmlFor="Text">Text</label>
+          <label htmlFor="Image">Image</label>
           <input
             className="inpt"
             type="file"
             accept=".jpeg,.png,.jpg"
             name="text"
             onChange={(e) => setImage(e.target.files[0])}
-            id="Text"
+            id="Image"
           />
         </div>
         <div className="form-elements">

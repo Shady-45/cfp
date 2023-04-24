@@ -73,7 +73,7 @@ const ScriptPage = () => {
       </ul>
       <div>
         {localStorage.getItem("user-details") ? (
-          <div className="cards namecards">
+          <div className="cards-music">
             {getScript.map((item) => (
               <div
                 data-account={item.user.account}
@@ -133,7 +133,7 @@ const ScriptPage = () => {
             ))}
           </div>
         ) : (
-          <div className="cards namecards">
+          <div className="cards-music">
             {getScript.map((item) => (
               <div
                 data-account={item.user.account}

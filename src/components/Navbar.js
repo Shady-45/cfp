@@ -123,11 +123,7 @@ const Navbar = ({
   const handleCount = () => {
     setCount(count + 1);
     setProfile(!profile);
-    console.log(count);
   };
-
-  const closeref = useRef(null);
-  const [openWallet, setOpenWWallet] = useState(false);
 
   const [upload, setUpload] = useState(false);
   const [click2, setClick2] = useState(false);
@@ -141,8 +137,7 @@ const Navbar = ({
     localStorage.removeItem("user-details");
     navigate("/");
   };
-  console.log(SignUpMess);
-  console.log(setShowSignUp);
+
   return (
     <>
       {showSucessMessage ? (

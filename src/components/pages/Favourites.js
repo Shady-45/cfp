@@ -37,12 +37,10 @@ const Favourites = ({ count }) => {
     headers: { Authorization: token },
   };
 
-  console.log(updateScriptId);
   const USER_UPLOAD_URL = "home/uploads/me";
 
   const clickRef = useRef(null);
 
-  console.log(updateMusicId);
   const handleRemoveMusic = (id) => {
     fetch(`https://www.fundingportal.site/favorites/${id}?type=music`, {
       method: "DELETE",
@@ -111,19 +109,17 @@ const Favourites = ({ count }) => {
     axios
       .get(`https://www.fundingportal.site/home/uploads/me`, config)
       .then((res) => {
-        console.log(res.data);
         setUserScriptData(res.data.filter((item) => item.type === "script"));
         setUserMusicData(res.data.filter((item) => item.type === "music"));
         setUserNftData(res.data.filter((item) => item.type === "nft"));
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(userScriptData);
+
   useEffect(() => {
     axios
       .get(`https://www.fundingportal.site/favorites/me`, config)
       .then((res) => {
-        console.log(res.data);
         setFavourites(res.data.filter((item) => item.type === "music"));
         setFavouritesScript(res.data.filter((item) => item.type === "script"));
         setFavouritesNft(res.data.filter((item) => item.type === "nft"));
@@ -133,7 +129,7 @@ const Favourites = ({ count }) => {
 
   const details = jwt_decode(localStorage.getItem("user-details"));
   const data = [...userScriptData, ...userNftData, ...userMusicData];
-  console.log(data);
+
   return (
     <div>
       <div className="main-container">

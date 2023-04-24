@@ -29,7 +29,7 @@ const SignUpCreator = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log(response.data);
+
       alert(response.data.message);
       localStorage.setItem("user-details", response.data.userToken);
 
@@ -53,7 +53,6 @@ const SignUpCreator = () => {
     const postCreatorData = { ...creatorData };
     postCreatorData[e.target.name] = e.target.value;
     setCreatorData(postCreatorData);
-    console.log(postCreatorData);
   };
 
   const clickRef = useRef(null);
