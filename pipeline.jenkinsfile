@@ -1,0 +1,53 @@
+
+pipeline {
+    triggers {
+        githubPush()
+    }
+    agent any
+    environment {
+        repo_url = "https://github.com/Shady-45/cfp"
+        branch = "master"
+        username = "root"
+        ip = "139.59.52.115"
+        directory = "cfp/"
+        keyPath = "/var/lib/jenkins/.ssh/id_rsa"
+    }
+    tools {
+        nodejs "NodeJs"
+    }
+
+    stages {
+        stage('checkout SCM') {
+            steps {
+                sshagent(['privateKey']) {
+                    checkout scmGit(
+                    branches: [[name: "*/${branch}"]],
+                    userRemoteConfigs: [[url: "${repo_url}"]]
+                    )
+                    sh "ssh -i ${keyPath} ${username}@${ip} 'rm -rf ${directory} && git clone ${repo_url}'"
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                sshagent(['privateKey']) {
+                    sh "ssh -i ${keyPath} ${username}@${ip} 'cd ${directory} && npm install && npm install -g pm2'"
+                }
+            }
+        }
+        stage('start server') {
+            steps {
+                sshagent(['privateKey']) {
+                    sh "ssh -i ${keyPath} ${username}@${ip} 'cd ${directory} && pm2 kill && pm2 start \"npm run prod\"'"
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
+    
