@@ -22,6 +22,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { loadingFun } from "../loading";
 
 import RotateLoader from "react-spinners/RotateLoader";
+import SuccessfulAuth from "../successModals/SuccessfulAuth";
 const Hero = ({
   musicData,
   setMusicData,
@@ -36,12 +37,12 @@ const Hero = ({
   const [openTask, setOpenTask] = useState(true);
   const [scriptData, setScriptData] = useState([]);
   const [nftData, setNftData] = useState([]);
- 
+
   const GET_HOME_URL = "home?limit=3";
   const redirect = (item) => {
     navigate(`/${item.type + "s"}/${item.id}`);
   };
-  
+
   const baseURL = "https://www.fundingportal.site";
   useEffect(() => {
     if (window.ethereum) setOpenTask(false);
@@ -440,8 +441,12 @@ const Hero = ({
                       />
                       <img className="metamask-png" src={Metamask} alt="" />
                       <div className="meta-text">
-                        <h2 className="container-heading">Meta Mask is required</h2>
-                        <p className="container-text">Install Metamask to buy and download assets</p>
+                        <h2 className="container-heading">
+                          Meta Mask is required
+                        </h2>
+                        <p className="container-text">
+                          Install Metamask to buy and download assets
+                        </p>
                       </div>
                     </div>
                   </div>

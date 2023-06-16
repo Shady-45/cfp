@@ -19,6 +19,7 @@ import { CgProfile } from "react-icons/cg";
 import { RiCloseFill } from "react-icons/ri";
 
 import { FiMenu } from "react-icons/fi";
+import SuccessfulAuth from "../successModals/SuccessfulAuth";
 
 const Navbar = ({
   count,
