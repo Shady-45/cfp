@@ -36,12 +36,12 @@ const Hero = ({
   const [openTask, setOpenTask] = useState(true);
   const [scriptData, setScriptData] = useState([]);
   const [nftData, setNftData] = useState([]);
-  const [isMusicLike, setIsMusicLike] = useState(0);
+ 
   const GET_HOME_URL = "home?limit=3";
   const redirect = (item) => {
     navigate(`/${item.type + "s"}/${item.id}`);
   };
-  const [showMessage, setShowMessage] = useState(false);
+  
   const baseURL = "https://www.fundingportal.site";
   useEffect(() => {
     if (window.ethereum) setOpenTask(false);
@@ -438,10 +438,10 @@ const Hero = ({
                         className="toggle-metaclose"
                         onClick={() => setOpenTask()}
                       />
-                      <img src={Metamask} alt="" />
+                      <img className="metamask-png" src={Metamask} alt="" />
                       <div className="meta-text">
-                        <h2>Meta Mask is required</h2>
-                        <p>Install Metamask to buy and download assets</p>
+                        <h2 className="container-heading">Meta Mask is required</h2>
+                        <p className="container-text">Install Metamask to buy and download assets</p>
                       </div>
                     </div>
                   </div>

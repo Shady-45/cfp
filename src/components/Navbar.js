@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "../Cascading-Style-Sheets/Navbar.css";
-import { BsSearch } from "react-icons/bs";
+
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
-import wallet from "../assets/wallet.png";
-import metemask from "../assets/metamask.png";
+
 import SignInuser from "./pages/Sign-in-user";
 import SignInCreator from "./pages/Sign-in-creator";
 import SignUpuser from "./pages/Sign-up-user";
@@ -13,13 +11,13 @@ import { RiCloseLine } from "react-icons/ri";
 import { ImMenu } from "react-icons/im";
 import Movieform from "./pages/uploads/Movieform";
 import NftForm from "./pages/uploads/NftForm";
-import jwt_decode from "jwt-decode";
+
 import MusicForm from "./pages/uploads/MusicForm";
-import Web3 from "web3";
+
 import { SiBlockchaindotcom } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
 import { RiCloseFill } from "react-icons/ri";
-import { BsCheckCircleFill } from "react-icons/bs";
+
 import { FiMenu } from "react-icons/fi";
 
 const Navbar = ({
@@ -41,8 +39,6 @@ const Navbar = ({
   setShowErrorMessage,
   message,
   setMessage,
-  userEthAccount,
-  setUserEthAccount,
   signUpMessage,
   SignUpMess,
   setSignUpMess,
@@ -265,7 +261,7 @@ const Navbar = ({
               </div>
             </Link>
             <div className={`${openNavbar ? "nav-items" : "nav-items-mobile"}`}>
-              <div className="search-logo-main">
+              {/*  <div className="search-logo-main">
                 <input
                   type="search"
                   className="search-inpt"
@@ -273,7 +269,7 @@ const Navbar = ({
                   id=""
                   placeholder="Search"
                 />
-              </div>
+              </div> */}
 
               <div>
                 <div className="buttonns">
@@ -325,10 +321,10 @@ const Navbar = ({
             </div>
 
             <div className={`${click2 ? "container-nav" : "container-close"}`}>
-              <div className="search-logo-main">
+              {/*   <div className="search-logo-main">
                 <input type="search-main" name="" id="" placeholder="Search" />
                 <BsSearch className="search-img-main" />
-              </div>
+              </div> */}
               <button onClick={() => setUpload(!upload)} className="btn-nav">
                 Upload
               </button>
