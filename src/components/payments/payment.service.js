@@ -2,9 +2,6 @@ import { loadingFun } from "../../loading";
 import Web3 from "web3";
 let paymentSucess;
 
-const etherscanApiUrl = "https://api.etherscan.io/api";
-const apiKey = "XR842H61S6EMJR9IDPQVKQ34E6XZZA9XP7";
-
 const that = {};
 
 that.getEthereumAcccount = async function () {
@@ -51,21 +48,6 @@ that.getPaymentDetails = async function (e) {
   }
 };
 
-that.getTransactionStatus = async function (tHex) {
-  try {
-    const status = await fetch(
-      `${etherscanApiUrl}?module=transaction&action=gettxreceiptstatus&txhash=${tHex}&apikey=${apiKey}`
-    );
-    console.log("status fired");
-
-    if (status) return true;
-    if (status === 0) throw "transaction failed";
-    return that.getTransactionStatus(tHex);
-  } catch (err) {
-    throw err.message || err;
-  }
-};
-
 that.manageTransactionFlow = async function (e) {
   try {
     loadingFun(true);
@@ -73,10 +55,6 @@ that.manageTransactionFlow = async function (e) {
     const { fromAccount, toAccount, price, id, type } =
       await that.getPaymentDetails(e);
     const tHex = await that.sendTransaction(fromAccount, toAccount, price);
-    await that.getTransactionStatus(tHex);
-    console.log("transaction successfull");
-    paymentSucess = false;
-    loadingFun(false);
     await fetch(
       `https://www.fundingportal.site/payments/send/${id}?type=${type}`,
       {
@@ -84,8 +62,14 @@ that.manageTransactionFlow = async function (e) {
         headers: {
           authorization: localStorage.getItem("user-details"),
         },
+        body: JSON.stringify({
+          tHex: tHex,
+        }),
       }
     );
+    console.log("transaction successfull");
+    paymentSucess = false;
+    loadingFun(false);
   } catch (err) {
     loadingFun(false);
     paymentSucess = false;
