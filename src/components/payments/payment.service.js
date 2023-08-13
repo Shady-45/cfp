@@ -59,6 +59,7 @@ that.manageTransactionFlow = async function (e) {
       `https://www.fundingportal.site/payments/send/${id}?type=${type}`,
       {
         method: "POST",
+        "Content-Type": 'application/json',
         headers: {
           authorization: localStorage.getItem("user-details"),
         },
