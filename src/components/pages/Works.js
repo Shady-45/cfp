@@ -25,7 +25,7 @@ const Works = () => {
   const [userScriptData, setUserScriptData] = useState([]);
   const [userMusicData, setUserMusicData] = useState([]);
   const [userNftData, setUserNftData] = useState([]);
-  const baseURL = "https://www.fundingportal.site";
+  const baseURL = "https://api.indiecrypt.site";
   const config = {
     headers: { Authorization: token },
   };
@@ -149,7 +149,7 @@ const Works = () => {
 
   const clickRef = useRef(null);
   const deleteNft = (id) => {
-    fetch(`https://www.fundingportal.site/nft/delete/${id}`, {
+    fetch(`https://api.indiecrypt.site/nft/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -159,7 +159,7 @@ const Works = () => {
       .then((data) => data.json())
       .then((data) => {
         axios
-          .get("www.fundingportal.site/nft/all", getObj)
+          .get("api.indiecrypt.site/nft/all", getObj)
           .then((res) => console.log(res))
           .catch((err) => console.log(err));
       })

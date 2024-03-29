@@ -43,7 +43,7 @@ const Hero = ({
     navigate(`/${item.type + "s"}/${item.id}`);
   };
 
-  const baseURL = "https://www.fundingportal.site";
+  const baseURL = "https://api.indiecrypt.site";
   useEffect(() => {
     if (window.ethereum) setOpenTask(false);
   }, []);
@@ -105,7 +105,7 @@ const Hero = ({
 
   const handleDisLike = (item) => {
     fetch(
-      `https://www.fundingportal.site/favorites/${item.id}?type=${item.type}`,
+      `https://api.indiecrypt.site/favorites/${item.id}?type=${item.type}`,
       {
         method: "DELETE",
         headers: {

@@ -25,7 +25,7 @@ const MusicItem = () => {
     }
     const fetchData = async function () {
       const response = await fetch(
-        `https://www.fundingportal.site/music/${musicId}`,
+        `https://api.indiecrypt.site/music/${musicId}`,
         {
           headers: headersObj,
         }
@@ -39,7 +39,7 @@ const MusicItem = () => {
           headersObj["authorization"] = token;
         }
         const response = await fetch(
-          `https://www.fundingportal.site/uploads/${filename}${
+          `https://api.indiecrypt.site/uploads/${filename}${
             type !== "img" || !isPaid ? "" : "?cache=" + new Date().getTime()
           }`,
           { headers: headersObj }

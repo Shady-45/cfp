@@ -18,18 +18,15 @@ const NftItem = () => {
       headersObj["authorization"] = token;
     }
     const fetchData = async function () {
-      const response = await fetch(
-        `https://www.fundingportal.site/nft/${nftId}`,
-        {
-          headers: headersObj,
-        }
-      );
+      const response = await fetch(`https://api.indiecrypt.site/nft/${nftId}`, {
+        headers: headersObj,
+      });
       const data = await response.json();
       setNftItem(data);
 
       const fetchFiles = async function (filename, isPaid = false) {
         const response = await fetch(
-          `https://www.fundingportal.site/uploads/${filename}${
+          `https://api.indiecrypt.site/uploads/${filename}${
             !isPaid ? "" : "?cache=" + new Date().getTime()
           }`,
           { headers: headersObj }

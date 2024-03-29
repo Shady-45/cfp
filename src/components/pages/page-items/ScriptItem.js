@@ -20,7 +20,7 @@ const ScriptItem = () => {
     }
     const fetchData = async function () {
       const response = await fetch(
-        `https://www.fundingportal.site/script/${scriptId}`,
+        `https://api.indiecrypt.site/script/${scriptId}`,
         {
           headers: headersObj,
         }
@@ -34,7 +34,7 @@ const ScriptItem = () => {
           headersObj["authorization"] = token;
         }
         const response = await fetch(
-          `https://www.fundingportal.site/uploads/${filename}${
+          `https://api.indiecrypt.site/uploads/${filename}${
             type !== "img" || !isPaid ? "" : "?cache=" + new Date().getTime()
           }`,
           { headers: headersObj }

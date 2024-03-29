@@ -16,7 +16,7 @@ const Movieform = ({
   uploadError,
   setUploadError,
 }) => {
-  const url = "https://www.fundingportal.site";
+  const url = "https://api.indiecrypt.site";
   const [image, setImage] = useState(null);
   const [text, setText] = useState(null);
   const [name, setName] = useState("");

@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export default Axios.create({
-  baseURL: "https://www.fundingportal.site",
+  baseURL: "https://api.indiecrypt.site",
 });
