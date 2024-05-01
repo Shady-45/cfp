@@ -63,7 +63,7 @@ const SignUpuser = ({
     e.preventDefault();
     try {
       const otpData = await axios.post(
-        "https://api.indiecrypt.site/auth/verify",
+        "https://api.indiecrypt.online/auth/verify",
         JSON.stringify({
           userId: userId,
           otp: otp,
@@ -95,7 +95,7 @@ const SignUpuser = ({
 
     try {
       const response = await axios.post(
-        `https://api.indiecrypt.site/auth/signUp`,
+        `https://api.indiecrypt.online/auth/signUp`,
         JSON.stringify({
           name: userData.name,
           email: userData.email,

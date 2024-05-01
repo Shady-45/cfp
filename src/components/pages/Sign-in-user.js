@@ -36,13 +36,16 @@ const SignInuser = ({
   const SubmitUserData = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://api.indiecrypt.site/auth/signIn", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://api.indiecrypt.online/auth/signIn",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
       const data = await response.json();
       setClick(!click);
       if (response.status !== 200) {

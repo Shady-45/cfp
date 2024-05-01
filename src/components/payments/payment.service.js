@@ -56,7 +56,7 @@ that.manageTransactionFlow = async function (e) {
       await that.getPaymentDetails(e);
     const tHex = await that.sendTransaction(fromAccount, toAccount, price);
     await fetch(
-      `https://api.indiecrypt.site/payments/send/${id}?type=${type}`,
+      `https://api.indiecrypt.online/payments/send/${id}?type=${type}`,
       {
         method: "POST",
         headers: {

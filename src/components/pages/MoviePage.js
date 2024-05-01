@@ -6,7 +6,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import NftItem from "./page-items/NftItem";
 const MoviePage = () => {
-  const baseURL = "https://api.indiecrypt.site";
+  const baseURL = "https://api.indiecrypt.online";
   const [nftData, setNftData] = useState([]);
   useEffect(() => {
     axios.get(`nft/all`).then((res) => setNftData(res.data));
@@ -37,7 +37,7 @@ const MoviePage = () => {
       .catch((err) => console.log(err, "🔥🔥"));
   };
   const handleDisLikeNft = (item) => {
-    fetch(`https://api.indiecrypt.site/favorites/${item.id}?type=nft`, {
+    fetch(`https://api.indiecrypt.online/favorites/${item.id}?type=nft`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

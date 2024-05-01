@@ -15,7 +15,7 @@ const NftForm = ({
   uploadError,
   setUploadError,
 }) => {
-  const url = "https://api.indiecrypt.site";
+  const url = "https://api.indiecrypt.online";
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
   const [name, setName] = useState("");

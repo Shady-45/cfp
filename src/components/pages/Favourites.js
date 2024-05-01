@@ -32,7 +32,7 @@ const Favourites = ({ count }) => {
       Authorization: token,
     };
   }
-  const baseURL = "https://api.indiecrypt.site";
+  const baseURL = "https://api.indiecrypt.online";
   const config = {
     headers: { Authorization: token },
   };
@@ -42,7 +42,7 @@ const Favourites = ({ count }) => {
   const clickRef = useRef(null);
 
   const handleRemoveMusic = (id) => {
-    fetch(`https://api.indiecrypt.site/favorites/${id}?type=music`, {
+    fetch(`https://api.indiecrypt.online/favorites/${id}?type=music`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const Favourites = ({ count }) => {
   };
 
   const handleRemoveScript = (id) => {
-    fetch(`https://api.indiecrypt.site/favorites/${id}?type=script`, {
+    fetch(`https://api.indiecrypt.online/favorites/${id}?type=script`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Favourites = ({ count }) => {
       .catch((err) => console.log(err, "🔥🔥"));
   };
   const handleRemoveNft = (id) => {
-    fetch(`https://api.indiecrypt.site/favorites/${id}?type=nft`, {
+    fetch(`https://api.indiecrypt.online/favorites/${id}?type=nft`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const Favourites = ({ count }) => {
 
   useEffect(() => {
     axios
-      .get(`https://api.indiecrypt.site/home/uploads/me`, config)
+      .get(`https://api.indiecrypt.online/home/uploads/me`, config)
       .then((res) => {
         setUserScriptData(res.data.filter((item) => item.type === "script"));
         setUserMusicData(res.data.filter((item) => item.type === "music"));
@@ -118,7 +118,7 @@ const Favourites = ({ count }) => {
 
   useEffect(() => {
     axios
-      .get(`https://api.indiecrypt.site/favorites/me`, config)
+      .get(`https://api.indiecrypt.online/favorites/me`, config)
       .then((res) => {
         setFavourites(res.data.filter((item) => item.type === "music"));
         setFavouritesScript(res.data.filter((item) => item.type === "script"));

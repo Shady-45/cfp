@@ -20,7 +20,7 @@ const MusicForm = ({
   const [audio, setAudio] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const url = "https://api.indiecrypt.site";
+  const url = "https://api.indiecrypt.online";
   const MUSIC_UPLOAD_URL = "music/create";
   const clickRef = useRef(null);
   const toggle = () => {

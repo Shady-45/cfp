@@ -16,7 +16,7 @@ const ScriptPage = () => {
   }
   const SCRIPT_URL = "script/all";
   const handleDisLikeScript = (item) => {
-    fetch(`https://api.indiecrypt.site/favorites/${item.id}?type=script`, {
+    fetch(`https://api.indiecrypt.online/favorites/${item.id}?type=script`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const ScriptPage = () => {
 
       .catch((err) => console.log(err, "🔥🔥"));
   };
-  const baseURL = "https://api.indiecrypt.site";
+  const baseURL = "https://api.indiecrypt.online";
   const [getScript, setGetScript] = useState([]);
   useEffect(() => {
     axios.get(SCRIPT_URL).then((res) => setGetScript(res.data));

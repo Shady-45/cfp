@@ -18,7 +18,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
   const downloadFile = (filename) => {
     setIsDownloading(true);
     axios
-      .get(`https://api.indiecrypt.site/uploads/${filename}`, {
+      .get(`https://api.indiecrypt.online/uploads/${filename}`, {
         responseType: "arraybuffer",
         headers: headersObj,
       })
@@ -40,7 +40,7 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
 
   useEffect(() => {
     axios
-      .get("https://api.indiecrypt.site/payments/getAll", {
+      .get("https://api.indiecrypt.online/payments/getAll", {
         headers: headersObj,
       })
       .then((res) => {
@@ -68,10 +68,10 @@ const Buys = ({ isDownloading, setIsDownloading }) => {
           <div className="cards namecards">
             {getUserBuys.map((item) => (
               <div className="card-script-token payment" key={item.id}>
-                <Link to={`https://api.indiecrypt.site/scripts/${item.id}`}>
+                <Link to={`https://api.indiecrypt.online/scripts/${item.id}`}>
                   <img
                     className="card-img"
-                    src={`https://api.indiecrypt.site/uploads/${item.image}`}
+                    src={`https://api.indiecrypt.online/uploads/${item.image}`}
                     alt=""
                   />
                 </Link>

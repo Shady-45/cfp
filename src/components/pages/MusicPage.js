@@ -16,7 +16,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 const MusicPage = () => {
   const navigate = useNavigate();
   const [musicData, setgetMusicData] = useState([]);
-  const baseURL = "https://api.indiecrypt.site";
+  const baseURL = "https://api.indiecrypt.online";
   const token = localStorage.getItem("user-details");
   const redirect = (item) => {
     navigate(`/${item.type + "s"}/${item.id}`);
@@ -28,7 +28,7 @@ const MusicPage = () => {
     };
   }
   const handleDisLike = (item) => {
-    fetch(`https://api.indiecrypt.site/favorites/${item.id}?type=music`, {
+    fetch(`https://api.indiecrypt.online/favorites/${item.id}?type=music`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
